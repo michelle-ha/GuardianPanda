@@ -1,2 +1,1 @@
 # GamingPanda
-Game utilizing JS
