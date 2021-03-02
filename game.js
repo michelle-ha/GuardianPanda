@@ -3,6 +3,13 @@ const ctx = canvas.getContext("2d")
 canvas.width = 1000; //determined on css file. Can do window.innerHight/innerWidth if want full screen. Norm: 800x500
 canvas.height = 500
 
+const menu = document.getElementById('menu');
+const menuctx = menu.getContext("2d")
+
+const control = document.getElementById('control');
+const controlctx = control.getContext("2d")
+
+
 const keys = []
 const weapons = []
 const weapons2 = []
@@ -404,7 +411,7 @@ function animate() {
     if (elapsed > fpsInterval && !gameOver) {
         then = now - (elapsed % fpsInterval) 
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
-        ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //call "ctx" because that's where all canvas methods are stored
+        ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
         ctx.fillRect(0,0, controlsBar.width, controlsBar.height) //(0,0) = top left corner of canvas
         drawSprite(goalSprite, goal.width * goal.frameX, goal.height * goal.frameY, goal.width, goal.height, goal.x, goal.y, goal.width, goal.height) 
         drawSprite(gatekeeperSprite, keeper.width * keeper.frameX, keeper.height * keeper.frameY, keeper.width, keeper.height, keeper.x, keeper.y, keeper.width, keeper.height) 
