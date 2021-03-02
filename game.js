@@ -33,7 +33,9 @@ const player = {
     frameX: 0, //changes what picture you're getting. 
     frameY: 0, 
     speed: 10, 
-    moving: false //swith between standing + walking
+    moving: false, //swith between standing + walking
+    attacking: false,
+    // timer: 0 //keeps track of charactr's updates
 }
 
 window.addEventListener("keydown", function(e) {
@@ -67,7 +69,28 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
         player.frameY = 2 
         player.moving = true
     }
+    if(player.frameY === 2 && keys[32]) {//facing right
+        player.attacking
+        weapons.push(new Weapon(player.x, player.y))
+        // weapon.x += this.speed  //weapon moves right
+    }
+    if (player.frameY === 1 && keys[32]) {
+        player.attacking
+        weapons.push(new Weapon(player.x, player.y))
+        // weapon.x -= this.speed
+    }
 }
+
+// function playerAttack() {
+//     if (player.attacking) {
+//         // player.timer++
+//         // if (player.timer % 100 === 0) {//keep interval between attacks
+//             weapons.push(new Weapon(player.x, player.y)) 
+//         }
+//     // } else {
+//     //     player.timer = 0 //don't keep adding to weapons array if not shooting
+//     // }
+// }
 
 function handlePlayerFrame() { //walking animation
     if (player.frameX < 2 && player.moving) player.frameX++ //grid is 3x4. Check player.moving so legs aren't moving while standing
@@ -88,39 +111,46 @@ class Weapon {
         this.height = 26
         this.power = 50 //changes depending onprojectile/powerup, etc
         this.speed = 5
+        this.frameX = 0
+        this.frameY = 0
     }
     update() {
-        if(player.frameY === 2 ) {//facing right
+        if(player.frameY === 2) {//facing right
+            player.attacking
             this.x += this.speed  //weapon moves right
         } else if (player.frameY === 1) {
+            player.attacking
             this.x -= this.speed
         }
     }
     draw() {
-        ctx.fillStyle = "black"
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2) //angle
-        ctx.fill()
+        drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        if (this.frameX < 3) this.frameX++; 
+        else this.frameX = 0
     }
 }
 
-function handleProjectiles() {
-    for (let i = 0; i < projectiles.length; i++){
-        projectiles[i].update()
-        projectiles[i].draw()
+function drawWeapon(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
+}
 
-        for (let j = 0; j < enemies.length; j++ ) { //cyce through projectiles to check for collision
-            if (enemies[j] && projectiles[i] && collision(projectiles[i], enemies[j])) {
-                enemies[j].health -= projectiles[i].power
-                projectiles.splice(i, 1) //remove projectile that collided
+function handleWeapons() {
+    for (let i = 0; i < weapons.length; i++){
+        weapons[i].update()
+        weapons[i].draw()
+
+        for (let j = 0; j < enemies.length; j++ ) { //cyce through weapons to check for collision
+            if (enemies[j] && weapons[i] && collision(weapons[i], enemies[j])) {
+                enemies[j].health -= weapons[i].power
+                weapons.splice(i, 1) //remove projectile that collided
                 i--
             }
         }
 
-        if (projectiles[i] && projectiles[i].x > canvas.width - cellSize) {//don't want enemies to be hit when the spawn off-grid
-            projectiles.splice(i, 1)
+        if (weapons[i] && weapons[i].x > canvas.width - 100) {//don't want enemies to be hit when the spawn off-grid
+            weapons.splice(i, 1)
             i--
-        } //remove projectiles when out of bounds
+        } //remove weapons when out of bounds
     }
 }
 
@@ -182,11 +212,11 @@ function handleEnemies() {
         enemies[i].update()
         enemies[i].draw()
         if (enemies[i].health <= 0) { //remove enemies from array when health reaches 0
-            score += maxHealth/10
+            score += enemies[i].maxHealth/10
             enemies.splice(i, 1)
             i-- 
         }
-    }
+    }  
     if (frame % enemiesInterval === 0 ) {//every time frame is divisible by interval, we push new enemies into the game. Only add enemies if winning score was not reached yet
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies.push(new Enemy(verticalPosition))
@@ -317,13 +347,15 @@ function animate() {
         //crop rectangle of one player frame + put in same dimensions on canvas. 
         //Where the image is cropped changes depending on position
         movePlayer()
+        // playerAttack() 
         handlePlayerFrame()
         handleEnemies()
+        handleWeapons()
         handleVictims()
         GameStatus()
         frame ++ //adds a frame with every animation
     }
-}
+} 
 
 startAnimating(10) //arg = fps
 
