@@ -69,16 +69,17 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
         player.frameY = 2 
         player.moving = true
     }
-    if(player.frameY === 2 && keys[32]) {//facing right
+    if(player.frameY === 2 && keys[32] && (frame % 2  === 0)) {//facing right
         player.attacking
-        weapons.push(new Weapon(player.x, player.y))
+        weapons.push(new Weapon(player.x + 25, player.y + 30))
         // weapon.x += this.speed  //weapon moves right
     }
-    if (player.frameY === 1 && keys[32]) {
-        player.attacking
-        weapons.push(new Weapon(player.x, player.y))
-        // weapon.x -= this.speed
-    }
+    // if (player.frameY === 1 && keys[32]) {
+    //     player.attacking
+    //     weapons.push(new Weapon(player.x, player.y))
+    //     weapon.x -= this.speed
+    // }
+
 }
 
 // function playerAttack() {
@@ -115,13 +116,14 @@ class Weapon {
         this.frameY = 0
     }
     update() {
-        if(player.frameY === 2) {//facing right
-            player.attacking
-            this.x += this.speed  //weapon moves right
-        } else if (player.frameY === 1) {
-            player.attacking
-            this.x -= this.speed
-        }
+        // if(player.frameY === 2) {//facing right
+        //     player.attacking
+            this.x += this.speed //weapon moves right
+        // } 
+        // if (player.frameY === 1) {
+        //     player.attacking
+        //     this.x -= this.speed
+        // }
     }
     draw() {
         drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
