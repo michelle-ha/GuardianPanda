@@ -3,10 +3,21 @@ const ctx = canvas.getContext("2d")
 canvas.width = 1000; //determined on css file. Can do window.innerHight/innerWidth if want full screen. Norm: 800x500
 canvas.height = 500
 
+const keys = []
+
+let score = 0
 
 //PLAYER
 
-const keys = []
+
+const playerSprite = new Image()
+playerSprite.src = "./images/panda2.png" 
+
+function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH) 
+    //takes in the image + cuts out a portion of that image (one sprite frame). Places somewhere on canvas
+    //s = source (how you crop the image), d = destination (where you want to put image)
+}
 
 const player = {
     x: 100, //starting position
@@ -57,20 +68,28 @@ function handlePlayerFrame() { //walking animation
     else player.frameX = 0
 }
 
-//GAME BOARD
-
-const playerSprite = new Image()
-playerSprite.src = "./images/panda2.png" 
-const background = new Image()
-background.src = "./images/background2.jpg"
-
-function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
-    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH) 
-    //takes in the image + cuts out a portion of that image (one sprite frame). Places somewhere on canvas
-    //s = source (how you crop the image), d = destination (where you want to put image)
+//GAMEBOARD
+const controlsBar = { //bar on top of game w/ controls/score/etc
+    width: canvas.width,
+    height: 100
 }
 
- //lower frame rate of game to controle player speed (so doesn't blink in and out). Keep consistent fsp rate 
+//GAME STATUS
+
+function GameStatus() { //displays amount of resources on controlsbar
+    ctx.fillStyle = "blue"
+    ctx.font = "30px Arial"
+    ctx.fillText('Score: ' + score, 30, 40);
+}
+
+// function gameStatus() {
+
+// }
+
+
+//FUNCTIONALITY
+
+//lower frame rate of game to control player speed (so doesn't blink in and out). Keep consistent fsp rate 
 let fps, fpsInterval, startTime, now, then, elapsed;  
 
 function startAnimating(fps) { //controls speed of char
@@ -87,7 +106,9 @@ function animate() {
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval) 
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height) //background covers entire canvas
+        GameStatus()
+        ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //call "ctx" because that's where all canvas methods are stored
+        ctx.fillRect(0,0, controlsBar.width, controlsBar.height) //(0,0) = top left corner of canvas
         drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height) 
         //crop rectangle of one player frame + put in same dimensions on canvas. 
         //Where the image is cropped changes depending on position
