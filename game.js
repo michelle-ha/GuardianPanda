@@ -6,7 +6,7 @@ canvas.height = 500
 const keys = []
 const enemies = []
 // let numberOfEnemies = 10
-let enemiesInterval = 600 //time between enemies
+let enemiesInterval = 60 //time between enemies
 let frame = 0
 let score = 0
 let livesLost = 0
@@ -78,7 +78,7 @@ enemySprite.src = "./images/death_scythe.png"
 
 class Enemy {
     constructor(){
-        this.width = 50
+        this.width = 48
         this.height = 48
         this.frameX = 0
         this.frameY = 1
@@ -123,7 +123,6 @@ function handleEnemies() {
     if (frame % enemiesInterval === 0 ) {//every time frame is divisible by interval, we push new enemies into the game. Only add enemies if winning score was not reached yet
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies.push(new Enemy(verticalPosition))
-        enemyPositions.push(verticalPosition)
         // if (enemiesInterval > 120) enemiesInterval -= 50 //staggers wave of enemies. Changes difficulty
     }
 }
@@ -181,6 +180,7 @@ function animate() {
         frame ++ //adds a frame with every animation
 
     }
+
 }
 
 startAnimating(10) //arg = fps
