@@ -4,11 +4,14 @@ canvas.width = 1000; //determined on css file. Can do window.innerHight/innerWid
 canvas.height = 500
 
 const keys = []
+const enemies = []
+let numberOfEnemies = 10
 
 let score = 0
+let livesLost = 0
+let time = 0
 
 //PLAYER
-
 
 const playerSprite = new Image()
 playerSprite.src = "./images/panda2.png" 
@@ -20,7 +23,7 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 }
 
 const player = {
-    x: 100, //starting position
+    x: 500, //starting position
     y: 300,
     width: 48, //depends on sprite sheet. highlight over image to get dimensions. 144x192. x/(# columns). Include decimals
     height: 48, //y/(# rows)
@@ -66,7 +69,45 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
 function handlePlayerFrame() { //walking animation
     if (player.frameX < 2 && player.moving) player.frameX++ //grid is 3x4. Check player.moving so legs aren't moving while standing
     else player.frameX = 0
+    
 }
+
+//ENEMY
+const enemySprite = new Image()
+enemySprite.src = "./images/death_scythe.png"
+
+class Enemy {
+    constructor(){
+        this.width = 50
+        this.height = 48
+        this.frameX = 0
+        this.frameY = 1
+        this.x = canvas.width
+        this.y = Math.random() * ((canvas.height - 100) - 100) + 100 //make so it doesn't go below/above wanted margins
+        this.speed = (Math.random()*1.5) + 2
+        this.health = 100
+        this.maxHealth = this.health
+    }
+    draw() {
+        drawEnemy(enemySprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) //change "enemy" to "this.". Change uppercase to lowercase to match constructor variables
+        //animate
+        // if (this.frameX < this.maxFrame) this.frameX++; //standing to walking
+        // else this.frameX = this.minFrame //no hardcoded number in case the animation frame amounts are dif depending on action
+    }
+    update() {
+        this.x -= this.speed //enemies will walk to left
+    }
+}
+
+for (i = 0; i < numberOfEnemies; i++) { //creates more characters
+    enemies.push(new Enemy())
+}
+
+function drawEnemy(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
+}
+
+
 
 //GAMEBOARD
 const controlsBar = { //bar on top of game w/ controls/score/etc
@@ -78,8 +119,10 @@ const controlsBar = { //bar on top of game w/ controls/score/etc
 
 function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "blue"
-    ctx.font = "30px Arial"
+    ctx.font = "25px Arial"
     ctx.fillText('Score: ' + score, 30, 40);
+    ctx.fillText('Lives lost: ' + livesLost, 30, 90);
+    ctx.fillText('Time: ' + time, 880, 40);
 }
 
 // function gameStatus() {
@@ -114,6 +157,11 @@ function animate() {
         //Where the image is cropped changes depending on position
         movePlayer()
         handlePlayerFrame()
+        for (i = 0; i < enemies.length; i ++) {
+            enemies[i].draw() //referencing data we pushed into the enemies array
+            enemies[i].update()
+            // if (enemies[i])
+        }
     }
 }
 
