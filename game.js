@@ -251,7 +251,7 @@ function handleEnemies() {
         // if (enemiesInterval > 120) enemiesInterval -= 50 //staggers wave of enemies. Changes difficulty
     }
 
-    if (frame % 100 === 0 && enemiesInterval >= 5 && enemies.length > 1) {
+    if (frame % 100 === 0 && enemiesInterval >= 20) {
         enemiesInterval -= 5
         enemies.push(new Enemy(Math.random() * ((canvas.height - 100) - 100) + 100))
     }
