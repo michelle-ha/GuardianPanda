@@ -5,9 +5,13 @@ canvas.height = 500
 
 const menu = document.getElementById('menu');
 const menuctx = menu.getContext("2d")
+menu.width = 250
+menu.height = 500
 
 const control = document.getElementById('control');
 const controlctx = control.getContext("2d")
+control.width = 250
+control.height = 500
 
 
 const keys = []
@@ -413,6 +417,10 @@ function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
         ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
         ctx.fillRect(0,0, controlsBar.width, controlsBar.height) //(0,0) = top left corner of canvas
+        menuctx.fillStyle = "rgba(176,224,230,0.01)" 
+        menuctx.fillRect(0,0, menu.width, menu.height )
+        controlctx.fillStyle = "rgba(176,224,230,0.01)" 
+        controlctx.fillRect(0,0, control.width, control.height )
         drawSprite(goalSprite, goal.width * goal.frameX, goal.height * goal.frameY, goal.width, goal.height, goal.x, goal.y, goal.width, goal.height) 
         drawSprite(gatekeeperSprite, keeper.width * keeper.frameX, keeper.height * keeper.frameY, keeper.width, keeper.height, keeper.x, keeper.y, keeper.width, keeper.height) 
         drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height) 
