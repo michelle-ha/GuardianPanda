@@ -14,7 +14,7 @@ let livesLost = 0
 //PLAYER
 
 const playerSprite = new Image()
-playerSprite.src = "./images/panda2.png" 
+playerSprite.src = "./images/panda5.png" 
 
 function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH) 
@@ -25,11 +25,11 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 const player = {
     x: 500, //starting position
     y: 300,
-    width: 48, //depends on sprite sheet. highlight over image to get dimensions. 144x192. x/(# columns). Include decimals
-    height: 48, //y/(# rows)
+    width: 75, //depends on sprite sheet. highlight over image to get dimensions. 144x192. x/(# columns). Include decimals. 225x300
+    height: 75, //y/(# rows)
     frameX: 0, //changes what picture you're getting. 
     frameY: 0, 
-    speed: 5, 
+    speed: 10, 
     moving: false //swith between standing + walking
 }
 
@@ -78,15 +78,15 @@ enemySprite.src = "./images/monkey.png"
 
 class Enemy {
     constructor(){
-        this.width = 110 //1727x610
+        this.width = 107 //1727x610
         this.height = 100
         this.frameX = 0
         this.frameY = 1
-        this.minFrame = 0
+        this.minFrame = 1
         this.maxFrame = 2
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 100 //make so it doesn't go below/above wanted margins
-        this.speed = (Math.random()*1.5) + 0.5
+        this.speed = (Math.random()*1.5) + 2
         this.health = 100
         this.maxHealth = this.health
     }
@@ -96,7 +96,7 @@ class Enemy {
         // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.fillStyle = "#FF0000" 
         ctx.font = "12px Arial"
-        ctx.fillText(Math.floor(this.health), this.x + 15, this.y - 5)
+        ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 10)
         if (this.frameX < this.maxFrame) this.frameX++; //standing to walking
         else this.frameX = this.minFrame
 
@@ -140,18 +140,26 @@ const controlsBar = { //bar on top of game w/ controls/score/etc
     height: 100
 }
 
-const goal = new Image()
-goal.src = "./images/ShojiDoor2" //probably change
+const goalSprite = new Image()
+goalSprite.src = "./images/gate.png" //probably change
 
-//////////////////////////////////LEFT OFF HERE /////////////////////////////////////////////////////////////////////////////////////
+const goal = {
+    x: 90, //starting position
+    y: 25,
+    width: 105, //382x111
+    height: 110, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
 
 //GAME STATUS
 
 function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "blue"
     ctx.font = "25px Arial"
-    ctx.fillText('Score: ' + score, 30, 40);
-    ctx.fillText('Lives lost: ' + livesLost, 30, 80);
+    ctx.fillText('Score: ' + score, 800, 40);
+    ctx.fillText('Lives lost: ' + livesLost, 800, 80);
 }
 
 // function gameStatus() {
@@ -181,6 +189,7 @@ function animate() {
         GameStatus()
         ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //call "ctx" because that's where all canvas methods are stored
         ctx.fillRect(0,0, controlsBar.width, controlsBar.height) //(0,0) = top left corner of canvas
+        drawSprite(goalSprite, goal.width * goal.frameX, goal.height * goal.frameY, goal.width, goal.height, goal.x, goal.y, goal.width, goal.height) 
         drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height) 
         //crop rectangle of one player frame + put in same dimensions on canvas. 
         //Where the image is cropped changes depending on position
