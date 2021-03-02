@@ -6,7 +6,9 @@ canvas.height = 500
 const keys = []
 const enemies = []
 // let numberOfEnemies = 10
+const victims = []
 let enemiesInterval = 60 //time between enemies
+let victimsInterval = 30
 let frame = 0
 let score = 0
 let livesLost = 0
@@ -74,12 +76,12 @@ function handlePlayerFrame() { //walking animation
 
 //ENEMY
 const enemySprite = new Image()
-enemySprite.src = "./images/monkey.png"
+enemySprite.src = "./images/monkey2.png"
 
 class Enemy {
     constructor(){
-        this.width = 107 //1727x610
-        this.height = 100
+        this.width = 83.3 //1345x475
+        this.height = 79
         this.frameX = 0
         this.frameY = 1
         this.minFrame = 1
@@ -132,6 +134,56 @@ function handleEnemies() {
     }
 }
 
+//VICTIM
+
+const victimSprite = new Image()
+victimSprite.src = "./images/victim.png"
+
+class Victim {
+    constructor(){
+        this.width = 42.9 //815x395
+        this.height = 59
+        this.frameX = 4.5
+        this.frameY = 2
+        this.x = 200
+        this.y = 200 //start from bottom
+        this.speed = (Math.random()*1.5) + 2
+    }
+    draw() {
+        drawVictim(victimSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        // if (this.frameX < this.maxFrame) this.frameX++; //standing to walking
+        // else this.frameX = this.minFrame
+
+    }
+    update() {
+        
+        this.y -= this.speed //victims will walk up
+    }
+}
+
+function drawVictim(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
+}
+
+// for (i = 0; i < numberOfEnemies; i++) { //creates more characters
+//     enemies.push(new Enemy())
+// }
+
+function handleVictims() {
+    for (let i = 0; i < victims.length; i++) {
+        victims[i].update()
+        victims[i].draw()
+        if (victims[i].y <= 110) { 
+            score += 10
+            victims.splice(i, 1)
+            i-- 
+        }
+    }
+    if (frame % victimsInterval === 0 ) {//every time frame is divisible by interval, we push new victims into the game. Only add victims if winning score was not reached yet
+        let position = 200
+        victims.push(new Victim(position))
+    }
+}
 
 
 //GAMEBOARD
@@ -196,6 +248,7 @@ function animate() {
         movePlayer()
         handlePlayerFrame()
         handleEnemies()
+        handleVictims()
         frame ++ //adds a frame with every animation
 
     }
