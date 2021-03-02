@@ -74,12 +74,12 @@ function handlePlayerFrame() { //walking animation
 
 //ENEMY
 const enemySprite = new Image()
-enemySprite.src = "./images/monkey.png"
+enemySprite.src = "./images/monkey2.png"
 
 class Enemy {
     constructor(){
-        this.width = 107 //1727x610
-        this.height = 100
+        this.width = 83.3 //1345x475
+        this.height = 79
         this.frameX = 0
         this.frameY = 1
         this.minFrame = 1
