@@ -8,7 +8,7 @@ const weapons = []
 const weapons2 = []
 const enemies = []
 const victims = []
-let enemiesInterval = 60 //time between enemies
+let enemiesInterval = 40 //time between enemies
 let victimsInterval = 30
 let frame = 0
 let score = 0
@@ -99,7 +99,7 @@ class Weapon {
         this.width = 22 //87x26
         this.height = 26
         this.power = 50 //changes depending onprojectile/powerup, etc
-        this.speed = 5
+        this.speed = 10
         this.frameX = 0
         this.frameY = 0
     }
@@ -193,8 +193,8 @@ class Enemy {
         this.maxFrame = 2
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 100 //make so it doesn't go below/above wanted margins
-        this.speed = (Math.random()*1.5) + 2
-        this.health = 100
+        this.speed = (Math.random()*1.5) + 4
+        this.health = 50
         this.maxHealth = this.health
     }
     draw() {
@@ -246,6 +246,11 @@ function handleEnemies() {
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies.push(new Enemy(verticalPosition))
         // if (enemiesInterval > 120) enemiesInterval -= 50 //staggers wave of enemies. Changes difficulty
+    }
+
+    if (frame % 150 === 0) {
+        enemiesInterval -= 10
+        enemies.push(new Enemy(Math.random() * ((canvas.height - 100) - 100) + 100))
     }
 }
 
@@ -299,7 +304,7 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost === 25) {
+                if (livesLost === 15) {
                     gameOver = true
                 }
             }
