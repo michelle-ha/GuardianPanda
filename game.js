@@ -147,7 +147,7 @@ class Weapon2 {
         this.width = 21.75 
         this.height = 26
         this.power = 50 
-        this.speed = 5
+        this.speed = 15
         this.frameX = 0
         this.frameY = 0
     }
