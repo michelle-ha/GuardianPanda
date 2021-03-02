@@ -9,26 +9,7 @@
     transform: translate(-50%, -50%);
 }
 
-#menu {
-    width: 250px;
-    height: 500px;
-    border: 2px solid black;
-    position: absolute;
-    transform: translate(2%, 14.5%);
-    background: white
-    /* rgba(61, 249, 255, 0.6); */
-}
-
-#control {
-    width: 250px;
-    height: 500px;
-    border: 2px solid black;
-    position: absolute;
-    transform: translate(496%, 14.5%);
-    background: white
-}
-
 * {
-    overflow: hidden;
-    background: lightgray
+    /* overflow: hidden; */
+    background: rgb(211, 211, 211)
 }
