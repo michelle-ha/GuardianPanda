@@ -96,7 +96,7 @@ class Weapon {
     constructor(x, y) { //depends on position of player
         this.x = x
         this.y = y
-        this.width = 21.75 //87x26
+        this.width = 22 //87x26
         this.height = 26
         this.power = 50 //changes depending onprojectile/powerup, etc
         this.speed = 5
