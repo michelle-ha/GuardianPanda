@@ -5,6 +5,7 @@ canvas.height = 500
 
 const keys = []
 const weapons = []
+const weapons2 = []
 const enemies = []
 const victims = []
 let enemiesInterval = 60 //time between enemies
@@ -72,26 +73,13 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
     if(player.frameY === 2 && keys[32] && (frame % 2  === 0)) {//facing right
         player.attacking
         weapons.push(new Weapon(player.x + 25, player.y + 30))
-        // weapon.x += this.speed  //weapon moves right
     }
-    // if (player.frameY === 1 && keys[32]) {
-    //     player.attacking
-    //     weapons.push(new Weapon(player.x, player.y))
-    //     weapon.x -= this.speed
-    // }
+    if(player.frameY === 1 && keys[32] && (frame % 2  === 0)) {//facing right
+        player.attacking
+        weapons2.push(new Weapon2(player.x + 25, player.y + 30))
+    }
 
 }
-
-// function playerAttack() {
-//     if (player.attacking) {
-//         // player.timer++
-//         // if (player.timer % 100 === 0) {//keep interval between attacks
-//             weapons.push(new Weapon(player.x, player.y)) 
-//         }
-//     // } else {
-//     //     player.timer = 0 //don't keep adding to weapons array if not shooting
-//     // }
-// }
 
 function handlePlayerFrame() { //walking animation
     if (player.frameX < 2 && player.moving) player.frameX++ //grid is 3x4. Check player.moving so legs aren't moving while standing
@@ -116,14 +104,7 @@ class Weapon {
         this.frameY = 0
     }
     update() {
-        // if(player.frameY === 2) {//facing right
-        //     player.attacking
             this.x += this.speed //weapon moves right
-        // } 
-        // if (player.frameY === 1) {
-        //     player.attacking
-        //     this.x -= this.speed
-        // }
     }
     draw() {
         drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
@@ -149,12 +130,54 @@ function handleWeapons() {
             }
         }
 
-        if (weapons[i] && weapons[i].x > canvas.width - 100) {//don't want enemies to be hit when the spawn off-grid
+        if (weapons[i] && weapons[i].x > canvas.width - 75) {//don't want enemies to be hit when the spawn off-grid
             weapons.splice(i, 1)
             i--
         } //remove weapons when out of bounds
     }
 }
+
+class Weapon2 {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.width = 21.75 
+        this.height = 26
+        this.power = 50 
+        this.speed = 5
+        this.frameX = 0
+        this.frameY = 0
+    }
+    update() {
+            this.x -= this.speed //weapon moves left
+    }
+    draw() {
+        drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        if (this.frameX < 3) this.frameX++; 
+        else this.frameX = 0
+    }
+}
+
+function handleWeapons2() {
+    for (let i = 0; i < weapons2.length; i++){
+        weapons2[i].update()
+        weapons2[i].draw()
+
+        for (let j = 0; j < enemies.length; j++ ) { 
+            if (enemies[j] && weapons2[i] && collision(weapons2[i], enemies[j])) {
+                enemies[j].health -= weapons2[i].power
+                weapons2.splice(i, 1) 
+                i--
+            }
+        }
+
+        if (weapons2[i] && weapons2[i].x < 50) {
+            weapons2.splice(i, 1)
+            i--
+        } 
+    }
+}
+
 
 //ENEMY
 const enemySprite = new Image()
@@ -353,6 +376,7 @@ function animate() {
         handlePlayerFrame()
         handleEnemies()
         handleWeapons()
+        handleWeapons2()
         handleVictims()
         GameStatus()
         frame ++ //adds a frame with every animation
