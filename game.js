@@ -92,9 +92,9 @@ class Enemy {
         drawEnemy(enemySprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
         // ctx.fillStyle = "red";
         // ctx.fillRect(this.x, this.y, this.width, this.height)
-        // ctx.fillStyle = "black" 
-        // ctx.font = "30px Arial"
-        // ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 30)
+        ctx.fillStyle = "#FF0000" 
+        ctx.font = "12px Arial"
+        ctx.fillText(Math.floor(this.health), this.x + 15, this.y - 5)
 
     }
     update() {
@@ -135,13 +135,18 @@ const controlsBar = { //bar on top of game w/ controls/score/etc
     height: 100
 }
 
+const goal = new Image()
+goal.src = "./images/ShojiDoor2"
+
+//////////////////////////////////LEFT OFF HERE /////////////////////////////////////////////////////////////////////////////////////
+
 //GAME STATUS
 
 function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "blue"
     ctx.font = "25px Arial"
     ctx.fillText('Score: ' + score, 30, 40);
-    ctx.fillText('Lives lost: ' + livesLost, 30, 90);
+    ctx.fillText('Lives lost: ' + livesLost, 30, 80);
 }
 
 // function gameStatus() {
