@@ -5,11 +5,11 @@ canvas.height = 500
 
 const keys = []
 const enemies = []
-let numberOfEnemies = 10
-
+// let numberOfEnemies = 10
+let enemiesInterval = 600 //time between enemies
+let frame = 0
 let score = 0
 let livesLost = 0
-let time = 0
 
 //PLAYER
 
@@ -84,27 +84,48 @@ class Enemy {
         this.frameY = 1
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 100 //make so it doesn't go below/above wanted margins
-        this.speed = (Math.random()*1.5) + 2
+        this.speed = (Math.random()*1.5) + 0.5
         this.health = 100
         this.maxHealth = this.health
     }
     draw() {
-        drawEnemy(enemySprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) //change "enemy" to "this.". Change uppercase to lowercase to match constructor variables
-        //animate
-        // if (this.frameX < this.maxFrame) this.frameX++; //standing to walking
-        // else this.frameX = this.minFrame //no hardcoded number in case the animation frame amounts are dif depending on action
+        drawEnemy(enemySprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        // ctx.fillStyle = "red";
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.fillStyle = "black" 
+        // ctx.font = "30px Arial"
+        // ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 30)
+
     }
     update() {
         this.x -= this.speed //enemies will walk to left
     }
 }
 
-for (i = 0; i < numberOfEnemies; i++) { //creates more characters
-    enemies.push(new Enemy())
-}
-
 function drawEnemy(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
+}
+
+// for (i = 0; i < numberOfEnemies; i++) { //creates more characters
+//     enemies.push(new Enemy())
+// }
+
+function handleEnemies() {
+    for (let i = 0; i < enemies.length; i++) {
+        enemies[i].update()
+        enemies[i].draw()
+        if (enemies[i].health <= 0) { //remove enemies from array when health reaches 0
+            score += maxHealth/10
+            enemies.splice(i, 1)
+            i-- 
+        }
+    }
+    if (frame % enemiesInterval === 0 ) {//every time frame is divisible by interval, we push new enemies into the game. Only add enemies if winning score was not reached yet
+        let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
+        enemies.push(new Enemy(verticalPosition))
+        enemyPositions.push(verticalPosition)
+        // if (enemiesInterval > 120) enemiesInterval -= 50 //staggers wave of enemies. Changes difficulty
+    }
 }
 
 
@@ -122,7 +143,6 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.font = "25px Arial"
     ctx.fillText('Score: ' + score, 30, 40);
     ctx.fillText('Lives lost: ' + livesLost, 30, 90);
-    ctx.fillText('Time: ' + time, 880, 40);
 }
 
 // function gameStatus() {
@@ -157,15 +177,13 @@ function animate() {
         //Where the image is cropped changes depending on position
         movePlayer()
         handlePlayerFrame()
-        for (i = 0; i < enemies.length; i ++) {
-            enemies[i].draw() //referencing data we pushed into the enemies array
-            enemies[i].update()
-            // if (enemies[i])
-        }
+        handleEnemies()
+        frame ++ //adds a frame with every animation
+
     }
 }
 
-startAnimating(30) //arg = fps
+startAnimating(10) //arg = fps
 
 
 
