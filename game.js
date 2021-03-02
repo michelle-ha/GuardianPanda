@@ -65,7 +65,7 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
         player.frameY = 0 //character's position changes so it looks like he's facing down
         player.moving = true
     }
-    if (keys[39] && player.x < canvas.width - player.width) { //39 = right
+    if (keys[39] && player.x < canvas.width - player.width - 50) { //39 = right
         player.x += player.speed 
         player.frameY = 2 
         player.moving = true
@@ -99,7 +99,7 @@ class Weapon {
         this.width = 22 //87x26
         this.height = 26
         this.power = 50 //changes depending onprojectile/powerup, etc
-        this.speed = 10
+        this.speed = 15
         this.frameX = 0
         this.frameY = 0
     }
@@ -124,6 +124,8 @@ function handleWeapons() {
 
         for (let j = 0; j < enemies.length; j++ ) { //cyce through weapons to check for collision
             if (enemies[j] && weapons[i] && collision(weapons[i], enemies[j])) {
+                enemies[j].frameY = 4 
+                enemies[j].frameX = 0
                 enemies[j].health -= weapons[i].power
                 weapons.splice(i, 1) //remove projectile that collided
                 i--
@@ -165,6 +167,8 @@ function handleWeapons2() {
 
         for (let j = 0; j < enemies.length; j++ ) { 
             if (enemies[j] && weapons2[i] && collision(weapons2[i], enemies[j])) {
+                enemies[j].frameY = 4 
+                enemies[j].frameX = 0
                 enemies[j].health -= weapons2[i].power
                 weapons2.splice(i, 1) 
                 i--
@@ -217,10 +221,10 @@ function drawEnemy(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 }
 
 function collision(first, second) {
-    if( !( first.x > second.x + second.width ||
-            first.x + first.width < second.x ||
-            first.y > second.y + second.height ||
-            first.y + first.height < second.y)    
+    if( !( first.x > second.x + second.width - 50||
+            first.x + first.width < second.x + 20 ||
+            first.y > second.y + second.height - 40 ||
+            first.y + first.height < second.y + 25)    
     ){
         return true
     }
@@ -249,6 +253,16 @@ function handleEnemies() {
     if (frame % 150 === 0 && enemiesInterval >= 5 && enemies.length > 1) {
         enemiesInterval -= 5
         enemies.push(new Enemy(Math.random() * ((canvas.height - 100) - 100) + 100))
+    }
+
+    player
+    for (let j = 0; j < enemies.length; j++){
+        if(collision(player, enemies[j])){
+            enemies[j].speed = 0
+            enemies[j].frameY = 4 
+            enemies[j].frameX = 0
+            enemies[j].health -= 10
+        } 
     }
 }
 
@@ -308,6 +322,7 @@ function handleVictims() {
             }
         }
     }
+
     if (frame % victimsInterval === 0 ) {//every time frame is divisible by interval, we push new victims into the game. Only add victims if winning score was not reached yet
         let position = 200
         victims.push(new Victim(position))
