@@ -36,6 +36,7 @@ const player = {
     speed: 10, 
     moving: false, //swith between standing + walking
     attacking: false,
+    health: 100
     // timer: 0 //keeps track of charactr's updates
 }
 
@@ -262,6 +263,7 @@ function handleEnemies() {
             enemies[j].frameY = 4 
             enemies[j].frameX = 0
             enemies[j].health -= 10
+            player.health -= 1
         } 
     }
 }
@@ -368,13 +370,16 @@ const keeper = {
 function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "blue"
     ctx.font = "25px Arial"
-    ctx.fillText('Score: ' + score, 800, 40);
-    ctx.fillText('Lives lost: ' + livesLost, 800, 80);
+    ctx.fillText('Score: ' + score, 200, 40);
+    ctx.fillText('Lives lost: ' + livesLost, 200, 80);
     if (gameOver) {
         ctx.fillStyle = "red"
         ctx.font = "100px Arial"
         ctx.fillText("YOU LOST", 300, 250)
     }
+    ctx.fillStyle = "red"
+    ctx.font = "25px Arial"
+    ctx.fillText('Health: ' + player.health, 800, 40);
 }
 
 //FUNCTIONALITY
