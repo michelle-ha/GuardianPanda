@@ -74,14 +74,16 @@ function handlePlayerFrame() { //walking animation
 
 //ENEMY
 const enemySprite = new Image()
-enemySprite.src = "./images/death_scythe.png"
+enemySprite.src = "./images/monkey.png"
 
 class Enemy {
     constructor(){
-        this.width = 48
-        this.height = 48
+        this.width = 110 //1727x610
+        this.height = 100
         this.frameX = 0
         this.frameY = 1
+        this.minFrame = 0
+        this.maxFrame = 2
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 100 //make so it doesn't go below/above wanted margins
         this.speed = (Math.random()*1.5) + 0.5
@@ -95,9 +97,12 @@ class Enemy {
         ctx.fillStyle = "#FF0000" 
         ctx.font = "12px Arial"
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y - 5)
+        if (this.frameX < this.maxFrame) this.frameX++; //standing to walking
+        else this.frameX = this.minFrame
 
     }
     update() {
+        
         this.x -= this.speed //enemies will walk to left
     }
 }
@@ -136,7 +141,7 @@ const controlsBar = { //bar on top of game w/ controls/score/etc
 }
 
 const goal = new Image()
-goal.src = "./images/ShojiDoor2"
+goal.src = "./images/ShojiDoor2" //probably change
 
 //////////////////////////////////LEFT OFF HERE /////////////////////////////////////////////////////////////////////////////////////
 
