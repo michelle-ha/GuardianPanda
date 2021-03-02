@@ -199,8 +199,6 @@ class Enemy {
     }
     draw() {
         drawEnemy(enemySprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
-        // ctx.fillStyle = "red";
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.fillStyle = "#FF0000" 
         ctx.font = "12px Arial"
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 10)
@@ -248,8 +246,8 @@ function handleEnemies() {
         // if (enemiesInterval > 120) enemiesInterval -= 50 //staggers wave of enemies. Changes difficulty
     }
 
-    if (frame % 150 === 0) {
-        enemiesInterval -= 10
+    if (frame % 150 === 0 && enemiesInterval >= 5 && enemies.length > 1) {
+        enemiesInterval -= 5
         enemies.push(new Enemy(Math.random() * ((canvas.height - 100) - 100) + 100))
     }
 }
