@@ -50,12 +50,12 @@ window.addEventListener("keyup", function(e) {
 })
 
 function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
-    if (keys[38] && player.y > 0) { //38 = up arrow on keyboard. Prevents player from moving off-screen
+    if (keys[38] && player.y > 40) { //38 = up arrow on keyboard. Prevents player from moving off-screen
         player.y -= player.speed //moves in negative direction along y axis (moves up)
         player.frameY = 3 //character's position changes so it looks like he'ss facing away
         player.moving = true //to prevent characters from "gliding"
     }
-    if (keys[37] && player.x > 0) { //37 = left arrow on keyboard. Prevents player from moving off-screen
+    if (keys[37] && player.x > 200) { //37 = left arrow on keyboard. Prevents player from moving off-screen
         player.x -= player.speed //moves left on screen
         player.frameY = 1 //character's position changes so it looks like he's facing left
         player.moving = true
