@@ -5,13 +5,13 @@ canvas.height = 500
 
 const keys = []
 const enemies = []
-// let numberOfEnemies = 10
 const victims = []
 let enemiesInterval = 60 //time between enemies
 let victimsInterval = 30
 let frame = 0
 let score = 0
 let livesLost = 0
+let gameOver = false
 
 //PLAYER
 
@@ -113,6 +113,16 @@ function drawEnemy(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
 }
 
+function collision(first, second) {
+    if( !( first.x > second.x + second.width ||
+            first.x + first.width < second.x ||
+            first.y > second.y + second.height ||
+            first.y + first.height < second.y)    
+    ){
+        return true
+    }
+}
+
 // for (i = 0; i < numberOfEnemies; i++) { //creates more characters
 //     enemies.push(new Enemy())
 // }
@@ -178,6 +188,17 @@ function handleVictims() {
             victims.splice(i, 1)
             i-- 
         }
+        for (let j = 0; j < enemies.length; j++ ) { //cyce through enemies to check for collision
+            if (enemies[j] && victims[i] && collision(victims[i], enemies[j])) {
+                victims.splice(i, 1) //remove victim that collided
+                enemies.splice(j, 1) //enemy can only take one life
+                i--
+                livesLost += 1
+                if (livesLost === 25) {
+                    gameOver = true
+                }
+            }
+        }
     }
     if (frame % victimsInterval === 0 ) {//every time frame is divisible by interval, we push new victims into the game. Only add victims if winning score was not reached yet
         let position = 200
@@ -187,6 +208,7 @@ function handleVictims() {
 
 
 //GAMEBOARD
+
 const controlsBar = { //bar on top of game w/ controls/score/etc
     width: canvas.width,
     height: 100
@@ -212,11 +234,14 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.font = "25px Arial"
     ctx.fillText('Score: ' + score, 800, 40);
     ctx.fillText('Lives lost: ' + livesLost, 800, 80);
+    if (gameOver) {
+        ctx.fillStyle = "red"
+        ctx.font = "100px Arial"
+        ctx.fillText("YOU LOST", 300, 250)
+    }
 }
 
-// function gameStatus() {
 
-// }
 
 
 //FUNCTIONALITY
@@ -235,10 +260,9 @@ function animate() {
     requestAnimationFrame(animate)
     now = Date.now()
     elapsed = now - then
-    if (elapsed > fpsInterval) {
+    if (elapsed > fpsInterval && !gameOver) {
         then = now - (elapsed % fpsInterval) 
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
-        GameStatus()
         ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //call "ctx" because that's where all canvas methods are stored
         ctx.fillRect(0,0, controlsBar.width, controlsBar.height) //(0,0) = top left corner of canvas
         drawSprite(goalSprite, goal.width * goal.frameX, goal.height * goal.frameY, goal.width, goal.height, goal.x, goal.y, goal.width, goal.height) 
@@ -249,10 +273,9 @@ function animate() {
         handlePlayerFrame()
         handleEnemies()
         handleVictims()
+        GameStatus()
         frame ++ //adds a frame with every animation
-
     }
-
 }
 
 startAnimating(10) //arg = fps
