@@ -145,8 +145,8 @@ class Victim {
         this.height = 59
         this.frameX = 4.5
         this.frameY = 2
-        this.x = 200
-        this.y = 200 //start from bottom
+        this.x = 130
+        this.y = canvas.height //start from bottom
         this.speed = (Math.random()*1.5) + 2
     }
     draw() {
