@@ -8,7 +8,7 @@ const weapons = []
 const weapons2 = []
 const enemies = []
 const victims = []
-let enemiesInterval = 40 //time between enemies
+let enemiesInterval = 20 //time between enemies
 let victimsInterval = 30
 let frame = 0
 let score = 0
@@ -251,7 +251,7 @@ function handleEnemies() {
         // if (enemiesInterval > 120) enemiesInterval -= 50 //staggers wave of enemies. Changes difficulty
     }
 
-    if (frame % 150 === 0 && enemiesInterval >= 5 && enemies.length > 1) {
+    if (frame % 100 === 0 && enemiesInterval >= 5 && enemies.length > 1) {
         enemiesInterval -= 5
         enemies.push(new Enemy(Math.random() * ((canvas.height - 100) - 100) + 100))
     }
@@ -264,6 +264,9 @@ function handleEnemies() {
             enemies[j].frameX = 0
             enemies[j].health -= 10
             player.health -= 1
+            if (player.health <= 0)  {
+                gameOver = true
+            }
         } 
     }
 }
@@ -318,7 +321,7 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost === 15) {
+                if (livesLost === 15)  {
                     gameOver = true
                 }
             }
