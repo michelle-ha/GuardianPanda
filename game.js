@@ -4,6 +4,7 @@ canvas.width = 1000; //determined on css file. Can do window.innerHight/innerWid
 canvas.height = 500
 
 const keys = []
+const weapons = []
 const enemies = []
 const victims = []
 let enemiesInterval = 60 //time between enemies
@@ -57,8 +58,8 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
         player.moving = true
     }
     if (keys[40] && player.y < canvas.height - player.height) { //40 = down
-        player.y += player.speed //moves left on screen
-        player.frameY = 0 //character's position changes so it looks like he's facing left
+        player.y += player.speed //moves down on screen
+        player.frameY = 0 //character's position changes so it looks like he's facing down
         player.moving = true
     }
     if (keys[39] && player.x < canvas.width - player.width) { //39 = right
@@ -72,6 +73,55 @@ function handlePlayerFrame() { //walking animation
     if (player.frameX < 2 && player.moving) player.frameX++ //grid is 3x4. Check player.moving so legs aren't moving while standing
     else player.frameX = 0
     
+}
+
+//WEAPONS
+
+const weaponSprite = new Image()
+weaponSprite.src = "./images/shuriken.png"
+
+class Weapon {
+    constructor(x, y) { //depends on position of player
+        this.x = x
+        this.y = y
+        this.width = 21.75 //87x26
+        this.height = 26
+        this.power = 50 //changes depending onprojectile/powerup, etc
+        this.speed = 5
+    }
+    update() {
+        if(player.frameY === 2 ) {//facing right
+            this.x += this.speed  //weapon moves right
+        } else if (player.frameY === 1) {
+            this.x -= this.speed
+        }
+    }
+    draw() {
+        ctx.fillStyle = "black"
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2) //angle
+        ctx.fill()
+    }
+}
+
+function handleProjectiles() {
+    for (let i = 0; i < projectiles.length; i++){
+        projectiles[i].update()
+        projectiles[i].draw()
+
+        for (let j = 0; j < enemies.length; j++ ) { //cyce through projectiles to check for collision
+            if (enemies[j] && projectiles[i] && collision(projectiles[i], enemies[j])) {
+                enemies[j].health -= projectiles[i].power
+                projectiles.splice(i, 1) //remove projectile that collided
+                i--
+            }
+        }
+
+        if (projectiles[i] && projectiles[i].x > canvas.width - cellSize) {//don't want enemies to be hit when the spawn off-grid
+            projectiles.splice(i, 1)
+            i--
+        } //remove projectiles when out of bounds
+    }
 }
 
 //ENEMY
@@ -240,9 +290,6 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillText("YOU LOST", 300, 250)
     }
 }
-
-
-
 
 //FUNCTIONALITY
 
