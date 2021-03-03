@@ -644,6 +644,8 @@ function startAnimating(fps) { //controls speed of char
 
 function welcome() { //displays amount of resources on controlsbar
         ctx.drawImage(welcomeSprite, welcomePanda.width * welcomePanda.frameX, welcomePanda.height * welcomePanda.frameY, welcomePanda.width, welcomePanda.height, welcomePanda.x, welcomePanda.y, welcomePanda.width, welcomePanda.height)
+        // drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, 360, 380, player.width, player.height) 
+        drawSprite(playerSprite, player.width * 1, player.height * 0.1, player.width, player.height, 140, 65, player.width, player.height) 
         ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
         ctx.fillRect(500, 50, 400, 400)
         ctx.fillStyle = "white" 
