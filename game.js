@@ -556,9 +556,6 @@ function animate() {
 
 startAnimating(10) //arg = fps
 
-fafa
-
-
 window.addEventListener("resize", function() { //keeps the characters from getting re-sized with window size changes
     canvas.width = 1000
     canvas.height = 500
