@@ -507,7 +507,7 @@ spacebarSprite.src = "./images/spacebar.png"
 
 const spacebar = {
     x: 710,
-    y: 260,
+    y: 290,
     width: 68,
     height: 36, 
     frameX: 0, 
@@ -519,7 +519,7 @@ arrowSprite.src = "./images/arrow.png"
 
 const arrow = {
     x: 640,
-    y: 175,
+    y: 210,
     width: 100,
     height: 100, 
     frameX: 0, 
@@ -560,17 +560,25 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.fillStyle = "white" 
         ctx.font = "50px Arial"
         ctx.fillStyle = "white"
-        ctx.fillText("Guardian Panda", 510, 91)  
+        ctx.fillText("Guardian Panda", 510, 94)  
         ctx.font = "30px Arial"
-        ctx.fillText("HIT ENTER KEY TO BEGIN", 510, 420)
-        ctx.fillText("[story]", 510, 140) 
+        ctx.fillText("HIT ENTER KEY TO BEGIN", 510, 440)
+        ctx.font = "18px Arial"
+        ctx.fillText("The pandas' home is destroyed and being", 510, 120)
+        ctx.fillText("over-run by monkeys! Defend the fleeing pandas", 510, 140)
+        ctx.fillText("and prevent them from getting captured! Your", 510, 160) //  (If the monkey gets to the end of the board without touching a monkey, that still counts as a loss!)
+        ctx.fillText("cause is lost if more than 15 pandas are taken.", 510, 180)
+        ctx.fillText("If a monkey gets to the end of the board without", 510, 200)
+        ctx.fillText("touching a panda, that still counts!", 510, 220)
+
+
         ctx.font = "25px Arial"
-        ctx.fillText("Movement: ", 510, 250) 
+        ctx.fillText("Movement: ", 510, 280) 
         ctx.drawImage(spacebarSprite, spacebar.width * spacebar.frameX, spacebar.height * spacebar.frameY, spacebar.width, spacebar.height, spacebar.x, spacebar.y, spacebar.width, spacebar.height)
         ctx.drawImage(arrowSprite, arrow.width * arrow.frameX, arrow.height * arrow.frameY, arrow.width, arrow.height, arrow.x, arrow.y, arrow.width, arrow.height)
-        ctx.fillText("Attack: spacebar", 510, 285) 
-        ctx.fillText("No attacking while moving", 510, 320) 
-        ctx.fillText("Able to attack in all directions", 510, 355) 
+        ctx.fillText("Attack: spacebar", 510, 315) 
+        ctx.fillText("No attacking while moving", 510, 350) 
+        ctx.fillText("Able to attack in all directions", 510, 385) 
         if (keys[13]) {
             frame = 1
         }
