@@ -23,6 +23,7 @@ let enemyNumbers = 0
 let victimsInterval = 15
 let frame = 0
 let score = 0
+let livesSaved = 0
 let livesLost = 0
 let gameOver = false
 let restart = false
@@ -463,6 +464,7 @@ function handleVictims() {
         victims[i].draw()
         if (victims[i].y <= 110) { 
             score += 10
+            livesSaved += 1
             victims.splice(i, 1)
             i-- 
         }
@@ -560,6 +562,7 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "blue"
     ctx.font = "25px Arial"
     ctx.fillText('Score: ' + score, 200, 40);
+    ctx.fillText('Lives Saved: ' + livesSaved, 200, 80);
     ctx.fillStyle = "red"
     ctx.fillText('Lives lost: ' + livesLost, 790, 80);
     if (gameOver) {
@@ -639,9 +642,6 @@ const pandaHeart = {
     frameY: 0, 
 }
 
-
-
-
 //FUNCTIONALITY
 
 //lower frame rate of game to control player speed (so doesn't blink in and out). Keep consistent fsp rate 
@@ -672,6 +672,12 @@ function callRestart() {
          frame = 1
          score = 0
          livesLost = 0
+         livesSaved = 0
+         player.health = 100
+         player.x = 500, 
+         player.y = 300
+         player.frameX = 0, //changes what picture you're getting. 
+         player.frameY = 0
          gameOver = false
         // animate()
     }
