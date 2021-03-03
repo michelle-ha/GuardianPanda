@@ -687,6 +687,17 @@ function callRestart() {
 
 
 function welcome() { //displays amount of resources on controlsbar
+        if (paused) {
+            // ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
+            ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
+            ctx.fillRect(0,0, controlsBar.width, controlsBar.height)
+            ctx.font = "35px Arial"
+            ctx.fillStyle = "red"
+            ctx.fillText("Game Paused. Hit ENTER to resume", 180, 40)    
+            // ctx.fillText("Game Paused. Hit ENTER to resume", 180, 200)     
+ 
+    
+        }
         ctx.drawImage(pandaHeartSprite, pandaHeart.width * 1, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, pandaHeart.x, 380, pandaHeart.width, pandaHeart.height)
         ctx.drawImage(pandaHeartSprite, pandaHeart.width * 2, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, 380, 400, pandaHeart.width, pandaHeart.height)
         ctx.drawImage(pandaHeartSprite, pandaHeart.width * pandaHeart.frameX, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, pandaHeart.x, pandaHeart.y, pandaHeart.width, pandaHeart.height)
@@ -737,10 +748,10 @@ function welcome() { //displays amount of resources on controlsbar
 // }
 
 function gamePause() {
-    gamepause = true
+    paused = true
     pauseButton.style.visibility = "hidden"
     frame = 0
-    animate()
+    // animate()
 }
 
 function animate() {
