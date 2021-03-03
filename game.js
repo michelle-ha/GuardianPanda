@@ -578,7 +578,7 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.drawImage(arrowSprite, arrow.width * arrow.frameX, arrow.height * arrow.frameY, arrow.width, arrow.height, arrow.x, arrow.y, arrow.width, arrow.height)
         ctx.fillText("Attack: spacebar", 510, 315) 
         ctx.fillText("No attacking while moving", 510, 350) 
-        ctx.fillText("Able to attack in all directions", 510, 385) 
+        ctx.fillText("Melee attacks cost health", 510, 385) 
         if (keys[13]) {
             frame = 1
         }
