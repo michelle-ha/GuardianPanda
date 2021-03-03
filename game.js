@@ -701,6 +701,7 @@ function animate() {
     now = Date.now()
     elapsed = now - then
     if (elapsed > fpsInterval && !gameOver && frame >= 1) {
+        pauseButton.style.visibility = "visible"
         then = now - (elapsed % fpsInterval) 
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
         ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
