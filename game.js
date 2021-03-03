@@ -493,6 +493,44 @@ function GameStatus() { //displays amount of resources on controlsbar
     }
 }
 
+
+const spacebarSprite = new Image()
+spacebarSprite.src = "./images/spacebar.png" 
+
+const spacebar = {
+    x: 710,
+    y: 260,
+    width: 68,
+    height: 36, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
+const arrowSprite = new Image()
+arrowSprite.src = "./images/arrow.png" 
+
+const arrow = {
+    x: 640,
+    y: 175,
+    width: 100,
+    height: 100, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
+const welcomeSprite = new Image()
+welcomeSprite.src = "./images/welcome.png" 
+
+const welcomePanda = {
+    x: 30,
+    y: 25,
+    width: 425,
+    height: 441, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
+
 //FUNCTIONALITY
 
 //lower frame rate of game to control player speed (so doesn't blink in and out). Keep consistent fsp rate 
@@ -508,48 +546,28 @@ function startAnimating(fps) { //controls speed of char
 
 
 function welcome() { //displays amount of resources on controlsbar
-        ctx.fillStyle = "rgba(0, 181, 204, 0.5)";
-        ctx.fillRect(300, 50, 400, 400)
+        ctx.drawImage(welcomeSprite, welcomePanda.width * welcomePanda.frameX, welcomePanda.height * welcomePanda.frameY, welcomePanda.width, welcomePanda.height, welcomePanda.x, welcomePanda.y, welcomePanda.width, welcomePanda.height)
+        ctx.fillStyle = "rgba(0, 181, 204, 0.6)";
+        ctx.fillRect(500, 50, 400, 400)
         ctx.fillStyle = "white" 
+        ctx.font = "50px Arial"
+        ctx.fillStyle = "white"
+        ctx.fillText("Guardian Panda", 510, 91)  
         ctx.font = "30px Arial"
-        ctx.fillText("Hit enter key to begin", 360, 400) 
-        ctx.fillText("[story]", 375, 100) 
+        ctx.fillText("HIT ENTER KEY TO BEGIN", 510, 420)
+        ctx.fillText("[story]", 510, 140) 
         ctx.font = "25px Arial"
-        ctx.fillStyle = "black" 
-        ctx.fillText("Movement: ", 305, 250) 
+        ctx.fillText("Movement: ", 510, 250) 
         ctx.drawImage(spacebarSprite, spacebar.width * spacebar.frameX, spacebar.height * spacebar.frameY, spacebar.width, spacebar.height, spacebar.x, spacebar.y, spacebar.width, spacebar.height)
         ctx.drawImage(arrowSprite, arrow.width * arrow.frameX, arrow.height * arrow.frameY, arrow.width, arrow.height, arrow.x, arrow.y, arrow.width, arrow.height)
-        ctx.fillText("Attack: spacebar", 305, 285) 
-        ctx.fillText("No attacking while moving", 305, 320) 
-        ctx.fillText("Able to attack in all directions", 305, 350) 
+        ctx.fillText("Attack: spacebar", 510, 285) 
+        ctx.fillText("No attacking while moving", 510, 320) 
+        ctx.fillText("Able to attack in all directions", 510, 355) 
         if (keys[13]) {
             frame = 1
         }
 }
 
-const spacebarSprite = new Image()
-spacebarSprite.src = "./images/spacebar.png" 
-
-const spacebar = {
-    x: 500,
-    y: 260,
-    width: 68,
-    height: 36, 
-    frameX: 0, 
-    frameY: 0, 
-}
-
-const arrowSprite = new Image()
-arrowSprite.src = "./images/arrow.png" 
-
-const arrow = {
-    x: 430,
-    y: 175,
-    width: 100,
-    height: 100, 
-    frameX: 0, 
-    frameY: 0, 
-}
 
 function animate() {
     if (frame === 0) {
