@@ -512,12 +512,14 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.fillRect(300, 50, 400, 400)
         ctx.fillStyle = "white" 
         ctx.font = "30px Arial"
-        ctx.fillText("Hit enter to begin", 375, 400) 
+        ctx.fillText("Hit enter key to begin", 360, 400) 
         ctx.fillText("[story]", 375, 100) 
         ctx.font = "25px Arial"
-        ctx.fillText("Movement: keyboard arrow keys", 305, 200) 
+        ctx.fillStyle = "black" 
+        ctx.fillText("Movement: ", 305, 250) 
         ctx.drawImage(spacebarSprite, spacebar.width * spacebar.frameX, spacebar.height * spacebar.frameY, spacebar.width, spacebar.height, spacebar.x, spacebar.y, spacebar.width, spacebar.height)
-        ctx.fillText("Attack: spacebar", 305, 290) 
+        ctx.drawImage(arrowSprite, arrow.width * arrow.frameX, arrow.height * arrow.frameY, arrow.width, arrow.height, arrow.x, arrow.y, arrow.width, arrow.height)
+        ctx.fillText("Attack: spacebar", 305, 285) 
         ctx.fillText("No attacking while moving", 305, 320) 
         ctx.fillText("Able to attack in all directions", 305, 350) 
         if (keys[13]) {
@@ -533,6 +535,18 @@ const spacebar = {
     y: 260,
     width: 68,
     height: 36, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
+const arrowSprite = new Image()
+arrowSprite.src = "./images/arrow.png" 
+
+const arrow = {
+    x: 430,
+    y: 175,
+    width: 100,
+    height: 100, 
     frameX: 0, 
     frameY: 0, 
 }
