@@ -495,7 +495,7 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.font = "25px Arial"
     ctx.fillText('Health: ' + player.health, 800, 40);
     if (enemyNumbers >= 20) {
-        ctx.fillStyle = "red"
+        ctx.fillStyle = "blue"
         ctx.font = "60px Arial"
         ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
     }
