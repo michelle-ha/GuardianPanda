@@ -6,6 +6,9 @@ canvas.height = 500
 const pauseButton = document.getElementById("pauseButton")
 pauseButton.addEventListener("click", gamePause)
 
+const gameOverMenu = document.getElementById("gameOver")
+
+
 const keys = []
 const weapons = []
 const weapons2 = []
@@ -466,7 +469,7 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost === 15)  {
+                if (livesLost >= 1)  {
                     gameOver = true
                 }
             }
@@ -557,9 +560,13 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "red"
     ctx.fillText('Lives lost: ' + livesLost, 790, 80);
     if (gameOver) {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
         ctx.fillStyle = "red"
         ctx.font = "100px Arial"
-        ctx.fillText("YOU LOST", 300, 250)
+        ctx.fillText("YOU LOST", 260, 250)
+        // displayMenu(gameOverMenu)
     }
     ctx.fillStyle = "red"
     ctx.font = "25px Arial"
@@ -655,6 +662,18 @@ function welcome() { //displays amount of resources on controlsbar
             frame = 1
         }
 }
+
+// function displayMenu(menu) {
+//     ctx.clearRect(0, 0, canvas.width, canvas.height)
+//     menu.style.visibility = "visible"
+    
+// }
+
+// function showMenu() {
+//     if (gameOver) {
+//         displayMenu(gameOverMenu)
+//     }
+// }
 
 function gamePause() {
     frame = 0
