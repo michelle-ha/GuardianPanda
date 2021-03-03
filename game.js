@@ -43,7 +43,6 @@ const player = {
 
 window.addEventListener("keydown", function(e) {
     keys[e.keyCode] = true //every time key is pressed, added to keys array
-    player.moving = true
 })
 
 window.addEventListener("keyup", function(e) {
