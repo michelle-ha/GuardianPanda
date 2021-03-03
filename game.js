@@ -552,7 +552,7 @@ function animate() {
         GameStatus()
         frame ++ //adds a frame with every animation
     }
-} 
+}
 
 startAnimating(10) //arg = fps
 
