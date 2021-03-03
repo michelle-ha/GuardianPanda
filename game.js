@@ -567,9 +567,9 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.fillText("The pandas' home is destroyed and being", 510, 120)
         ctx.fillText("over-run by monkeys! Defend the fleeing pandas", 510, 140)
         ctx.fillText("and prevent them from getting captured! Your", 510, 160) //  (If the monkey gets to the end of the board without touching a monkey, that still counts as a loss!)
-        ctx.fillText("cause is lost if more than 15 pandas are taken.", 510, 180)
-        ctx.fillText("If a monkey gets to the end of the board without", 510, 200)
-        ctx.fillText("touching a panda, that still counts!", 510, 220)
+        ctx.fillText("cause is lost if more than 15 pandas are taken", 510, 180)
+        ctx.fillText("or you die. If a monkey gets to the end of the", 510, 200)
+        ctx.fillText("board without touching a panda, that still counts!", 510, 220)
 
 
         ctx.font = "25px Arial"
