@@ -454,7 +454,7 @@ const controlsBar = { //bar on top of game w/ controls/score/etc
 }
 
 const goalSprite = new Image()
-goalSprite.src = "./images/gate.png" //probably change
+goalSprite.src = "./images/gate.png" 
 
 const goal = {
     x: 90, //starting position
@@ -467,7 +467,7 @@ const goal = {
 
 
 const gatekeeperSprite = new Image()
-gatekeeperSprite.src = "./images/guardian.png" //probably change
+gatekeeperSprite.src = "./images/guardian.png" 
 
 const keeper = {
     x: 1,
@@ -477,6 +477,44 @@ const keeper = {
     frameX: 0, 
     frameY: 0, 
 }
+
+const treeSprite = new Image()
+treeSprite.src = "./images/Firefly_Tree.png" 
+
+const tree = {
+    x: 920, 
+    y: 70  ,
+    width: 71,
+    height: 70, 
+    frameX: 0.1, 
+    frameY: 0.1, 
+}
+
+const tree2 = {
+    x: 940, 
+    y: 100,
+    width: 120,
+    height: 160, 
+    frameX: 1.72, 
+    frameY: 0.05, 
+}
+
+function treeLine() {
+    ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, tree.x, tree.y, tree.width, tree.height)
+    ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 935, 150, tree.width, tree.height)
+    ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 920, 300, tree.width, tree.height)
+    ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 960, 230, tree.width, tree.height)
+    ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 955, 300, tree.width, tree.height)
+    ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 915, 200, tree.width, tree.height)
+    // ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 925, 230, tree.width, tree.height)
+    ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 915, 360, tree2.width, tree2.height)
+    ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 930, 0, tree2.width, tree2.height)
+
+
+
+    
+}
+
 
 
 //GAME STATUS
@@ -539,6 +577,8 @@ const welcomePanda = {
 }
 
 
+
+
 //FUNCTIONALITY
 
 //lower frame rate of game to control player speed (so doesn't blink in and out). Keep consistent fsp rate 
@@ -595,11 +635,13 @@ function animate() {
     requestAnimationFrame(animate)
     now = Date.now()
     elapsed = now - then
-    if (elapsed > fpsInterval && !gameOver && frame >= 1) {
+    // if (elapsed > fpsInterval && !gameOver && frame >= 1) {
+    if (elapsed > fpsInterval && !gameOver) {
         then = now - (elapsed % fpsInterval) 
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
         ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
         ctx.fillRect(0,0, controlsBar.width, controlsBar.height) //(0,0) = top left corner of canvas
+        treeLine()
         drawSprite(goalSprite, goal.width * goal.frameX, goal.height * goal.frameY, goal.width, goal.height, goal.x, goal.y, goal.width, goal.height) 
         drawSprite(gatekeeperSprite, keeper.width * keeper.frameX, keeper.height * keeper.frameY, keeper.width, keeper.height, keeper.x, keeper.y, keeper.width, keeper.height) 
         drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height) 
