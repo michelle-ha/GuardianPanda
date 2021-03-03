@@ -555,7 +555,7 @@ function startAnimating(fps) { //controls speed of char
 
 function welcome() { //displays amount of resources on controlsbar
         ctx.drawImage(welcomeSprite, welcomePanda.width * welcomePanda.frameX, welcomePanda.height * welcomePanda.frameY, welcomePanda.width, welcomePanda.height, welcomePanda.x, welcomePanda.y, welcomePanda.width, welcomePanda.height)
-        ctx.fillStyle = "rgba(0, 181, 204, 0.6)";
+        ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
         ctx.fillRect(500, 50, 400, 400)
         ctx.fillStyle = "white" 
         ctx.font = "50px Arial"
