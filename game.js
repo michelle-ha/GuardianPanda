@@ -32,7 +32,7 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 const player = {
     x: 500, //starting position
     y: 300,
-    width: 75, //depends on sprite sheet. highlight over image to get dimensions. 144x192. x/(# columns). Include decimals. 225x300
+    width: 77, //depends on sprite sheet. highlight over image to get dimensions. 144x192. x/(# columns). Include decimals. 225x300
     height: 75, //y/(# rows)
     frameX: 0, //changes what picture you're getting. 
     frameY: 0, 
@@ -55,10 +55,10 @@ window.addEventListener("keyup", function(e) {
 function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
     if (keys[38] && player.y > 40) { //38 = up arrow on keyboard. Prevents player from moving off-screen
         player.y -= player.speed //moves in negative direction along y axis (moves up)
-        player.frameY = 3 //character's position changes so it looks like he'ss facing away
+        player.frameY = 3.1 //character's position changes so it looks like he'ss facing away
         player.moving = true //to prevent characters from "gliding"
     }
-    if (keys[37] && player.x > 200) { //37 = left arrow on keyboard. Prevents player from moving off-screen
+    if (keys[37] && player.x > 20) { //37 = left arrow on keyboard. Prevents player from moving off-screen
         player.x -= player.speed //moves left on screen
         player.frameY = 1 //character's position changes so it looks like he's facing left
         player.moving = true
@@ -70,10 +70,10 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
     }
     if (keys[39] && player.x < canvas.width - player.width - 50) { //39 = right
         player.x += player.speed 
-        player.frameY = 2 
+        player.frameY = 2.1 
         player.moving = true
     }
-    if(player.frameY === 2 && keys[32] && (frame % 1  === 0)) {//facing right
+    if(player.frameY === 2.1 && keys[32] && (frame % 1  === 0)) {//facing right
         player.attacking
         weapons.push(new Weapon(player.x + 15, player.y + 30))
     }
@@ -81,7 +81,7 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
         player.attacking
         weapons2.push(new Weapon2(player.x + 25, player.y + 30))
     }
-    if(player.frameY === 3 && keys[32] && (frame % 1  === 0)) {//facing up
+    if(player.frameY === 3.1 && keys[32] && (frame % 1  === 0)) {//facing up
         player.attacking
         weapons3.push(new Weapon3(player.x + 25, player.y ))
     }
@@ -186,7 +186,7 @@ function handleWeapons2() {
             }
         }
 
-        if (weapons2[i] && weapons2[i].x < 50) {
+        if (weapons2[i] && weapons2[i].x < 0) {
             weapons2.splice(i, 1)
             i--
         } 
