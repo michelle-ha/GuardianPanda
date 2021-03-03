@@ -27,6 +27,7 @@ let livesSaved = 0
 let livesLost = 0
 let gameOver = false
 let restart = false
+let paused = false
 
 //PLAYER
 
@@ -576,7 +577,7 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillStyle = "white"
         ctx.font = "40px Arial"
         ctx.fillText("Restart?", 425, 300)
-        ctx.fillText("Click here", 408, 350)
+        ctx.fillText("Hit ESC key", 408, 350)
         pauseButton.style.visibility = "hidden"
         // restart.style.visibility = "visible"
         // callRestart()
@@ -736,6 +737,8 @@ function welcome() { //displays amount of resources on controlsbar
 // }
 
 function gamePause() {
+    gamepause = true
+    pauseButton.style.visibility = "hidden"
     frame = 0
     animate()
 }
