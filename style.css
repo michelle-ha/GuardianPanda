@@ -14,7 +14,26 @@
     background: rgb(211, 211, 211)
 }
 
-#gameOver {
+/* #gameOver {
     position: absolute;
     visibility: hidden;
+} */
+
+#restart {
+    /* position: absolute; */
+    visibility: hidden;
+    /* margin-left: 500px;
+    margin-top: 350px; */
+    width: 25%;
+    height: 5%;
 }
+
+/* #canvas2 {
+    width: 1000px; 
+    height: 500px;
+    border: 1px solid black;
+    background: url('./images/background2.jpg');
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */

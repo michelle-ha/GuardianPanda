@@ -6,7 +6,9 @@ canvas.height = 500
 const pauseButton = document.getElementById("pauseButton")
 pauseButton.addEventListener("click", gamePause)
 
-const gameOverMenu = document.getElementById("gameOver")
+const restart = document.getElementById("restart")
+// const endGame = document.getElementById('canvas2');
+// const endGamectx = endGame.getContext("2d")
 
 
 const keys = []
@@ -560,12 +562,16 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "red"
     ctx.fillText('Lives lost: ' + livesLost, 790, 80);
     if (gameOver) {
-        // ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        // canvas.style.visibility = "hidden"
         ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
         ctx.fillRect(0, 0, canvas.width, canvas.height)
         ctx.fillStyle = "red"
         ctx.font = "100px Arial"
         ctx.fillText("YOU LOST", 260, 250)
+        pauseButton.style.visibility = "hidden"
+        restart.style.visibility = "visible"
+
         // displayMenu(gameOverMenu)
     }
     ctx.fillStyle = "red"
