@@ -3,6 +3,9 @@ const ctx = canvas.getContext("2d")
 canvas.width = 1000; //determined on css file. Can do window.innerHight/innerWidth if want full screen. Norm: 800x500
 canvas.height = 500
 
+const pauseButton = document.getElementById("pauseButton")
+pauseButton.addEventListener("click", gamePause)
+
 const keys = []
 const weapons = []
 const weapons2 = []
@@ -368,7 +371,7 @@ function handleEnemies() {
             enemies.splice(i, 1)
             i-- 
         }
-        if (enemies[i].x < 20) {
+        if (enemies[i] && enemies[i].x < 20) {
             if (victims.length > 0) {
                 victims.splice(0, 1)
                 livesLost += 1
@@ -653,6 +656,10 @@ function welcome() { //displays amount of resources on controlsbar
         }
 }
 
+function gamePause() {
+    frame = 0
+    animate()
+}
 
 function animate() {
     if (frame === 0) {
