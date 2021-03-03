@@ -17,7 +17,6 @@ let frame = 0
 let score = 0
 let livesLost = 0
 let gameOver = false
-let count = 1
 
 //PLAYER
 
@@ -46,7 +45,6 @@ const player = {
 
 window.addEventListener("keydown", function(e) {
     keys[e.keyCode] = true //every time key is pressed, added to keys array
-    // keys.push(e.keycode)
 })
 
 window.addEventListener("keyup", function(e) {
@@ -55,11 +53,6 @@ window.addEventListener("keyup", function(e) {
 })
 
 function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
-    for (i = 0; i < keys.length; i ++) {
-        if (keys[i] === 32) {
-            count += 1
-        }
-    }
     if (keys[38] && player.y > 40) { //38 = up arrow on keyboard. Prevents player from moving off-screen
         player.y -= player.speed //moves in negative direction along y axis (moves up)
         player.frameY = 3.1 //character's position changes so it looks like he'ss facing away
@@ -548,7 +541,7 @@ function animate() {
         //crop rectangle of one player frame + put in same dimensions on canvas. 
         //Where the image is cropped changes depending on position
         movePlayer()
-        killAction() 
+        killAction()
         handlePlayerFrame()
         handleEnemies()
         handleWeapons()
@@ -563,7 +556,7 @@ function animate() {
 
 startAnimating(10) //arg = fps
 
-
+fafa
 
 
 window.addEventListener("resize", function() { //keeps the characters from getting re-sized with window size changes
@@ -571,5 +564,3 @@ window.addEventListener("resize", function() { //keeps the characters from getti
     canvas.height = 500
 
 })
-
-
