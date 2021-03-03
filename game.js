@@ -471,7 +471,7 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost >= 15)  {
+                if (livesLost >= 1)  {
                     gameOver = true
                 }
             }
@@ -565,10 +565,14 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         // canvas.style.visibility = "hidden"
         ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.fillRect(300, 50, 400, 400)
         ctx.fillStyle = "red"
-        ctx.font = "100px Arial"
-        ctx.fillText("YOU LOST", 260, 250)
+        ctx.font = "60px Arial"
+        ctx.fillText("YOU LOST", 345, 200)
+        ctx.fillStyle = "white"
+        ctx.font = "40px Arial"
+        ctx.fillText("Restart?", 425, 300)
+        ctx.fillText("Click here", 408, 350)
         pauseButton.style.visibility = "hidden"
         restart.style.visibility = "visible"
 
@@ -577,7 +581,7 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "red"
     ctx.font = "25px Arial"
     ctx.fillText('Health: ' + player.health, 790, 40);
-    if (enemyNumbers >= 20) {
+    if (enemyNumbers >= 20 && enemies.length <= 0) {
         ctx.fillStyle = "blue"
         ctx.font = "60px Arial"
         ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
