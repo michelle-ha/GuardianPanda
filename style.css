@@ -13,3 +13,8 @@
     overflow: hidden;
     background: rgb(211, 211, 211)
 }
+
+#gameOver {
+    position: absolute;
+    visibility: hidden;
+}
