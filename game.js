@@ -625,6 +625,18 @@ const welcomePanda = {
     frameY: 0, 
 }
 
+const pandaHeartSprite = new Image()
+pandaHeartSprite.src = "./images/pandaHeart.png" 
+
+const pandaHeart = {
+    x: 410,
+    y: 400,
+    width: 47.5,
+    height: 62,
+    frameX: 0, 
+    frameY: 0, 
+}
+
 
 
 
@@ -643,7 +655,12 @@ function startAnimating(fps) { //controls speed of char
 
 
 function welcome() { //displays amount of resources on controlsbar
+        ctx.drawImage(pandaHeartSprite, pandaHeart.width * 1, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, pandaHeart.x, 380, pandaHeart.width, pandaHeart.height)
+        ctx.drawImage(pandaHeartSprite, pandaHeart.width * 2, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, 380, 400, pandaHeart.width, pandaHeart.height)
+        ctx.drawImage(pandaHeartSprite, pandaHeart.width * pandaHeart.frameX, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, pandaHeart.x, pandaHeart.y, pandaHeart.width, pandaHeart.height)
+
         ctx.drawImage(welcomeSprite, welcomePanda.width * welcomePanda.frameX, welcomePanda.height * welcomePanda.frameY, welcomePanda.width, welcomePanda.height, welcomePanda.x, welcomePanda.y, welcomePanda.width, welcomePanda.height)
+
         // drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, 360, 380, player.width, player.height) 
         drawSprite(playerSprite, player.width * 1, player.height * 0.1, player.width, player.height, 140, 65, player.width, player.height) 
         ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
