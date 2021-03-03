@@ -475,7 +475,7 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost >= 15)  {
+                if (livesLost >= 1)  {
                     gameOver = true
                 }
             }
@@ -577,7 +577,7 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillStyle = "white"
         ctx.font = "40px Arial"
         ctx.fillText("Restart?", 425, 300)
-        ctx.fillText("Hit ESC key", 408, 350)
+        ctx.fillText("Hit ESC key", 380, 350)
         pauseButton.style.visibility = "hidden"
         // restart.style.visibility = "visible"
         // callRestart()
@@ -658,7 +658,7 @@ function startAnimating(fps) { //controls speed of char
 function callRestart() {
     if (keys[27] && gameOver) {
         // ctx.clearRect(0, 0, canvas.width, canvas.height)
-        console.log("hi")
+        // console.log("hi")
         // restart = true
          keys = []
          weapons = []
