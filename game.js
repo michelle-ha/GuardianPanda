@@ -145,7 +145,7 @@ class Weapon2 {
     constructor(x, y) {
         this.x = x
         this.y = y
-        this.width = 21.75 
+        this.width = 22
         this.height = 26
         this.power = 50 
         this.speed = 15
