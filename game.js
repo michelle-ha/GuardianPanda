@@ -6,18 +6,18 @@ canvas.height = 500
 const pauseButton = document.getElementById("pauseButton")
 pauseButton.addEventListener("click", gamePause)
 
-const restart = document.getElementById("restart")
+// const restart = document.getElementById("restart")
 // const endGame = document.getElementById('canvas2');
 // const endGamectx = endGame.getContext("2d")
 
 
-const keys = []
-const weapons = []
-const weapons2 = []
-const weapons3 = []
-const weapons4 = []
-const enemies = []
-const victims = []
+let keys = []
+let weapons = []
+let weapons2 = []
+let weapons3 = []
+let weapons4 = []
+let enemies = []
+let victims = []
 let enemiesInterval = 20 //time between enemies
 let enemyNumbers = 0
 let victimsInterval = 15
@@ -25,6 +25,7 @@ let frame = 0
 let score = 0
 let livesLost = 0
 let gameOver = false
+let restart = false
 
 //PLAYER
 
@@ -471,7 +472,7 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost >= 1)  {
+                if (livesLost >= 15)  {
                     gameOver = true
                 }
             }
@@ -574,7 +575,8 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillText("Restart?", 425, 300)
         ctx.fillText("Click here", 408, 350)
         pauseButton.style.visibility = "hidden"
-        restart.style.visibility = "visible"
+        // restart.style.visibility = "visible"
+        // callRestart()
 
         // displayMenu(gameOverMenu)
     }
@@ -652,6 +654,29 @@ function startAnimating(fps) { //controls speed of char
     animate()
 }
 
+function callRestart() {
+    if (keys[27] && gameOver) {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height)
+        console.log("hi")
+        // restart = true
+         keys = []
+         weapons = []
+         weapons2 = []
+         weapons3 = []
+         weapons4 = []
+         enemies = []
+         victims = []
+         enemiesInterval = 20 
+         enemyNumbers = 0
+         victimsInterval = 15
+         frame = 1
+         score = 0
+         livesLost = 0
+         gameOver = false
+        // animate()
+    }
+}
+
 
 
 function welcome() { //displays amount of resources on controlsbar
@@ -710,6 +735,7 @@ function gamePause() {
 }
 
 function animate() {
+    // restart()
     if (frame === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         // ctx.fillRect(300, 50, 400, 400); //clear everything behind w/ every animate
@@ -717,6 +743,8 @@ function animate() {
         welcome()
     }
     requestAnimationFrame(animate)
+    
+
     now = Date.now()
     elapsed = now - then
     if (elapsed > fpsInterval && !gameOver && frame >= 1) {
@@ -743,6 +771,8 @@ function animate() {
         GameStatus()
         frame ++ //adds a frame with every animation
     }
+    callRestart()
+
 }
 
 startAnimating(10) //arg = fps
