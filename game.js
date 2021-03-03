@@ -471,7 +471,7 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost >= 1)  {
+                if (livesLost >= 15)  {
                     gameOver = true
                 }
             }
