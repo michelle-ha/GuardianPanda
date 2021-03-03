@@ -442,11 +442,6 @@ const controlsBar = { //bar on top of game w/ controls/score/etc
     height: 100
 }
 
-const storyMenu = {
-    width: 250,
-    height: 500
-}
-
 const goalSprite = new Image()
 goalSprite.src = "./images/gate.png" //probably change
 
@@ -507,11 +502,30 @@ function startAnimating(fps) { //controls speed of char
     animate()
 }
 
+
+
+function welcome() { //displays amount of resources on controlsbar
+        ctx.fillStyle = "rgba(0, 181, 204, 0.4)";
+        ctx.fillRect(300, 50, 400, 400)
+        ctx.fillStyle = "white" 
+        ctx.font = "30px Arial"
+        ctx.fillText("Hit enter to begin", 350, 100) 
+        if (keys[13]) {
+            frame = 1
+        }
+}
+
 function animate() {
+    if (frame === 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        // ctx.fillRect(300, 50, 400, 400); //clear everything behind w/ every animate
+        // ctx.fillStyle = "rgba(0, 181, 204, 0.2)"
+        welcome()
+    }
     requestAnimationFrame(animate)
     now = Date.now()
     elapsed = now - then
-    if (elapsed > fpsInterval && !gameOver) {
+    if (elapsed > fpsInterval && !gameOver && frame >= 1) {
         then = now - (elapsed % fpsInterval) 
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
         ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
