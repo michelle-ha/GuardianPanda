@@ -76,19 +76,19 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
 }
 
 function killAction() {
-    if(player.frameY === 2.1 && keys[32] && (frame % 1  === 0)) {//facing right
+    if(player.frameY === 2.1 && keys[32] && (frame % 1.5  === 0) && !player.moving ) {//facing right
         player.attacking
         weapons.push(new Weapon(player.x + 15, player.y + 30))
     }
-    if(player.frameY === 1 && keys[32] && (frame % 1  === 0)) {//facing left
+    if(player.frameY === 1 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing left
         player.attacking
         weapons2.push(new Weapon2(player.x + 25, player.y + 30))
     }
-    if(player.frameY === 3.1 && keys[32] && (frame % 1  === 0)) {//facing up
+    if(player.frameY === 3.1 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing up
         player.attacking
         weapons3.push(new Weapon3(player.x + 25, player.y ))
     }
-    if(player.frameY === 0 && keys[32] && (frame % 1  === 0)) {//facing down
+    if(player.frameY === 0 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing down
         player.attacking
         weapons4.push(new Weapon4(player.x + 25, player.y + 50))
     }
