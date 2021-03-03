@@ -379,9 +379,9 @@ victimSprite.src = "./images/victim.png"
 class Victim {
     constructor(){
         this.width = 42.9 //815x395
-        this.height = 59
+        this.height = 57.3
         this.frameX = 4.5
-        this.frameY = 2
+        this.frameY = 2.08
         this.x = 130
         this.y = canvas.height //start from bottom
         this.speed = (Math.random()*1.5) + 2
