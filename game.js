@@ -297,7 +297,7 @@ class Enemy {
         this.maxFrame = 2
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 100 //make so it doesn't go below/above wanted margins
-        this.speed = (Math.random()*1.5) + 4
+        this.speed = (Math.random()*1.5) + 10
         this.health = 50
         this.maxHealth = this.health
     }
@@ -340,6 +340,14 @@ function handleEnemies() {
         enemies[i].draw()
         if (enemies[i].health <= 0) { //remove enemies from array when health reaches 0
             score += enemies[i].maxHealth/10
+            enemies.splice(i, 1)
+            i-- 
+        }
+        if (enemies[i].x < 20) {
+            if (victims.length > 0) {
+                victims.splice(0, 1)
+                livesLost += 1
+            }
             enemies.splice(i, 1)
             i-- 
         }
