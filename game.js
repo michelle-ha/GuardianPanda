@@ -6,6 +6,8 @@ canvas.height = 500
 const keys = []
 const weapons = []
 const weapons2 = []
+const weapons3 = []
+const weapons4 = []
 const enemies = []
 const victims = []
 let enemiesInterval = 20 //time between enemies
@@ -75,9 +77,17 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
         player.attacking
         weapons.push(new Weapon(player.x + 25, player.y + 30))
     }
-    if(player.frameY === 1 && keys[32] && (frame % 2  === 0)) {//facing right
+    if(player.frameY === 1 && keys[32] && (frame % 2  === 0)) {//facing left
         player.attacking
         weapons2.push(new Weapon2(player.x + 25, player.y + 30))
+    }
+    if(player.frameY === 3 && keys[32] && (frame % 2  === 0)) {//facing up
+        player.attacking
+        weapons3.push(new Weapon3(player.x + 25, player.y ))
+    }
+    if(player.frameY === 0 && keys[32] && (frame % 2  === 0)) {//facing down
+        player.attacking
+        weapons4.push(new Weapon4(player.x + 25, player.y + 50))
     }
 
 }
@@ -183,6 +193,92 @@ function handleWeapons2() {
     }
 }
 
+class Weapon3 {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.width = 22
+        this.height = 26
+        this.power = 50 
+        this.speed = 15
+        this.frameX = 0
+        this.frameY = 0
+    }
+    update() {
+            this.y -= this.speed //weapon moves up
+    }
+    draw() {
+        drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        if (this.frameX < 3) this.frameX++; 
+        else this.frameX = 0
+    }
+}
+
+function handleWeapons3() {
+    for (let i = 0; i < weapons3.length; i++){
+        weapons3[i].update()
+        weapons3[i].draw()
+
+        for (let j = 0; j < enemies.length; j++ ) { 
+            if (enemies[j] && weapons3[i] && collision(weapons3[i], enemies[j])) {
+                enemies[j].frameY = 4 
+                enemies[j].frameX = 0
+                enemies[j].health -= weapons3[i].power
+                weapons3.splice(i, 1) 
+                i--
+            }
+        }
+
+        if (weapons3[i] && weapons3[i].y < 0) {
+            weapons3.splice(i, 1)
+            i--
+        } 
+    }
+}
+
+class Weapon4 {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+        this.width = 22
+        this.height = 26
+        this.power = 50 
+        this.speed = 15
+        this.frameX = 0
+        this.frameY = 0
+    }
+    update() {
+            this.y += this.speed //weapon moves up
+    }
+    draw() {
+        drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        if (this.frameX < 3) this.frameX++; 
+        else this.frameX = 0
+    }
+}
+
+function handleWeapons4() {
+    for (let i = 0; i < weapons4.length; i++){
+        weapons4[i].update()
+        weapons4[i].draw()
+
+        for (let j = 0; j < enemies.length; j++ ) { 
+            if (enemies[j] && weapons4[i] && collision(weapons4[i], enemies[j])) {
+                enemies[j].frameY = 4 
+                enemies[j].frameX = 0
+                enemies[j].health -= weapons4[i].power
+                weapons4.splice(i, 1) 
+                i--
+            }
+        }
+
+        if (weapons4[i] && weapons4[i].y < 0) {
+            weapons4.splice(i, 1)
+            i--
+        } 
+    }
+}
+ 
 
 //ENEMY
 const enemySprite = new Image()
@@ -431,6 +527,8 @@ function animate() {
         handleEnemies()
         handleWeapons()
         handleWeapons2()
+        handleWeapons3()
+        handleWeapons4()
         handleVictims()
         GameStatus()
         frame ++ //adds a frame with every animation
