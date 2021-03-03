@@ -508,16 +508,33 @@ function startAnimating(fps) { //controls speed of char
 
 
 function welcome() { //displays amount of resources on controlsbar
-        ctx.fillStyle = "rgba(0, 181, 204, 0.4)";
+        ctx.fillStyle = "rgba(0, 181, 204, 0.5)";
         ctx.fillRect(300, 50, 400, 400)
         ctx.fillStyle = "white" 
         ctx.font = "30px Arial"
         ctx.fillText("Hit enter to begin", 375, 400) 
         ctx.fillText("[story]", 375, 100) 
-        ctx.fillText("[controls]", 375, 200) 
+        ctx.font = "25px Arial"
+        ctx.fillText("Movement: keyboard arrow keys", 305, 200) 
+        ctx.drawImage(spacebarSprite, spacebar.width * spacebar.frameX, spacebar.height * spacebar.frameY, spacebar.width, spacebar.height, spacebar.x, spacebar.y, spacebar.width, spacebar.height)
+        ctx.fillText("Attack: spacebar", 305, 290) 
+        ctx.fillText("No attacking while moving", 305, 320) 
+        ctx.fillText("Able to attack in all directions", 305, 350) 
         if (keys[13]) {
             frame = 1
         }
+}
+
+const spacebarSprite = new Image()
+spacebarSprite.src = "./images/spacebar.png" 
+
+const spacebar = {
+    x: 500,
+    y: 260,
+    width: 68,
+    height: 36, 
+    frameX: 0, 
+    frameY: 0, 
 }
 
 function animate() {
