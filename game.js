@@ -9,6 +9,7 @@ const weapons2 = []
 const enemies = []
 const victims = []
 let enemiesInterval = 20 //time between enemies
+let enemyNumbers = 0
 let victimsInterval = 30
 let frame = 0
 let score = 0
@@ -245,15 +246,19 @@ function handleEnemies() {
             i-- 
         }
     }  
-    if (frame % enemiesInterval === 0 ) {//every time frame is divisible by interval, we push new enemies into the game. Only add enemies if winning score was not reached yet
+    if (frame % enemiesInterval === 0 && enemyNumbers <= 20) //stop after a certain number to bring in bigger monsters
+        {//every time frame is divisible by interval, we push new enemies into the game. Only add enemies if winning score was not reached yet
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies.push(new Enemy(verticalPosition))
+        enemyNumbers += 1
+
         // if (enemiesInterval > 120) enemiesInterval -= 50 //staggers wave of enemies. Changes difficulty
     }
 
-    if (frame % 100 === 0 && enemiesInterval >= 20) {
+    if (frame % 100 === 0 && enemies.length > 1) {
         enemiesInterval -= 5
-        enemies.push(new Enemy(Math.random() * ((canvas.height - 100) - 100) + 100))
+        // enemies.push(new Enemy(Math.random() * ((canvas.height - 100) - 100) + 100))
+        // if (enemiesInterval <= 0) {gameOver = true}
     }
 
     player
@@ -262,8 +267,8 @@ function handleEnemies() {
             enemies[j].speed = 0
             enemies[j].frameY = 4 
             enemies[j].frameX = 0
-            enemies[j].health -= 10
-            player.health -= 1
+            enemies[j].health -= 50
+            player.health -= 5
             if (player.health <= 0)  {
                 gameOver = true
             }
@@ -388,6 +393,11 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "red"
     ctx.font = "25px Arial"
     ctx.fillText('Health: ' + player.health, 800, 40);
+    if (enemyNumbers >= 20) {
+        ctx.fillStyle = "red"
+        ctx.font = "60px Arial"
+        ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
+    }
 }
 
 //FUNCTIONALITY
