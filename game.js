@@ -509,7 +509,9 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.fillRect(300, 50, 400, 400)
         ctx.fillStyle = "white" 
         ctx.font = "30px Arial"
-        ctx.fillText("Hit enter to begin", 350, 100) 
+        ctx.fillText("Hit enter to begin", 375, 400) 
+        ctx.fillText("[story]", 375, 100) 
+        ctx.fillText("[controls]", 375, 200) 
         if (keys[13]) {
             frame = 1
         }
