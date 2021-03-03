@@ -43,6 +43,31 @@ const player = {
     // timer: 0 //keeps track of charactr's updates
 }
 
+const exclamationSprite = new Image()
+exclamationSprite.src = "./images/exclamation.png" 
+
+const exclamation = {
+    // x: player.x,
+    // y: player.y,
+    width: 13,
+    height: 19, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
+const confusedSprite = new Image()
+confusedSprite.src = "./images/confused.png" 
+
+const confused = {
+    // x: player.x,
+    // y: player.y,
+    width: 40,
+    height: 46, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
+
 window.addEventListener("keydown", function(e) {
     keys[e.keyCode] = true //every time key is pressed, added to keys array
 })
@@ -303,9 +328,9 @@ class Enemy {
     }
     draw() {
         drawEnemy(enemySprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
-        ctx.fillStyle = "#FF0000" 
-        ctx.font = "12px Arial"
-        ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 10)
+        // ctx.fillStyle = "#FF0000" 
+        // ctx.font = "12px Arial"
+        // ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 10)
         if (this.frameX < this.maxFrame) this.frameX++; //standing to walking
         else this.frameX = this.minFrame
 
@@ -371,6 +396,12 @@ function handleEnemies() {
     for (let j = 0; j < enemies.length; j++){
         if(collision(player, enemies[j])){
             enemies[j].speed = 0
+            ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
+            ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
+            // ctx.drawImage(confusedSprite, confused.width * confused.frameX, confused.height * confused.frameY, confused.width, confused.height, player.x + 50, player.y - 30, confused.width, confused.height)
+            if (confused.frameX < 3) confused.frameX++; 
+            else confused.frameX = 0
+
             enemies[j].frameY = 4 
             enemies[j].frameX = 0
             enemies[j].health -= 50
@@ -509,9 +540,6 @@ function treeLine() {
     // ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 925, 230, tree.width, tree.height)
     ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 915, 360, tree2.width, tree2.height)
     ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 930, 0, tree2.width, tree2.height)
-
-
-
     
 }
 
