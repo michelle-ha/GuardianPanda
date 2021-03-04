@@ -24,6 +24,43 @@ let gameOver = false
 let restart = false
 let paused = false
 
+//MESSAGES
+const messages = []
+class Message {
+    constructor(value, x, y, size, color) { //size = text size
+        this.value = value
+        this.x = x
+        this.y = y
+        this.size = size
+        this.color = color 
+        this.lifeSpan = 0 //how long the message lasts
+        this.opacity = 1 
+    }
+    update() {
+        this.y -= 0.3 //message floats up
+        this.lifeSpan += 1
+        if (this.opacity > 0.05) this.opacity -= 0.05 //increase transparency
+    }
+    draw() {
+        ctx.globalAlpha = this.opacity //affects everything drawn on canvas
+        ctx.fillStyle = this.color //dif color for dif categories
+        ctx.font = this.size + 'px Arial'
+        ctx.fillText(this.value, this.x, this.y)
+        ctx.globalAlpha = 1 //reset back
+    }
+}
+
+function handleMessages() {
+    for (let i = 0; i < messages.length; i++) {
+        messages[i].update()
+        messages[i].draw()
+        if (messages[i].lifespan >= 20) {
+            messages.splice(i, 1)
+            i--
+        }
+    }
+}
+
 //PLAYER
 
 const playerSprite = new Image()
@@ -118,7 +155,9 @@ function killAction() {
         player.attacking
         weapons4.push(new Weapon4(player.x + 25, player.y + 50))
     }
-
+    if(keys[32] && (frame % 1.5  === 0) && player.moving ) {
+        messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red") )
+    }
 }
 
 function handlePlayerFrame() { //walking animation
@@ -738,6 +777,7 @@ function animate() {
         handleWeapons3()
         handleWeapons4()
         handleVictims()
+        handleMessages()
         GameStatus()
         frame ++ //adds a frame with every animation
     }
@@ -757,7 +797,7 @@ window.addEventListener("resize", function() { //keeps the characters from getti
 
 // ////////////////////NOOOOOOOOOOOOOOOOOOTES//////////////////////////
 
-// Messages:
+// // Messages:
 // const messages = []
 // class message {
 //     constructor(value, x, x, size, color) { //size = text size
@@ -765,7 +805,7 @@ window.addEventListener("resize", function() { //keeps the characters from getti
 //         this.x = x
 //         this.y = y
 //         this.size = size
-//         this.lifeSpan = 0 //how longthe message lasts
+//         this.lifeSpan = 0 //how long the message lasts
 //         this.opacity = 1 
 //     }
 //     update() {
@@ -774,7 +814,26 @@ window.addEventListener("resize", function() { //keeps the characters from getti
 //         if (this.opacity > 0.01) this.opacity -= 0.01 //increase transparency
 //     }
 //     draw() {
+//         ctx.globalAlpha = this.opacity //affects everything drawn on canvas
 //         ctx.fillStyle = this.color //dif color for dif categories
+//         ctx.font = this.size + 'px Arial'
+//         ctx.fillText(this.draw, this.x, this.y)
+//         ctx.globalAlpha = 1 //reset back
 //     }
 // }
-// 5:19
+
+// function handleMessages() {
+//     for (let i = 0; i < messages.length; i++) {
+//         messages[i].update()
+//         messages[i].draw()
+//         if (messages[i].lifespan >= 50) {
+//             messages.splice(i, 1)
+//             i--
+//         }
+//     }
+// }
+
+// //add messages by pushing into array from any function
+// //EXAMPLE: if low on health, messages.push(new Message("health is <50!", player.x, player.y, 15, "blue") )
+// //move function below messages class
+// //place handleMessages() in animate
