@@ -13,7 +13,7 @@ let weapons3 = []
 let weapons4 = []
 let enemies = []
 let victims = []
-let powersUps = []
+let powerUps = []
 let enemiesInterval = 20 //time between enemies
 let enemyNumbers = 0
 let victimsInterval = 15
@@ -370,19 +370,61 @@ function handleWeapons4() {
 
 //POWERUPS
 
-const enemySprite = new Image()
-enemySprite.src = "./images/monkey2.png"
+const strengthSprite = new Image()
+strengthSprite.src = "./images/strength.png"
+const healthSprite = new Image()
+healthSprite.src = "./images/health.png"
+const plateSprite = new Image()
+plateSprite.src = "./images/plate.png"
 
-const effects = [stregth, speed, health, time]
-class powerUp {
+const effects = ["stregth", "speed", "health", "time"]
+class PowerUp {
     constructor() {
-        this.x = Math.random() * (canvas.width - 100) //dont' want in enemy territory
-        this.y = Math.random() * ((canvas.height - 100) - 100) + 100
-        this.effect = effects[Math.floor(Math.random()*effects.length)]
-        this.width = 142.25 //1138, 712
-        this.height = 142.4
+        this.x = 500 //dont' want in enemy territory
+        this.y = 100
+        // this.effect = effects[Math.floor(Math.random()*effects.length)]
+        this.width = 53
+        this.height = 46
+        this.frameX = 0
+        this.frameY = 0
+        // this.minFrame = 1
+        // this.maxFrame = 4
+    }
+    draw(){
+        ctx.drawImage(plateSprite, 276 * this.frameX, 112 * this.frameY, 276, 112, 400, 100, 276, 112)
+        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height)
+        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x +20, this.y + 15, this.width, this.height)
+        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x +20, this.y + 30, this.width, this.height)
+        ctx.drawImage(healthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, 550, 125, this.width, this.height)
+        ctx.drawImage(healthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, 500, 125, this.width, this.height)
+
+
+        // if (this.frameX < this.maxFrame) this.frameX++; 
+        // else this.frameX = this.minFrame
+        // ctx.fillStyle = "blue"
+        // ctx.font = "30px Arial"
+        // ctx.fillText("Eat me!", this.x, this.y - 25)
+        // ctx.fillText(this.effect, this.x, this.y + 25)
+
     }
 }
+
+function handlePowerups() {
+    if (enemyNumbers === 1) {
+        powerUps.push(new PowerUp())
+    }
+    for (let i = 0; i < powerUps.length; i++) {
+        powerUps[i].draw()
+        if (collision(player, powerUps[i])){
+            // if (powerUps[i].effect === "strength") {
+            //     player.strength 
+            // }
+            powerUps.splice(i, 1)
+            i--
+        }
+    }
+}
+
  
 //ENEMY
 const enemySprite = new Image()
@@ -813,6 +855,7 @@ function animate() {
         handleWeapons2()
         handleWeapons3()
         handleWeapons4()
+        handlePowerups() 
         handleVictims()
         handleMessages()
         GameStatus()
