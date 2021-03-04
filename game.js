@@ -54,7 +54,7 @@ function handleMessages() {
     for (let i = 0; i < messages.length; i++) {
         messages[i].update()
         messages[i].draw()
-        if (messages[i].lifespan >= 20) {
+        if (messages[i].lifeSpan >= 20) {
             messages.splice(i, 1)
             i--
         }
@@ -156,7 +156,7 @@ function killAction() {
         weapons4.push(new Weapon4(player.x + 25, player.y + 50))
     }
     if(keys[32] && (frame % 1.5  === 0) && player.moving ) {
-        messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red") )
+        messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red"))
     }
 }
 
@@ -443,6 +443,9 @@ function handleEnemies() {
             if (player.health <= 0)  {
                 gameOver = true
             }
+            if (player.health === 50) {
+                messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
+            }
         } 
     }
 }
@@ -497,6 +500,9 @@ function handleVictims() {
             }
         }
     }
+    if (livesLost === 10) {
+        messages.push(new Message("Defend the pandas!", canvas.width/2 - 250, canvas.height/2, 60, "red"))
+    } 
 
     if (frame % victimsInterval === 0 ) {//every time frame is divisible by interval, we push new victims into the game. Only add victims if winning score was not reached yet
         let position = 200
