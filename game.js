@@ -6,11 +6,6 @@ canvas.height = 500
 const pauseButton = document.getElementById("pauseButton")
 pauseButton.addEventListener("click", gamePause)
 
-// const restart = document.getElementById("restart")
-// const endGame = document.getElementById('canvas2');
-// const endGamectx = endGame.getContext("2d")
-
-
 let keys = []
 let weapons = []
 let weapons2 = []
@@ -51,15 +46,12 @@ const player = {
     moving: false, //swith between standing + walking
     attacking: false,
     health: 100
-    // timer: 0 //keeps track of charactr's updates
 }
 
 const exclamationSprite = new Image()
 exclamationSprite.src = "./images/exclamation.png" 
 
 const exclamation = {
-    // x: player.x,
-    // y: player.y,
     width: 13,
     height: 19, 
     frameX: 0, 
@@ -70,8 +62,6 @@ const confusedSprite = new Image()
 confusedSprite.src = "./images/confused.png" 
 
 const confused = {
-    // x: player.x,
-    // y: player.y,
     width: 40,
     height: 46, 
     frameX: 0, 
@@ -185,7 +175,7 @@ function handleWeapons() {
         if (weapons[i] && weapons[i].x > canvas.width - 75) {//don't want enemies to be hit when the spawn off-grid
             weapons.splice(i, 1)
             i--
-        } //remove weapons when out of bounds
+        }
     }
 }
 
@@ -366,9 +356,6 @@ function collision(first, second) {
     }
 }
 
-// for (i = 0; i < numberOfEnemies; i++) { //creates more characters
-//     enemies.push(new Enemy())
-// }
 
 function handleEnemies() {
     for (let i = 0; i < enemies.length; i++) {
@@ -382,7 +369,7 @@ function handleEnemies() {
         if (enemies[i] && enemies[i].x < 20) {
             if (victims.length > 0) {
                 victims.splice(0, 1)
-                livesLost += 15
+                livesLost += 1
             }
             enemies.splice(i, 1)
             i-- 
@@ -399,8 +386,6 @@ function handleEnemies() {
 
     if (frame % 100 === 0 && enemies.length > 1) {
         enemiesInterval -= 5
-        // enemies.push(new Enemy(Math.random() * ((canvas.height - 100) - 100) + 100))
-        // if (enemiesInterval <= 0) {gameOver = true}
     }
 
     player
@@ -409,7 +394,6 @@ function handleEnemies() {
             enemies[j].speed = 0
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
-            // ctx.drawImage(confusedSprite, confused.width * confused.frameX, confused.height * confused.frameY, confused.width, confused.height, player.x + 50, player.y - 30, confused.width, confused.height)
             if (confused.frameX < 3) confused.frameX++; 
             else confused.frameX = 0
 
@@ -441,9 +425,6 @@ class Victim {
     }
     draw() {
         drawVictim(victimSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
-        // if (this.frameX < this.maxFrame) this.frameX++; //standing to walking
-        // else this.frameX = this.minFrame
-
     }
     update() {
         
@@ -454,10 +435,6 @@ class Victim {
 function drawVictim(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
 }
-
-// for (i = 0; i < numberOfEnemies; i++) { //creates more characters
-//     enemies.push(new Enemy())
-// }
 
 function handleVictims() {
     for (let i = 0; i < victims.length; i++) {
@@ -475,7 +452,7 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost >= 1)  {
+                if (livesLost >= 15)  {
                     gameOver = true
                 }
             }
@@ -549,7 +526,6 @@ function treeLine() {
     ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 960, 230, tree.width, tree.height)
     ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 955, 300, tree.width, tree.height)
     ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 915, 200, tree.width, tree.height)
-    // ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 925, 230, tree.width, tree.height)
     ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 915, 360, tree2.width, tree2.height)
     ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 930, 0, tree2.width, tree2.height)
     
@@ -579,10 +555,6 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillText("Restart?", 430, 300)
         ctx.fillText("Hit ESC key", 400, 350)
         pauseButton.style.visibility = "hidden"
-        // restart.style.visibility = "visible"
-        // callRestart()
-
-        // displayMenu(gameOverMenu)
     }
     ctx.fillStyle = "red"
     ctx.font = "25px Arial"
@@ -657,9 +629,6 @@ function startAnimating(fps) { //controls speed of char
 
 function callRestart() {
     if (keys[27] && gameOver) {
-        // ctx.clearRect(0, 0, canvas.width, canvas.height)
-        // console.log("hi")
-        // restart = true
          keys = []
          weapons = []
          weapons2 = []
@@ -680,7 +649,6 @@ function callRestart() {
          player.frameX = 0, //changes what picture you're getting. 
          player.frameY = 0
          gameOver = false
-        // animate()
     }
 }
 
@@ -688,14 +656,11 @@ function callRestart() {
 
 function welcome() { //displays amount of resources on controlsbar
         if (paused) {
-            // ctx.clearRect(0, 0, canvas.width, canvas.height); //clear everything behind w/ every animate
             ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
             ctx.fillRect(0,0, controlsBar.width, controlsBar.height)
             ctx.font = "35px Arial"
             ctx.fillStyle = "red"
-            ctx.fillText("Game Paused. Hit ENTER to resume", 180, 40)    
-            // ctx.fillText("Game Paused. Hit ENTER to resume", 180, 200)     
- 
+            ctx.fillText("Game Paused. Hit ENTER to resume", 180, 40)     
     
         }
         ctx.drawImage(pandaHeartSprite, pandaHeart.width * 1, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, pandaHeart.x, 380, pandaHeart.width, pandaHeart.height)
@@ -704,7 +669,6 @@ function welcome() { //displays amount of resources on controlsbar
 
         ctx.drawImage(welcomeSprite, welcomePanda.width * welcomePanda.frameX, welcomePanda.height * welcomePanda.frameY, welcomePanda.width, welcomePanda.height, welcomePanda.x, welcomePanda.y, welcomePanda.width, welcomePanda.height)
 
-        // drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, 360, 380, player.width, player.height) 
         drawSprite(playerSprite, player.width * 1, player.height * 0.1, player.width, player.height, 140, 65, player.width, player.height) 
         ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
         ctx.fillRect(500, 50, 400, 400)
@@ -735,18 +699,6 @@ function welcome() { //displays amount of resources on controlsbar
         }
 }
 
-// function displayMenu(menu) {
-//     ctx.clearRect(0, 0, canvas.width, canvas.height)
-//     menu.style.visibility = "visible"
-    
-// }
-
-// function showMenu() {
-//     if (gameOver) {
-//         displayMenu(gameOverMenu)
-//     }
-// }
-
 function gamePause() {
     paused = true
     pauseButton.style.visibility = "hidden"
@@ -758,8 +710,6 @@ function animate() {
     // restart()
     if (frame === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        // ctx.fillRect(300, 50, 400, 400); //clear everything behind w/ every animate
-        // ctx.fillStyle = "rgba(0, 181, 204, 0.2)"
         welcome()
     }
     requestAnimationFrame(animate)
