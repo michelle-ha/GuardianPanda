@@ -609,6 +609,7 @@ function GameStatus() { //displays amount of resources on controlsbar
         // ctx.font = "60px Arial"
         // ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
         messages.push(new Message("NEW ENEMIES COMING!", 140, 250, 60, "red"))
+        messages.push(new Message("...SOON!", 350, 400, 60, "black"))
     }
 }
 
