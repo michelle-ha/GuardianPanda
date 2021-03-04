@@ -15,6 +15,8 @@
     max-width: 1000px; 
     /* max-height: 600px;  */
     margin: auto;
+    /* z-index: 0 */
+
 }
 
 
@@ -27,7 +29,8 @@
     left: auto;
     top: auto;
     background-color: white;
-    font-size: 25px
+    font-size: 25px;
+    /* z-index: 1 */
 }
 
 
