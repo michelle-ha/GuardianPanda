@@ -139,25 +139,45 @@ function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
 }
 
 function killAction() {
-    if(player.frameY === 2.1 && keys[32] && (frame % 1.5  === 0) && !player.moving ) {//facing right
+    if (keys[32] && !player.moving && (frame % 1.5  === 0)) {
         player.attacking
-        weapons.push(new Weapon(player.x + 15, player.y + 30))
+        if(player.frameY === 2.1 ) {//facing right
+            weapons.push(new Weapon(player.x + 15, player.y + 30))
+        }
+        if(player.frameY === 1) {//facing left
+            weapons2.push(new Weapon2(player.x + 25, player.y + 30))
+        }
+        if(player.frameY === 3.1) {//facing up
+            weapons3.push(new Weapon3(player.x + 25, player.y ))
+        }
+        if(player.frameY === 0 ) {//facing down
+            weapons4.push(new Weapon4(player.x + 25, player.y + 50))
+        }
     }
-    if(player.frameY === 1 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing left
-        player.attacking
-        weapons2.push(new Weapon2(player.x + 25, player.y + 30))
-    }
-    if(player.frameY === 3.1 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing up
-        player.attacking
-        weapons3.push(new Weapon3(player.x + 25, player.y ))
-    }
-    if(player.frameY === 0 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing down
-        player.attacking
-        weapons4.push(new Weapon4(player.x + 25, player.y + 50))
-    }
-    if(keys[32] && (frame % 1.5  === 0) && player.moving ) {
+    
+    if(keys[32] && player.moving ) {
         messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red"))
     }
+        
+    // if(player.frameY === 2.1 && keys[32] && (frame % 1.5  === 0) && !player.moving ) {//facing right
+    //     player.attacking
+    //     weapons.push(new Weapon(player.x + 15, player.y + 30))
+    // }
+    // if(player.frameY === 1 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing left
+    //     player.attacking
+    //     weapons2.push(new Weapon2(player.x + 25, player.y + 30))
+    // }
+    // if(player.frameY === 3.1 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing up
+    //     player.attacking
+    //     weapons3.push(new Weapon3(player.x + 25, player.y ))
+    // }
+    // if(player.frameY === 0 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing down
+    //     player.attacking
+    //     weapons4.push(new Weapon4(player.x + 25, player.y + 50))
+    // }
+    // if(keys[32] && (frame % 1.5  === 0) && player.moving ) {
+    //     messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red"))
+    // }
 }
 
 function handlePlayerFrame() { //walking animation

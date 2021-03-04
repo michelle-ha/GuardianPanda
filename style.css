@@ -10,7 +10,7 @@
 }
 
 * {
-    /* overflow: hidden; */
+    overflow: hidden;
     background: rgb(211, 211, 211);
     max-width: 1000px; 
     /* max-height: 600px;  */
