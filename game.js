@@ -13,6 +13,7 @@ let weapons3 = []
 let weapons4 = []
 let enemies = []
 let victims = []
+let powersUps = []
 let enemiesInterval = 20 //time between enemies
 let enemyNumbers = 0
 let victimsInterval = 15
@@ -366,6 +367,22 @@ function handleWeapons4() {
         } 
     }
 }
+
+//POWERUPS
+
+const enemySprite = new Image()
+enemySprite.src = "./images/monkey2.png"
+
+const effects = [stregth, speed, health, time]
+class powerUp {
+    constructor() {
+        this.x = Math.random() * (canvas.width - 100) //dont' want in enemy territory
+        this.y = Math.random() * ((canvas.height - 100) - 100) + 100
+        this.effect = effects[Math.floor(Math.random()*effects.length)]
+        this.width = 142.25 //1138, 712
+        this.height = 142.4
+    }
+}
  
 //ENEMY
 const enemySprite = new Image()
@@ -698,6 +715,7 @@ function callRestart() {
          weapons4 = []
          enemies = []
          victims = []
+         powerUps = []
          enemiesInterval = 20 
          enemyNumbers = 0
          victimsInterval = 15
