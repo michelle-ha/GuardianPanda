@@ -383,8 +383,8 @@ class PowerUp {
         this.x = 500 //dont' want in enemy territory
         this.y = 100
         // this.effect = effects[Math.floor(Math.random()*effects.length)]
-        this.width = 53
-        this.height = 46
+        this.width = 200
+        this.height = 75
         this.frameX = 0
         this.frameY = 0
         // this.minFrame = 1
@@ -395,11 +395,11 @@ class PowerUp {
         ctx.fillStyle = "red"
         ctx.font = "30px Arial"
         ctx.fillText("Eat me!", 550,105)
-        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height)
-        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x +20, this.y + 50, this.width, this.height)
-        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x +40, this.y + 15, this.width, this.height)
-        ctx.drawImage(healthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, 575, 125, this.width, this.height)
-        ctx.drawImage(healthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, 470, 125, this.width, this.height)
+        ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x, this.y, 53, 46)
+        ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x +20, this.y + 50, 53, 46)
+        ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x +40, this.y + 15, 53, 46)
+        ctx.drawImage(healthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, 575, 125, 53, 46)
+        ctx.drawImage(healthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, 470, 125, 53, 46)
 
 
         // if (this.frameX < this.maxFrame) this.frameX++; 
@@ -422,6 +422,10 @@ function handlePowerups() {
             // if (powerUps[i].effect === "strength") {
             //     player.strength 
             // }
+            messages.push(new Message("Strength +50! ", powerUps[i].x, powerUps[i].y, 20, "blue"))
+            messages.push(new Message("Health restored! ", powerUps[i].x, powerUps[i].y + 40, 20, "blue"))
+            player.strength += 50
+            player.health = 100
             powerUps.splice(i, 1)
             i--
         }
