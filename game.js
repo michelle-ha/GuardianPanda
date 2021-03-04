@@ -391,12 +391,15 @@ class PowerUp {
         // this.maxFrame = 4
     }
     draw(){
-        ctx.drawImage(plateSprite, 276 * this.frameX, 112 * this.frameY, 276, 112, 400, 100, 276, 112)
+        ctx.drawImage(plateSprite, 276 * this.frameX, 112 * this.frameY, 276, 112, 430, 100, 276, 112)
+        ctx.fillStyle = "red"
+        ctx.font = "30px Arial"
+        ctx.fillText("Eat me!", 550,105)
         ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height)
-        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x +20, this.y + 15, this.width, this.height)
-        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x +20, this.y + 30, this.width, this.height)
-        ctx.drawImage(healthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, 550, 125, this.width, this.height)
-        ctx.drawImage(healthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, 500, 125, this.width, this.height)
+        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x +20, this.y + 50, this.width, this.height)
+        ctx.drawImage(strengthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x +40, this.y + 15, this.width, this.height)
+        ctx.drawImage(healthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, 575, 125, this.width, this.height)
+        ctx.drawImage(healthSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, 470, 125, this.width, this.height)
 
 
         // if (this.frameX < this.maxFrame) this.frameX++; 
