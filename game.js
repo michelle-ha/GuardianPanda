@@ -83,7 +83,8 @@ const player = {
     speed: 10, 
     moving: false, //swith between standing + walking
     attacking: false,
-    health: 100
+    health: 100,
+    strength: 50
 }
 
 const exclamationSprite = new Image()
@@ -198,7 +199,7 @@ class Weapon {
         this.y = y
         this.width = 22 //87x26
         this.height = 26
-        this.power = 50 //changes depending onprojectile/powerup, etc
+        // this.power = 50 //changes depending onprojectile/powerup, etc
         this.speed = 15
         this.frameX = 0
         this.frameY = 0
@@ -226,7 +227,7 @@ function handleWeapons() {
             if (enemies[j] && weapons[i] && collision(weapons[i], enemies[j])) {
                 enemies[j].frameY = 4 
                 enemies[j].frameX = 0
-                enemies[j].health -= weapons[i].power
+                enemies[j].health -= player.strength
                 weapons.splice(i, 1) //remove projectile that collided
                 i--
             }
@@ -245,7 +246,7 @@ class Weapon2 {
         this.y = y
         this.width = 22
         this.height = 26
-        this.power = 50 
+        // this.power = 50 
         this.speed = 15
         this.frameX = 0
         this.frameY = 0
@@ -269,7 +270,7 @@ function handleWeapons2() {
             if (enemies[j] && weapons2[i] && collision(weapons2[i], enemies[j])) {
                 enemies[j].frameY = 4 
                 enemies[j].frameX = 0
-                enemies[j].health -= weapons2[i].power
+                enemies[j].health -= player.strength
                 weapons2.splice(i, 1) 
                 i--
             }
@@ -288,7 +289,7 @@ class Weapon3 {
         this.y = y
         this.width = 22
         this.height = 26
-        this.power = 50 
+        // this.power = 50 
         this.speed = 15
         this.frameX = 0
         this.frameY = 0
@@ -312,7 +313,7 @@ function handleWeapons3() {
             if (enemies[j] && weapons3[i] && collision(weapons3[i], enemies[j])) {
                 enemies[j].frameY = 4 
                 enemies[j].frameX = 0
-                enemies[j].health -= weapons3[i].power
+                enemies[j].health -= player.power
                 weapons3.splice(i, 1) 
                 i--
             }
@@ -331,7 +332,7 @@ class Weapon4 {
         this.y = y
         this.width = 22
         this.height = 26
-        this.power = 50 
+        // this.power = 50 
         this.speed = 15
         this.frameX = 0
         this.frameY = 0
@@ -355,7 +356,7 @@ function handleWeapons4() {
             if (enemies[j] && weapons4[i] && collision(weapons4[i], enemies[j])) {
                 enemies[j].frameY = 4 
                 enemies[j].frameX = 0
-                enemies[j].health -= weapons4[i].power
+                enemies[j].health -= player.strength
                 weapons4.splice(i, 1) 
                 i--
             }
@@ -383,8 +384,8 @@ class PowerUp {
         this.x = 500 //dont' want in enemy territory
         this.y = 100
         // this.effect = effects[Math.floor(Math.random()*effects.length)]
-        this.width = 200
-        this.height = 75
+        this.width = 207
+        this.height = 84
         this.frameX = 0
         this.frameY = 0
         // this.minFrame = 1
@@ -394,12 +395,13 @@ class PowerUp {
         ctx.drawImage(plateSprite, 276 * this.frameX, 112 * this.frameY, 276, 112, 430, 100, 276, 112)
         ctx.fillStyle = "red"
         ctx.font = "30px Arial"
-        ctx.fillText("Eat me!", 550,105)
+        ctx.fillText("Eat me!", 500,100)
         ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x, this.y, 53, 46)
-        ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x +20, this.y + 50, 53, 46)
+        ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x +10, this.y + 30, 53, 46)
+        ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x +65, this.y + 10, 53, 46)
         ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x +40, this.y + 15, 53, 46)
-        ctx.drawImage(healthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, 575, 125, 53, 46)
-        ctx.drawImage(healthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, 470, 125, 53, 46)
+        ctx.drawImage(healthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, 480, 125, 53, 46)
+        ctx.drawImage(healthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, 450, 125, 53, 46)
 
 
         // if (this.frameX < this.maxFrame) this.frameX++; 
@@ -413,7 +415,7 @@ class PowerUp {
 }
 
 function handlePowerups() {
-    if (enemyNumbers === 1) {
+    if (enemyNumbers === 20) {
         powerUps.push(new PowerUp())
     }
     for (let i = 0; i < powerUps.length; i++) {
@@ -424,7 +426,7 @@ function handlePowerups() {
             // }
             messages.push(new Message("Strength +50! ", powerUps[i].x, powerUps[i].y, 20, "blue"))
             messages.push(new Message("Health restored! ", powerUps[i].x, powerUps[i].y + 40, 20, "blue"))
-            player.strength += 50
+            player.strength = 100
             player.health = 100
             powerUps.splice(i, 1)
             i--
