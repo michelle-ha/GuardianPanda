@@ -512,13 +512,13 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost >= 10)  {
+                if (livesLost >= 15)  {
                     gameOver = true
                 }
             }
         }
     }
-    if (livesLost === 1) {
+    if (livesLost === 10) {
         messages.push(new Message("Protect the pandas!", 70, 150, 30, "red"))
     } 
 
