@@ -347,7 +347,6 @@ function handleWeapons4() {
     }
 }
  
-
 //ENEMY
 const enemySprite = new Image()
 enemySprite.src = "./images/monkey2.png"
@@ -394,7 +393,6 @@ function collision(first, second) {
         return true
     }
 }
-
 
 function handleEnemies() {
     for (let i = 0; i < enemies.length; i++) {
@@ -510,7 +508,6 @@ function handleVictims() {
     }
 }
 
-
 //GAMEBOARD
 
 const controlsBar = { //bar on top of game w/ controls/score/etc
@@ -575,8 +572,6 @@ function treeLine() {
     ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 930, 0, tree2.width, tree2.height)
     
 }
-
-
 
 //GAME STATUS
 
@@ -699,8 +694,6 @@ function callRestart() {
     }
 }
 
-
-
 function welcome() { //displays amount of resources on controlsbar
         if (paused) {
             ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
@@ -732,8 +725,6 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.fillText("cause is lost if more than 15 pandas are taken", 510, 180)
         ctx.fillText("or you die. If a monkey gets to the end of the", 510, 200)
         ctx.fillText("board without touching a panda, that still counts!", 510, 220)
-
-
         ctx.font = "25px Arial"
         ctx.fillText("Movement: ", 510, 280) 
         ctx.drawImage(spacebarSprite, spacebar.width * spacebar.frameX, spacebar.height * spacebar.frameY, spacebar.width, spacebar.height, spacebar.x, spacebar.y, spacebar.width, spacebar.height)
@@ -790,7 +781,6 @@ function animate() {
         frame ++ //adds a frame with every animation
     }
     callRestart()
-
 }
 
 startAnimating(10) //arg = fps
@@ -798,50 +788,4 @@ startAnimating(10) //arg = fps
 window.addEventListener("resize", function() { //keeps the characters from getting re-sized with window size changes
     canvas.width = 1000
     canvas.height = 500
-
 })
-
-
-
-// ////////////////////NOOOOOOOOOOOOOOOOOOTES//////////////////////////
-
-// // Messages:
-// const messages = []
-// class message {
-//     constructor(value, x, x, size, color) { //size = text size
-//         this.value = value
-//         this.x = x
-//         this.y = y
-//         this.size = size
-//         this.lifeSpan = 0 //how long the message lasts
-//         this.opacity = 1 
-//     }
-//     update() {
-//         this.y -= 0.3 //message floats up
-//         this.lifeSpan += 1
-//         if (this.opacity > 0.01) this.opacity -= 0.01 //increase transparency
-//     }
-//     draw() {
-//         ctx.globalAlpha = this.opacity //affects everything drawn on canvas
-//         ctx.fillStyle = this.color //dif color for dif categories
-//         ctx.font = this.size + 'px Arial'
-//         ctx.fillText(this.draw, this.x, this.y)
-//         ctx.globalAlpha = 1 //reset back
-//     }
-// }
-
-// function handleMessages() {
-//     for (let i = 0; i < messages.length; i++) {
-//         messages[i].update()
-//         messages[i].draw()
-//         if (messages[i].lifespan >= 50) {
-//             messages.splice(i, 1)
-//             i--
-//         }
-//     }
-// }
-
-// //add messages by pushing into array from any function
-// //EXAMPLE: if low on health, messages.push(new Message("health is <50!", player.x, player.y, 15, "blue") )
-// //move function below messages class
-// //place handleMessages() in animate
