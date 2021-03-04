@@ -512,14 +512,14 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost >= 15)  {
+                if (livesLost >= 10)  {
                     gameOver = true
                 }
             }
         }
     }
-    if (livesLost === 10) {
-        messages.push(new Message("Defend the pandas!", canvas.width/2 - 250, canvas.height/2, 60, "red"))
+    if (livesLost === 1) {
+        messages.push(new Message("Protect the pandas!", 70, 150, 30, "red"))
     } 
 
     if (frame % victimsInterval === 0 ) {//every time frame is divisible by interval, we push new victims into the game. Only add victims if winning score was not reached yet
