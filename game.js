@@ -287,7 +287,7 @@ class Weapon4 {
         this.frameY = 0
     }
     update() {
-            this.y += this.speed //weapon moves up
+            this.y += this.speed //weapon moves down
     }
     draw() {
         drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
@@ -311,7 +311,7 @@ function handleWeapons4() {
             }
         }
 
-        if (weapons4[i] && weapons4[i].y < 0) {
+        if (weapons4[i] && weapons4[i].y > canvas.height) {
             weapons4.splice(i, 1)
             i--
         } 
@@ -576,8 +576,8 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillText("YOU LOST", 345, 200)
         ctx.fillStyle = "white"
         ctx.font = "40px Arial"
-        ctx.fillText("Restart?", 425, 300)
-        ctx.fillText("Hit ESC key", 380, 350)
+        ctx.fillText("Restart?", 430, 300)
+        ctx.fillText("Hit ESC key", 400, 350)
         pauseButton.style.visibility = "hidden"
         // restart.style.visibility = "visible"
         // callRestart()
