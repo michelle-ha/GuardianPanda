@@ -11,7 +11,10 @@
 
 * {
     overflow: hidden;
-    background: rgb(211, 211, 211)
+    background: rgb(211, 211, 211);
+    max-width: 1000px; 
+    max-height: 500px; 
+    margin: auto;
 }
 
 
@@ -33,4 +36,21 @@
     cursor: pointer;
     font-weight: bold;
     color: white
+}
+
+#footer {
+    /* margin-top: 85px; */
+    position: absolute;
+    top: 96%;
+    background: none;
+}
+
+a {
+    background: none;
+    text-decoration: none
+}
+
+a:hover {
+    font-weight: bold;
+    cursor: pointer;
 }
