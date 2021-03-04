@@ -24,7 +24,7 @@
     width: 15%;
     visibility: hidden;
     position: absolute;
-    left: 17.4%;
+    left: auto;
     top: 10%;
     background-color: white;
     font-size:25px
