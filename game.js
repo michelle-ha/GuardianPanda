@@ -752,3 +752,29 @@ window.addEventListener("resize", function() { //keeps the characters from getti
     canvas.height = 500
 
 })
+
+
+
+// ////////////////////NOOOOOOOOOOOOOOOOOOTES//////////////////////////
+
+// Messages:
+// const messages = []
+// class message {
+//     constructor(value, x, x, size, color) { //size = text size
+//         this.value = value
+//         this.x = x
+//         this.y = y
+//         this.size = size
+//         this.lifeSpan = 0 //how longthe message lasts
+//         this.opacity = 1 
+//     }
+//     update() {
+//         this.y -= 0.3 //message floats up
+//         this.lifeSpan += 1
+//         if (this.opacity > 0.01) this.opacity -= 0.01 //increase transparency
+//     }
+//     draw() {
+//         ctx.fillStyle = this.color //dif color for dif categories
+//     }
+// }
+// 5:19
