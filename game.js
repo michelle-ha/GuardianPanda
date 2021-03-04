@@ -382,7 +382,7 @@ function handleEnemies() {
         if (enemies[i] && enemies[i].x < 20) {
             if (victims.length > 0) {
                 victims.splice(0, 1)
-                livesLost += 1
+                livesLost += 15
             }
             enemies.splice(i, 1)
             i-- 

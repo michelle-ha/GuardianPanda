@@ -14,28 +14,23 @@
     background: rgb(211, 211, 211)
 }
 
-#controls {
+
+#pauseButton {
+    /* margin-top: 65px; */
+    height: 40px;
+    width: 15%;
     visibility: hidden;
+    position: absolute;
+    left: 17.4%;
+    top: 10%;
+    background-color: white;
+    font-size:25px
 }
 
-/* #gameOver {
-    position: absolute;
-    visibility: hidden;
-} */
 
-/* #restart {
-    position: absolute;
-    visibility: hidden;
-    width: 25%;
-    height: 5%;
-} */
-
-/* #canvas2 {
-    width: 1000px; 
-    height: 500px;
-    border: 1px solid black;
-    background: url('./images/background2.jpg');
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
+#pauseButton:hover {
+    background-color: grey;
+    cursor: pointer;
+    font-weight: bold;
+    color: white
+}
