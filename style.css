@@ -10,22 +10,22 @@
 }
 
 * {
-    overflow: hidden;
+    /* overflow: hidden; */
     background: rgb(211, 211, 211);
     max-width: 1000px; 
-    max-height: 500px; 
+    max-height: 800px; 
     margin: auto;
 }
 
 
 #pauseButton {
-    /* margin-top: 65px; */
+    margin-top: 5px;
     height: 40px;
     width: 15%;
     visibility: hidden;
     position: absolute;
     left: auto;
-    top: 10%;
+    top: auto%;
     background-color: white;
     font-size:25px
 }
