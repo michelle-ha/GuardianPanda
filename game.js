@@ -116,7 +116,7 @@ window.addEventListener("keyup", function(e) {
     player.moving = false
 })
 
-function movePlayer() { //NOTE: CHANGE MARGINS WHEN WE PUT IN VICTIMS
+function movePlayer() { 
     if (keys[38] && player.y > 40) { //38 = up arrow on keyboard. Prevents player from moving off-screen
         player.y -= player.speed //moves in negative direction along y axis (moves up)
         player.frameY = 3.1 //character's position changes so it looks like he'ss facing away
@@ -180,7 +180,6 @@ class Weapon {
         this.direction = direction
         this.width = 22 //87x26
         this.height = 28
-        // this.power = 50 //changes depending onprojectile/powerup, etc
         this.speed = 15
         this.frameX = 0
         this.frameY = 0
@@ -223,12 +222,12 @@ function handleWeapons() {
             }
         }
 
-        for (let k = 0; k < enemies2.length; k++ ) { //cyce through weapons to check for collision
+        for (let k = 0; k < enemies2.length; k++ ) { 
             if (enemies2[k] && weapons[i] && collision(weapons[i], enemies2[k])) {
                 enemies2[k].frameY = 1 
                 enemies2[k].frameX = 0
                 enemies2[k].health -= player.strength
-                weapons.splice(i, 1) //remove projectile that collided
+                weapons.splice(i, 1) 
                 i--
             }
         }
@@ -260,8 +259,6 @@ class PowerUp {
         this.height = 84
         this.frameX = 0
         this.frameY = 0
-        // this.minFrame = 1
-        // this.maxFrame = 4
     }
     draw(){
         ctx.drawImage(plateSprite, 276 * this.frameX, 112 * this.frameY, 276, 112, 430, 100, 276, 112)
@@ -469,8 +466,6 @@ function handleEnemies2() {
     }
 }
 
-
-
 //VICTIM
 
 const victimSprite = new Image()
@@ -602,7 +597,6 @@ function treeLine() {
     ctx.drawImage(treeSprite, tree.width * tree.frameX, tree.height * tree.frameY, tree.width, tree.height, 915, 200, tree.width, tree.height)
     ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 915, 360, tree2.width, tree2.height)
     ctx.drawImage(treeSprite, tree2.width * tree2.frameX, tree2.height * tree2.frameY, tree2.width, tree2.height, 930, 0, tree2.width, tree2.height)
-    
 }
 
 //GAME STATUS
@@ -639,7 +633,6 @@ function GameStatus() { //displays amount of resources on controlsbar
         messages.push(new Message("PANDAS?!", 350, 300, 60, "red"))
     }
 }
-
 
 const spacebarSprite = new Image()
 spacebarSprite.src = "./images/spacebar.png" 
