@@ -200,7 +200,7 @@ class Weapon {
         this.x = x
         this.y = y
         this.width = 22 //87x26
-        this.height = 26
+        this.height = 28
         // this.power = 50 //changes depending onprojectile/powerup, etc
         this.speed = 15
         this.frameX = 0
@@ -235,6 +235,16 @@ function handleWeapons() {
             }
         }
 
+        for (let k = 0; k < enemies2.length; k++ ) { //cyce through weapons to check for collision
+            if (enemies2[k] && weapons[i] && collision(weapons[i], enemies2[k])) {
+                // enemies2[k].frameY = 4 
+                // enemies2[k].frameX = 0
+                enemies2[k].health -= player.strength
+                weapons.splice(i, 1) //remove projectile that collided
+                i--
+            }
+        }
+
         if (weapons[i] && weapons[i].x > canvas.width - 75) {//don't want enemies to be hit when the spawn off-grid
             weapons.splice(i, 1)
             i--
@@ -247,7 +257,7 @@ class Weapon2 {
         this.x = x
         this.y = y
         this.width = 22
-        this.height = 26
+        this.height = 27
         // this.power = 50 
         this.speed = 15
         this.frameX = 0
@@ -278,6 +288,16 @@ function handleWeapons2() {
             }
         }
 
+        for (let k = 0; k < enemies2.length; k++ ) { 
+            if (enemies2[k] && weapons2[i] && collision(weapons2[i], enemies2[k])) {
+                // enemies2[k].frameY = 4 
+                // enemies2[k].frameX = 0
+                enemies2[k].health -= player.strength
+                weapons2.splice(i, 1) 
+                i--
+            }
+        }
+
         if (weapons2[i] && weapons2[i].x < 0) {
             weapons2.splice(i, 1)
             i--
@@ -290,7 +310,7 @@ class Weapon3 {
         this.x = x
         this.y = y
         this.width = 22
-        this.height = 26
+        this.height = 27
         // this.power = 50 
         this.speed = 15
         this.frameX = 0
@@ -315,7 +335,17 @@ function handleWeapons3() {
             if (enemies[j] && weapons3[i] && collision(weapons3[i], enemies[j])) {
                 enemies[j].frameY = 4 
                 enemies[j].frameX = 0
-                enemies[j].health -= player.power
+                enemies[j].health -= player.strength
+                weapons3.splice(i, 1) 
+                i--
+            }
+        }
+
+        for (let k = 0; k < enemies2.length; k++ ) { 
+            if (enemies2[k] && weapons3[i] && collision(weapons3[i], enemies2[k])) {
+                // enemies2[k].frameY = 4 
+                // enemies2[k].frameX = 0
+                enemies2[k].health -= player.strength
                 weapons3.splice(i, 1) 
                 i--
             }
@@ -333,7 +363,7 @@ class Weapon4 {
         this.x = x
         this.y = y
         this.width = 22
-        this.height = 26
+        this.height = 27
         // this.power = 50 
         this.speed = 15
         this.frameX = 0
@@ -359,6 +389,16 @@ function handleWeapons4() {
                 enemies[j].frameY = 4 
                 enemies[j].frameX = 0
                 enemies[j].health -= player.strength
+                weapons4.splice(i, 1) 
+                i--
+            }
+        }
+
+        for (let j = 0; j < enemies2.length; j++ ) { 
+            if (enemies2[j] && weapons4[i] && collision(weapons4[i], enemies2[j])) {
+                enemies2[j].frameY = 4 
+                enemies2[j].frameX = 0
+                enemies2[j].health -= player.strength
                 weapons4.splice(i, 1) 
                 i--
             }
@@ -546,14 +586,14 @@ enemy2Sprite.src = "./images/walking_pandaEnemy.png"
 class Enemy2 {
     constructor(){
         this.width = 57 //786x69
-        this.height = 73
+        this.height = 75
         this.frameX = 0
         this.frameY = 0
         this.minFrame = 1
         this.maxFrame = 6
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 40 
-        this.speed = (Math.random()*1.5) + 15
+        this.speed = (Math.random()*1.5) + 8
         this.health = 200
         this.maxHealth = this.health
     }
@@ -607,7 +647,7 @@ function handleEnemies2() {
 
             // enemies[j].frameY = 4 
             // enemies[j].frameX = 0
-            enemies2[j].health -= 50
+            enemies2[j].health -= 100
             player.health -= 5
             // if (player.health <= 0)  {
             //     gameOver = true
