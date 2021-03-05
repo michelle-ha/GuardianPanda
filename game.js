@@ -96,15 +96,15 @@ const exclamation = {
     frameY: 0, 
 }
 
-const confusedSprite = new Image()
-confusedSprite.src = "./images/confused.png" 
+// const confusedSprite = new Image()
+// confusedSprite.src = "./images/confused.png" 
 
-const confused = {
-    width: 40,
-    height: 46, 
-    frameX: 0, 
-    frameY: 0, 
-}
+// const confused = {
+//     width: 40,
+//     height: 46, 
+//     frameX: 0, 
+//     frameY: 0, 
+// }
 
 
 window.addEventListener("keydown", function(e) {
@@ -275,15 +275,15 @@ class PowerUp {
 }
 
 function handlePowerups() {
-    if (enemyNumbers === 18) {
+    if (enemyNumbers === 19 || enemyNumbers === 40) {
         powerUps.push(new PowerUp())
     }
     for (let i = 0; i < powerUps.length; i++) {
         powerUps[i].draw()
         if (collision(player, powerUps[i])){
-            messages.push(new Message("Strength +50! ", powerUps[i].x, powerUps[i].y, 20, "blue"))
+            messages.push(new Message("Strength increased! ", powerUps[i].x, powerUps[i].y, 20, "blue"))
             messages.push(new Message("Health restored! ", powerUps[i].x, powerUps[i].y + 40, 20, "blue"))
-            player.strength = 100
+            player.strength += 10
             player.health = 100
             powerUps.splice(i, 1)
             i--
@@ -338,6 +338,10 @@ function collision(first, second) {
 
 const healthBarSprite = new Image()
 healthBarSprite.src = "./images/healthbar1.png"
+// const fullhealthSprite = new Image()
+// fullhealthSprite.src = "./images/fullhealth.png"
+// const halfhealthSprite = new Image()
+// halfhealthSprite.src = "./images/halfhealth.png"
 
 function handleEnemies() {
     for (let i = 0; i < enemies.length; i++) {
@@ -375,8 +379,8 @@ function handleEnemies() {
             enemies[j].speed = 0
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
-            if (confused.frameX < 3) confused.frameX++; 
-            else confused.frameX = 0
+            // if (confused.frameX < 3) confused.frameX++; 
+            // else confused.frameX = 0
 
             enemies[j].frameY = 4 
             enemies[j].frameX = 0
@@ -389,9 +393,17 @@ function handleEnemies() {
         gameOver = true
     }
     
-    if (player.health <= 70) {
+    if (player.health <= 33) {
         ctx.drawImage(healthBarSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
     }
+
+    // if (player.health <= 33) {
+    //     ctx.drawImage(healthBarSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
+    // } else if (player.health > 33 && player.health <= 66) {
+    //     ctx.drawImage(halfhealthSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
+    // } else {
+    //     ctx.drawImage(fullhealthSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15)
+    // }
 }
 
 //ENEMY2
@@ -630,7 +642,10 @@ function GameStatus() { //displays amount of resources on controlsbar
         // messages.push(new Message("PANDAS?!", 350, 400, 60, "red"))
     }
     if (enemyNumbers === 19) {
-        messages.push(new Message("PANDAS?!", 350, 300, 60, "red"))
+        messages.push(new Message("PANDAS?!", 350, 300, 80, "red"))
+    }
+    if (enemyNumbers === 40) {
+        messages.push(new Message("THE BOSS!", 350, 300, 80, "red"))
     }
 }
 
