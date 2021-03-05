@@ -305,7 +305,6 @@ function handlePowerups() {
             messages.push(new Message("Strength increased! ", powerUps[i].x, powerUps[i].y, 20, "blue"))
             messages.push(new Message("Speed increased! ", powerUps[i].x, powerUps[i].y + 40, 20, "green"))
             messages.push(new Message("Health restored! ", powerUps[i].x, powerUps[i].y + 80, 20, "pink"))
-            console.log(player.strength)
             if (enemyNumbers < 30) {
                 player.strength = 150
                 player.speed = 12.5
