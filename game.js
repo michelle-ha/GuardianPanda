@@ -11,6 +11,7 @@ let weapons = []
 let enemies = []
 let enemies2 = []
 let enemies3 = []
+let boss = []
 let victims = []
 let powerUps = []
 let enemiesInterval = 20 //time between enemies
@@ -243,6 +244,14 @@ function handleWeapons() {
                 enemies3[m].frameY = 1
                 enemies3[m].frameX = 0
                 enemies3[m].health -= player.strength
+                weapons.splice(i, 1) 
+                i--
+            }
+        }
+
+        for (let n = 0; n < boss.length; n++ ) { 
+            if (boss[n] && weapons[i] && collision(weapons[i], boss[n])) {
+                boss[n].health -= player.strength
                 weapons.splice(i, 1) 
                 i--
             }
@@ -506,10 +515,8 @@ function handleEnemies2() {
     }
 }
 
-//ENEMY 3 + BOSS
 
-
-//ENEMY2
+//ENEMY3
 const enemy3Sprite = new Image()
 // enemy2Sprite.src = "./images/walking_pandaEnemy2.png"
 enemy3Sprite.src = "./images/walking_pandaEnemy2.png"
@@ -558,6 +565,7 @@ function handleEnemies3() {
             i-- 
         }
     }  
+    // if (frame % enemiesInterval3 === 0 && (enemyNumbers >= 40 && enemyNumbers <= 60)) {
     if (frame % enemiesInterval3 === 0 && (enemyNumbers >= 40 && enemyNumbers <= 60)) {
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies3.push(new Enemy3(verticalPosition))
@@ -580,6 +588,82 @@ function handleEnemies3() {
             
         } 
     }
+}
+
+//BOSS
+const bossSprite = new Image()
+bossSprite.src = "./images/boss.png"
+
+class Boss {
+    constructor(){
+        this.width = 332.5
+        this.height = 337
+        this.frameX = 0
+        this.frameY = 0
+        // this.minFrame = 1
+        // this.maxFrame = 2
+        this.x = canvas.width
+        this.y = 0 
+        this.speed = 2
+        this.health = 10000
+        this.maxHealth = this.health
+    }
+    draw() {
+        ctx.drawImage(bossSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        // if (this.frameX < this.maxFrame) this.frameX++; 
+        // else this.frameX = this.minFrame
+
+    }
+    update() {
+        
+        this.x -= this.speed 
+    }
+}
+
+function handleboss() {
+    for (let i = 0; i < boss.length; i++) {
+        boss[i].update()
+        boss[i].draw()
+        if (boss[i].health <= 0) {
+            score += boss[i].maxHealth/10
+            boss.splice(i, 1)
+            i-- 
+        }
+        if (boss[i] && boss[i].x < 20) {
+            // if (victims.length > 0) {
+            //     victims.splice(0, 1)
+            //     livesLost += 1
+            // }
+            // boss.splice(i, 1)
+            // i-- 
+            gameOver = true
+        }
+    }  
+    // if (frame % enemiesInterval3 === 0 && (enemyNumbers >= 40 && enemyNumbers <= 60)) {
+    //     let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
+    //     enemies3.push(new Enemy3(verticalPosition))
+    //     enemyNumbers += 1
+    // }
+
+    // if (frame % 100 === 0 && enemies3.length > 1) {
+    //     enemiesInterval3 -= 5
+    // }
+    if (enemyNumbers === 40 && boss.length === 0) {
+        boss.push(new Boss)
+    }
+
+    // for (let j = 0; j < enemies3.length; j++){
+    //     if(collision(player, boss)){
+    //         boss.speed = 0
+    //         ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
+    //         ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height) 
+    //         // boss.frameY = 1
+    //         // boss.frameX = 0
+    //         boss.health = 0
+    //         player.health -= 15
+            
+    //     } 
+    // }
 }
 
 
@@ -766,6 +850,7 @@ function GameStatus() { //displays amount of resources on controlsbar
     }
     if (enemyNumbers === 40) {
         messages.push(new Message("THE BOSS!", 350, 300, 80, "red"))
+        messages.push(new Message("Don't let him get to the pandas!", 350, 350, 30, "red"))
         powerUps.push(new PowerUp())
     }
     if (gameOver) {
@@ -850,10 +935,13 @@ function callRestart() {
          weapons = []
          enemies = []
          enemies2 = []
+         enemies3 = []
+        boss = []
          victims = []
          powerUps = []
          enemiesInterval = 20 
          enemiesInterval2 = 20
+         enemiesInterval3 = 20
          enemyNumbers = 0
          victimsInterval = 15
          frame = 1
@@ -948,6 +1036,7 @@ function animate() {
         handleEnemies()
         handleEnemies2()
         handleEnemies3()
+        handleboss()
         handleWeapons()
         handlePowerups() 
         handleVictims()
