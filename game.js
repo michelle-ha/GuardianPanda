@@ -194,6 +194,20 @@ function drawWeapon(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
 }
 
+// const angrySprite = new Image()
+// angrySprite.src = "./images/angry_face.png"
+
+// const angry = {
+//     x: , 
+//     y: ,
+//     width: , 
+//     height: , 
+//     frameX: , 
+//     frameY: 
+// }
+
+// ctx.drawImage(angrySprite, angry.width * 1, angry.height * angry.frameY, angry.width, angry.height, angry.x, 380, angry.width, angry.height)
+
 function handleWeapons() {
     for (let i = 0; i < weapons.length; i++){
         weapons[i].update()
