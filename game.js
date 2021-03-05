@@ -140,7 +140,7 @@ function movePlayer() {
 }
 
 function killAction() {
-    if (keys[32] && !player.moving && (frame % 1.5  === 0)) {
+    if (keys[32] &&  (frame % 1.25  === 0)) {
         player.attacking
         if(player.frameY === 2.1 ) {//facing right
             weapons.push(new Weapon(player.x + 15, player.y + 30, "right"))
@@ -156,9 +156,9 @@ function killAction() {
         }
     }
     
-    if(keys[32] && player.moving ) {
-        messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red"))
-    }
+    // if(keys[32] && player.moving ) {
+    //     messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red"))
+    // }
 
 }
 
@@ -756,8 +756,10 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.drawImage(spacebarSprite, spacebar.width * spacebar.frameX, spacebar.height * spacebar.frameY, spacebar.width, spacebar.height, spacebar.x, spacebar.y, spacebar.width, spacebar.height)
         ctx.drawImage(arrowSprite, arrow.width * arrow.frameX, arrow.height * arrow.frameY, arrow.width, arrow.height, arrow.x, arrow.y, arrow.width, arrow.height)
         ctx.fillText("Attack: spacebar", 510, 315) 
-        ctx.fillText("No attacking while moving", 510, 350) 
-        ctx.fillText("Melee attacks cost health", 510, 385) 
+        // ctx.fillText("No attacking while moving", 510, 350) 
+        // ctx.fillText("Melee attacks cost health", 510, 385) 
+        ctx.fillText("Melee attacks cost health", 510, 350) 
+
         if (keys[13]) {
             frame = 1
         }
