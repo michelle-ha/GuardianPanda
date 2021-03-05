@@ -475,7 +475,7 @@ function handleEnemies2() {
         enemyNumbers += 1
     }
 
-    if (frame % 100 === 0 && enemies2.length > 1 && enemiesInterval2 >= 1) {
+    if (frame % 75 === 0 && enemies2.length > 1 && enemiesInterval2 >= 1) {
         enemiesInterval2 -= 2.5
     }
 
