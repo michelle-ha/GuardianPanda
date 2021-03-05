@@ -12,9 +12,11 @@ let weapons2 = []
 let weapons3 = []
 let weapons4 = []
 let enemies = []
+let enemies2 = []
 let victims = []
 let powerUps = []
 let enemiesInterval = 20 //time between enemies
+let enemiesInterval2 = 20
 let enemyNumbers = 0
 let victimsInterval = 15
 let frame = 0
@@ -526,15 +528,98 @@ function handleEnemies() {
             enemies[j].frameX = 0
             enemies[j].health -= 50
             player.health -= 5
-            if (player.health <= 0)  {
-                gameOver = true
+
+        } 
+    }
+    if (player.health <= 0)  {
+        gameOver = true
+    }
+    if (player.health === 50) {
+        messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
+    }
+}
+
+//ENEMY2
+const enemy2Sprite = new Image()
+enemy2Sprite.src = "./images/walking_pandaEnemy.png"
+
+class Enemy2 {
+    constructor(){
+        this.width = 57 //786x69
+        this.height = 69
+        this.frameX = 0
+        this.frameY = 0
+        this.minFrame = 1
+        this.maxFrame = 6
+        this.x = canvas.width
+        this.y = Math.random() * ((canvas.height - 100) - 100) + 100 
+        this.speed = (Math.random()*1.5) + 15
+        this.health = 200
+        this.maxHealth = this.health
+    }
+    draw() {
+        ctx.drawImage(enemy2Sprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        if (this.frameX < this.maxFrame) this.frameX++; 
+        else this.frameX = this.minFrame
+
+    }
+    update() {
+        
+        this.x -= this.speed //enemies will walk to left
+    }
+}
+
+function handleEnemies2() {
+    for (let i = 0; i < enemies2.length; i++) {
+        enemies2[i].update()
+        enemies2[i].draw()
+        if (enemies2[i].health <= 0) {
+            score += enemies2[i].maxHealth/10
+            enemies2.splice(i, 1)
+            i-- 
+        }
+        if (enemies2[i] && enemies2[i].x < 20) {
+            if (victims.length > 0) {
+                victims.splice(0, 1)
+                livesLost += 1
             }
-            if (player.health === 50) {
-                messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
-            }
+            enemies2.splice(i, 1)
+            i-- 
+        }
+    }  
+    if (frame % enemiesInterval2 === 0 && (enemyNumbers >= 20 && enemyNumbers <= 50)) {
+        let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
+        enemies2.push(new Enemy2(verticalPosition))
+        enemyNumbers += 1
+    }
+
+    if (frame % 100 === 0 && enemies2.length > 1) {
+        enemiesInterval2 -= 5
+    }
+
+    for (let j = 0; j < enemies2.length; j++){
+        if(collision(player, enemies2[j])){
+            enemies2[j].speed = 0
+            ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
+            ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
+            // if (confused.frameX < 3) confused.frameX++; 
+            // else confused.frameX = 0
+
+            // enemies[j].frameY = 4 
+            // enemies[j].frameX = 0
+            enemies2[j].health -= 50
+            player.health -= 5
+            // if (player.health <= 0)  {
+            //     gameOver = true
+            // }
+            // if (player.health === 50) {
+            //     messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
+            // }
         } 
     }
 }
+
+
 
 //VICTIM
 
@@ -580,11 +665,23 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                if (livesLost >= 15)  {
-                    gameOver = true
-                }
+                // if (livesLost >= 15)  {
+                //     gameOver = true
+                // }
             }
         }
+        for (let j = 0; j < enemies2.length; j++ ) { 
+            if (enemies2[j] && victims[i] && collision(victims[i], enemies2[j])) {
+                victims.splice(i, 1) 
+                enemies2.splice(j, 1) 
+                i--
+                livesLost += 1
+
+            }
+        }
+    }
+    if (livesLost >= 15)  {
+        gameOver = true
     }
     if (livesLost === 10) {
         messages.push(new Message("Protect the pandas!", 70, 150, 30, "red"))
@@ -687,12 +784,12 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "red"
     ctx.font = "25px Arial"
     ctx.fillText('Health: ' + player.health, 790, 40);
-    if (enemyNumbers === 20) {
+    if (enemyNumbers === 19) {
         // ctx.fillStyle = "blue"
         // ctx.font = "60px Arial"
         // ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
-        messages.push(new Message("NEW ENEMIES COMING!", 140, 250, 60, "red"))
-        messages.push(new Message("...SOON!", 350, 400, 60, "black"))
+        messages.push(new Message("Are those...", 240, 250, 60, "black"))
+        messages.push(new Message("PANDAS?!", 350, 400, 60, "black"))
     }
 }
 
@@ -765,9 +862,11 @@ function callRestart() {
          weapons3 = []
          weapons4 = []
          enemies = []
+         enemies2 = []
          victims = []
          powerUps = []
          enemiesInterval = 20 
+         enemiesInterval2 = 20
          enemyNumbers = 0
          victimsInterval = 15
          frame = 1
@@ -860,6 +959,7 @@ function animate() {
         killAction()
         handlePlayerFrame()
         handleEnemies()
+        handleEnemies2()
         handleWeapons()
         handleWeapons2()
         handleWeapons3()
