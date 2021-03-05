@@ -546,7 +546,7 @@ enemy2Sprite.src = "./images/walking_pandaEnemy.png"
 class Enemy2 {
     constructor(){
         this.width = 57 //786x69
-        this.height = 69
+        this.height = 73
         this.frameX = 0
         this.frameY = 0
         this.minFrame = 1
@@ -587,7 +587,7 @@ function handleEnemies2() {
             i-- 
         }
     }  
-    if (frame % enemiesInterval2 === 0 && (enemyNumbers >= 20 && enemyNumbers <= 50)) {
+    if (frame % enemiesInterval2 === 0 && (enemyNumbers >= 1 && enemyNumbers <= 50)) {
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies2.push(new Enemy2(verticalPosition))
         enemyNumbers += 1
