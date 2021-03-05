@@ -224,12 +224,19 @@ function handleWeapons() {
 
         for (let k = 0; k < enemies2.length; k++ ) { 
             if (enemies2[k] && weapons[i] && collision(weapons[i], enemies2[k])) {
-                enemies2[k].frameY = 1 
-                enemies2[k].frameX = 0
+                enemies2[k].width = 162.4
+                enemies2[k].frameY = 4
+                enemies2[k].frameX = 6.1
+                enemies2[k].minFrame = 1
+                enemies2[k].maxFrame = 2.5
+                if (enemies2[k].frameX < this.maxFrame) this.frameX += 0.5; 
                 enemies2[k].health -= player.strength
                 weapons.splice(i, 1) 
                 i--
             }
+            
+            
+            // enemies2[k].draw()
         }
 
         if (weapons[i] && (weapons[i].x > canvas.width - 75 || weapons[i].x < 0 || weapons[i].y > canvas.height || weapons[i].y < 0)) {
@@ -249,7 +256,7 @@ healthSprite.src = "./images/health.png"
 const plateSprite = new Image()
 plateSprite.src = "./images/plate.png"
 
-const effects = ["stregth", "speed", "health", "time"]
+// const effects = ["stregth", "speed", "health", "time"]
 class PowerUp {
     constructor() {
         this.x = 500 //dont' want in enemy territory
@@ -275,7 +282,7 @@ class PowerUp {
 }
 
 function handlePowerups() {
-    if (enemyNumbers === 19 || enemyNumbers === 40) {
+    if (enemyNumbers === 21 || enemyNumbers === 40) {
         powerUps.push(new PowerUp())
     }
     for (let i = 0; i < powerUps.length; i++) {
@@ -384,7 +391,7 @@ function handleEnemies() {
 
             enemies[j].frameY = 4 
             enemies[j].frameX = 0
-            enemies[j].health -= 50
+            enemies[j].health = 0
             player.health -= 5
 
         } 
@@ -393,7 +400,7 @@ function handleEnemies() {
         gameOver = true
     }
     
-    if (player.health <= 33) {
+    if (player.health <= 35) {
         ctx.drawImage(healthBarSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
     }
 
@@ -408,19 +415,26 @@ function handleEnemies() {
 
 //ENEMY2
 const enemy2Sprite = new Image()
-enemy2Sprite.src = "./images/walking_pandaEnemy2.png"
+// enemy2Sprite.src = "./images/walking_pandaEnemy2.png"
+enemy2Sprite.src = "./images/mediumMonkey.png"
 
 class Enemy2 {
     constructor(){
-        this.width = 57 //786x69
-        this.height = 77
-        this.frameX = 0
-        this.frameY = 0
+        // this.width = 57 //786x69
+        // this.height = 77
+        // this.frameX = 0
+        // this.frameY = 0
+        // this.minFrame = 1
+        // this.maxFrame = 4
+        this.width = 163.14//4392x1292
+        this.height = 162
+        this.frameX = 1
+        this.frameY = 1
         this.minFrame = 1
-        this.maxFrame = 4
+        this.maxFrame = 3
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 40 
-        this.speed = (Math.random()*1.5) + 8
+        this.speed = (Math.random()*1.5) + 12
         this.health = 200
         this.maxHealth = this.health
     }
@@ -469,11 +483,11 @@ function handleEnemies2() {
             enemies2[j].speed = 0
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
-            enemies2[j].frameY = 1 
-
-            enemies2[j].frameX = 0
-            enemies2[j].health -= 100
-            player.health -= 5
+            enemies2[j].frameY = 7
+            enemies2[j].frameX = 1.9
+            enemies2[j].health = 0
+            player.health -= 10
+            
         } 
     }
 }
@@ -642,7 +656,7 @@ function GameStatus() { //displays amount of resources on controlsbar
         // messages.push(new Message("PANDAS?!", 350, 400, 60, "red"))
     }
     if (enemyNumbers === 19) {
-        messages.push(new Message("PANDAS?!", 350, 300, 80, "red"))
+        messages.push(new Message("BIGGER?!", 350, 350, 90, "red"))
     }
     if (enemyNumbers === 40) {
         messages.push(new Message("THE BOSS!", 350, 300, 80, "red"))
