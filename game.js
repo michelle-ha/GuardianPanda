@@ -237,8 +237,8 @@ function handleWeapons() {
 
         for (let k = 0; k < enemies2.length; k++ ) { //cyce through weapons to check for collision
             if (enemies2[k] && weapons[i] && collision(weapons[i], enemies2[k])) {
-                // enemies2[k].frameY = 4 
-                // enemies2[k].frameX = 0
+                enemies2[k].frameY = 1 
+                enemies2[k].frameX = 0
                 enemies2[k].health -= player.strength
                 weapons.splice(i, 1) //remove projectile that collided
                 i--
@@ -290,8 +290,8 @@ function handleWeapons2() {
 
         for (let k = 0; k < enemies2.length; k++ ) { 
             if (enemies2[k] && weapons2[i] && collision(weapons2[i], enemies2[k])) {
-                // enemies2[k].frameY = 4 
-                // enemies2[k].frameX = 0
+                enemies2[k].frameY = 1 
+                enemies2[k].frameX = 0
                 enemies2[k].health -= player.strength
                 weapons2.splice(i, 1) 
                 i--
@@ -343,8 +343,8 @@ function handleWeapons3() {
 
         for (let k = 0; k < enemies2.length; k++ ) { 
             if (enemies2[k] && weapons3[i] && collision(weapons3[i], enemies2[k])) {
-                // enemies2[k].frameY = 4 
-                // enemies2[k].frameX = 0
+                enemies2[k].frameY = 1 
+                enemies2[k].frameX = 0
                 enemies2[k].health -= player.strength
                 weapons3.splice(i, 1) 
                 i--
@@ -394,11 +394,11 @@ function handleWeapons4() {
             }
         }
 
-        for (let j = 0; j < enemies2.length; j++ ) { 
-            if (enemies2[j] && weapons4[i] && collision(weapons4[i], enemies2[j])) {
-                enemies2[j].frameY = 4 
-                enemies2[j].frameX = 0
-                enemies2[j].health -= player.strength
+        for (let k = 0; k < enemies2.length; k++ ) { 
+            if (enemies2[k] && weapons4[i] && collision(weapons4[i], enemies2[k])) {
+                enemies2[k].frameY = 1 
+                enemies2[k].frameX = 0
+                enemies2[k].health -= player.strength
                 weapons4.splice(i, 1) 
                 i--
             }
@@ -524,6 +524,9 @@ function collision(first, second) {
     }
 }
 
+const healthBarSprite = new Image()
+healthBarSprite.src = "./images/healthbar1.png"
+
 function handleEnemies() {
     for (let i = 0; i < enemies.length; i++) {
         enemies[i].update()
@@ -575,14 +578,17 @@ function handleEnemies() {
         gameOver = true
     }
     
-    if (player.health === 10) {
-        messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
+    // if (player.health === 10) {
+    //     messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
+    // }
+    if (player.health <= 70) {
+        ctx.drawImage(healthBarSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
     }
 }
 
 //ENEMY2
 const enemy2Sprite = new Image()
-enemy2Sprite.src = "./images/walking_pandaEnemy.png"
+enemy2Sprite.src = "./images/walking_pandaEnemy2.png"
 
 class Enemy2 {
     constructor(){
@@ -591,7 +597,7 @@ class Enemy2 {
         this.frameX = 0
         this.frameY = 0
         this.minFrame = 1
-        this.maxFrame = 6
+        this.maxFrame = 4
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 40 
         this.speed = (Math.random()*1.5) + 8
@@ -645,9 +651,9 @@ function handleEnemies2() {
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
             // if (confused.frameX < 3) confused.frameX++; 
             // else confused.frameX = 0
+            enemies2[j].frameY = 1 
 
-            // enemies[j].frameY = 4 
-            // enemies[j].frameX = 0
+            enemies2[j].frameX = 0
             enemies2[j].health -= 100
             player.health -= 5
             // if (player.health <= 0)  {
@@ -825,12 +831,19 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "red"
     ctx.font = "25px Arial"
     ctx.fillText('Health: ' + player.health, 790, 40);
+    if (enemyNumbers === 18) {
+        // ctx.fillStyle = "blue"
+        // ctx.font = "60px Arial"
+        // ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
+        messages.push(new Message("Are those...", 340, 250, 60, "black"))
+        // messages.push(new Message("PANDAS?!", 350, 400, 60, "red"))
+    }
     if (enemyNumbers === 19) {
         // ctx.fillStyle = "blue"
         // ctx.font = "60px Arial"
         // ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
-        messages.push(new Message("Are those...", 240, 250, 60, "black"))
-        messages.push(new Message("PANDAS?!", 350, 400, 60, "black"))
+        // messages.push(new Message("Are those...", 340, 250, 60, "black"))
+        messages.push(new Message("PANDAS?!", 350, 300, 60, "red"))
     }
 }
 
