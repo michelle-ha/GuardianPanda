@@ -791,7 +791,7 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillText('Score: ' + score, 200, 40);
     ctx.fillText('Lives Saved: ' + livesSaved, 200, 80);
     ctx.fillStyle = "red"
-    ctx.fillText('Lives lost: ' + livesLost, 670, 40);
+    ctx.fillText('Lives lost: ' + livesLost + " / 10", 670, 40);
 
     ctx.fillStyle = "red"
     ctx.font = "25px Arial"
@@ -1001,7 +1001,10 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.drawImage(spacebarSprite, spacebar.width * spacebar.frameX, spacebar.height * spacebar.frameY, spacebar.width, spacebar.height, spacebar.x, spacebar.y, spacebar.width, spacebar.height)
         ctx.drawImage(arrowSprite, arrow.width * arrow.frameX, arrow.height * arrow.frameY, arrow.width, arrow.height, arrow.x, arrow.y, arrow.width, arrow.height)
         ctx.fillText("Attack: spacebar", 510, 315) 
-        ctx.fillText("Melee attacks cost health", 510, 350) 
+        ctx.fillStyle = "black"
+        ctx.fillText("Tip: hold it down for shooting", 510, 350) 
+        ctx.fillStyle = "white"
+        ctx.fillText("Melee attacks cost health", 510, 390) 
 
         if (keys[13]) {
             frame = 1
