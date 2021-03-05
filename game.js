@@ -335,7 +335,7 @@ class Enemy {
         this.maxFrame = 2
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 50 //make so it doesn't go below/above wanted margins
-        this.speed = (Math.random()*1.5) + 10
+        this.speed = (Math.random()*1.5) + 12
         this.health = 50
         this.maxHealth = this.health
     }
@@ -393,7 +393,7 @@ function handleEnemies() {
 
     }
 
-    if (frame % 100 === 0 && enemies.length > 1) {
+    if (frame % 100 === 0 && enemies.length > 1 && enemiesInterval >= 1) {
         enemiesInterval -= 5
     }
 
@@ -435,7 +435,7 @@ class Enemy2 {
         this.maxFrame = 3
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 50 
-        this.speed = (Math.random()*1.5) + 12
+        this.speed = (Math.random()*1.5) + 13
         this.health = 200
         this.maxHealth = this.health
     }
@@ -475,7 +475,7 @@ function handleEnemies2() {
         enemyNumbers += 1
     }
 
-    if (frame % 100 === 0 && enemies2.length > 1) {
+    if (frame % 100 === 0 && enemies2.length > 1 && enemiesInterval2 >= 1) {
         enemiesInterval2 -= 2.5
     }
 
@@ -548,7 +548,7 @@ function handleEnemies3() {
         enemyNumbers += 1
     }
 
-    if (frame % 50 === 0 && enemies3.length > 1 ) {
+    if (frame % 50 === 0 && enemies3.length > 1 && enemiesInterval3 >= 1) {
         enemiesInterval3 -= 1
     }
 
