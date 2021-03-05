@@ -851,6 +851,7 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillText("YOU LOST", 345, 200)
         ctx.fillStyle = "white"
         ctx.font = "40px Arial"
+        ctx.fillText("Score:" + score, 310, 100)
         ctx.fillText("Restart?", 430, 300)
         ctx.fillText("Hit ESC key", 400, 350)
         pauseButton.style.visibility = "hidden"
@@ -861,11 +862,13 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillRect(300, 50, 400, 400)
         ctx.fillStyle = "gold"
         ctx.font = "60px Arial"
-        ctx.fillText("YOU WIN", 355, 200)
+        ctx.fillText("YOU WIN", 360, 200)
         ctx.fillStyle = "white"
         ctx.font = "40px Arial"
-        ctx.fillText("Score:" + score, 390, 250)
-        ctx.fillText("Scoreboard:", 390, 300)
+        ctx.fillText("Score:" + score, 310, 100)
+        // ctx.fillText("Scoreboard:", 390, 300)
+        ctx.fillText("Play again?", 400, 300)
+        ctx.fillText("Hit ESC key", 400, 350)
         pauseButton.style.visibility = "hidden"
     }
 }
@@ -931,7 +934,7 @@ function startAnimating(fps) { //controls speed of char
 }
 
 function callRestart() {
-    if (keys[27] && gameOver) {
+    if ((keys[27] && gameOver) || (keys[27] && win))   {
          keys = []
          weapons = []
          enemies = []
@@ -958,6 +961,7 @@ function callRestart() {
          player.frameY = 0
          gameOver = false
          warning = false
+         win = false
     }
 }
 
