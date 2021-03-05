@@ -753,6 +753,18 @@ const fullHealth = {
     frameY: 5, 
 }
 
+const bossHealthSprite = new Image()
+bossHealthSprite.src = "./images/large_health_bar.png" 
+
+const bossHealth = {
+    x: 175, 
+    y: canvas.height - 50,
+    width: 630, 
+    height: 50, 
+    frameX: 0, 
+    frameY: 5, 
+}
+
 function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "blue"
     ctx.font = "25px Arial"
@@ -779,6 +791,24 @@ function GameStatus() { //displays amount of resources on controlsbar
     } else {
         ctx.drawImage(fullHealthSprite, fullHealth.width * fullHealth.frameX, fullHealth.height * 0, fullHealth.width, fullHealth.height, fullHealth.x, fullHealth.y, fullHealth.width, fullHealth.height)
     }
+
+    for (let i = 0; i < boss.length; i++ ) { 
+         if (boss[i].health >= 4167) {
+            ctx.drawImage(bossHealthSprite, bossHealth.width * bossHealth.frameX, bossHealth.height * bossHealth.frameY, bossHealth.width, bossHealth.height, bossHealth.x, bossHealth.y, bossHealth.width, bossHealth.height) 
+        } else if (boss[i].health >= 3333 && boss[i].health <= 4166) {
+            ctx.drawImage(bossHealthSprite, bossHealth.width * bossHealth.frameX, bossHealth.height * 4, bossHealth.width, bossHealth.height, bossHealth.x, bossHealth.y, bossHealth.width, bossHealth.height)
+        } else if (boss[i].health >= 2500 && boss[i].health <= 3332) {
+            ctx.drawImage(bossHealthSprite, bossHealth.width * bossHealth.frameX, bossHealth.height * 3, bossHealth.width, bossHealth.height, bossHealth.x, bossHealth.y, bossHealth.width, bossHealth.height)
+        } else if (boss[i].health >= 2267 && boss[i].health <= 2499) {
+            ctx.drawImage(bossHealthSprite, bossHealth.width * bossHealth.frameX, bossHealth.height * 2, bossHealth.width, bossHealth.height, bossHealth.x, bossHealth.y, bossHealth.width, bossHealth.height)
+        } else if (boss[i].health >= 1434 && boss[i].health <= 2266) {
+            ctx.drawImage(bossHealthSprite, bossHealth.width * bossHealth.frameX, bossHealth.height * 1, bossHealth.width, bossHealth.height, bossHealth.x, bossHealth.y, bossHealth.width, bossHealth.height)
+        } else {
+            ctx.drawImage(bossHealthSprite, bossHealth.width * bossHealth.frameX, bossHealth.height * 0, bossHealth.width, bossHealth.height, bossHealth.x, bossHealth.y, bossHealth.width, bossHealth.height)
+        }
+    }
+
+   
     if (enemyNumbers === 18) {
         messages.push(new Message("Are those...", 340, 250, 60, "black"))
         // messages.push(new Message("PANDAS?!", 350, 400, 60, "red"))
