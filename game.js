@@ -996,14 +996,7 @@ function callRestart() {
 }
 
 function welcome() { //displays amount of resources on controlsbar
-        if (paused) {
-            ctx.fillStyle = "rgba(0, 181, 204, 0.2)" //0.2 = transparency
-            ctx.fillRect(0,0, controlsBar.width, controlsBar.height)
-            ctx.font = "35px Arial"
-            ctx.fillStyle = "red"
-            ctx.fillText("Game Paused. Hit ENTER to resume", 180, 40)     
-    
-        }
+        
         ctx.drawImage(pandaHeartSprite, pandaHeart.width * 1, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, pandaHeart.x, 380, pandaHeart.width, pandaHeart.height)
         ctx.drawImage(pandaHeartSprite, pandaHeart.width * 2, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, 380, 400, pandaHeart.width, pandaHeart.height)
         ctx.drawImage(pandaHeartSprite, pandaHeart.width * pandaHeart.frameX, pandaHeart.height * pandaHeart.frameY, pandaHeart.width, pandaHeart.height, pandaHeart.x, pandaHeart.y, pandaHeart.width, pandaHeart.height)
@@ -1038,6 +1031,15 @@ function welcome() { //displays amount of resources on controlsbar
 
         if (keys[13]) {
             frame = 1
+        }
+        if (paused) {
+            // ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)" //0.2 = transparency
+            ctx.fillRect(0,190, controlsBar.width, controlsBar.height)
+            ctx.font = "35px Arial"
+            ctx.fillStyle = "red"
+            ctx.fillText("Game Paused. Hit ENTER to resume", 180, 250)     
+    
         }
 }
 
