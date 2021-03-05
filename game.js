@@ -194,17 +194,17 @@ function drawWeapon(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
 }
 
-// const angrySprite = new Image()
-// angrySprite.src = "./images/angry_face.png"
+const angrySprite = new Image()
+angrySprite.src = "./images/angry_face.png"
 
-// const angry = {
-//     x: , 
-//     y: ,
-//     width: , 
-//     height: , 
-//     frameX: , 
-//     frameY: 
-// }
+const angry = {
+    // x: boss[i].x - 50, 
+    // y: boxx[i].y - 50,
+    width: 113, 
+    height: 111, 
+    frameX: 0, 
+    frameY: 0
+}
 
 // ctx.drawImage(angrySprite, angry.width * 1, angry.height * angry.frameY, angry.width, angry.height, angry.x, 380, angry.width, angry.height)
 
@@ -249,6 +249,7 @@ function handleWeapons() {
 
         for (let n = 0; n < boss.length; n++ ) { 
             if (boss[n] && weapons[i] && collision(weapons[i], boss[n])) {
+                ctx.drawImage(angrySprite, 0, 0, angry.width, angry.height, boss[n].x - 20, boss[n].y + 40, angry.width, angry.height)
                 boss[n].health -= player.strength
                 weapons.splice(i, 1) 
                 i--
@@ -301,12 +302,15 @@ function handlePowerups() {
         powerUps[i].draw()
         if (collision(player, powerUps[i])){
             messages.push(new Message("Strength increased! ", powerUps[i].x, powerUps[i].y, 20, "blue"))
-            messages.push(new Message("Health restored! ", powerUps[i].x, powerUps[i].y + 40, 20, "blue"))
+            messages.push(new Message("Speed increased! ", powerUps[i].x, powerUps[i].y + 40, 20, "green"))
+            messages.push(new Message("Health restored! ", powerUps[i].x, powerUps[i].y + 80, 20, "pink"))
             console.log(player.strength)
             if (enemyNumbers < 30) {
                 player.strength = 150
+                player.speed = 12.5
             } else {
                 player.strength = 250
+                player.speed = 15
             }
             player.health = 100
             powerUps.splice(i, 1)
@@ -503,7 +507,7 @@ class Enemy3 {
         this.maxFrame = 4
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 50 
-        this.speed = (Math.random()*1.5) + 10
+        this.speed = (Math.random()*1.5) + 12
         this.health = 50
         this.maxHealth = this.health
     }
@@ -537,13 +541,13 @@ function handleEnemies3() {
             i-- 
         }
     }  
-    if (frame % enemiesInterval3 === 0 && (enemyNumbers >= 40 && enemyNumbers <= 60)) {
+    if (frame % enemiesInterval3 === 0 && enemyNumbers >= 40) {
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies3.push(new Enemy3(verticalPosition))
         enemyNumbers += 1
     }
 
-    if (frame % 100 === 0 && enemies3.length > 1) {
+    if (frame % 75 === 0 && enemies3.length > 1) {
         enemiesInterval3 -= 5
     }
 
@@ -573,7 +577,7 @@ class Boss {
         this.frameY = 0
         this.x = canvas.width
         this.y = 0 
-        this.speed = 2
+        this.speed = 3
         this.health = 5000
         this.maxHealth = this.health
     }
@@ -933,6 +937,7 @@ function callRestart() {
          livesSaved = 0
          player.health = 100
          player.strength = 50
+         player.speed = 10
          player.x = 500, 
          player.y = 300
          player.frameX = 0, //changes what picture you're getting. 
