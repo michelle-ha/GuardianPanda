@@ -282,15 +282,20 @@ class PowerUp {
 }
 
 function handlePowerups() {
-    if (enemyNumbers === 21 || enemyNumbers === 40) {
-        powerUps.push(new PowerUp())
-    }
+    // if (enemyNumbers === 20 || enemyNumbers === 40) {
+    //     powerUps.push(new PowerUp())
+    // }
     for (let i = 0; i < powerUps.length; i++) {
         powerUps[i].draw()
         if (collision(player, powerUps[i])){
             messages.push(new Message("Strength increased! ", powerUps[i].x, powerUps[i].y, 20, "blue"))
             messages.push(new Message("Health restored! ", powerUps[i].x, powerUps[i].y + 40, 20, "blue"))
-            player.strength += 10
+            console.log(player.strength)
+            if (enemyNumbers < 30) {
+                player.strength = 150
+            } else {
+                player.strength = 250
+            }
             player.health = 100
             powerUps.splice(i, 1)
             i--
@@ -400,7 +405,7 @@ function handleEnemies() {
         gameOver = true
     }
     
-    if (player.health <= 35) {
+    if (player.health <= 25) {
         ctx.drawImage(healthBarSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
     }
 
@@ -671,9 +676,11 @@ function GameStatus() { //displays amount of resources on controlsbar
     }
     if (enemyNumbers === 19) {
         messages.push(new Message("BIGGER?!", 350, 350, 90, "red"))
+        powerUps.push(new PowerUp())
     }
     if (enemyNumbers === 40) {
         messages.push(new Message("THE BOSS!", 350, 300, 80, "red"))
+        powerUps.push(new PowerUp())
     }
     if (gameOver) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
