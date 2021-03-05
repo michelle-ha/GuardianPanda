@@ -560,7 +560,7 @@ class Boss {
         this.x = canvas.width
         this.y = 0 
         this.speed = 2
-        this.health = 10000
+        this.health = 2500
         this.maxHealth = this.health
     }
     draw() {
