@@ -14,9 +14,9 @@ let enemies3 = []
 let boss = []
 let victims = []
 let powerUps = []
-let enemiesInterval = 20 //time between enemies
-let enemiesInterval2 = 20
-let enemiesInterval3 = 20
+let enemiesInterval = 15 //time between enemies
+let enemiesInterval2 = 10
+let enemiesInterval3 = 8
 let enemyNumbers = 0
 let victimsInterval = 15
 let frame = 0
@@ -26,6 +26,7 @@ let livesLost = 0
 let gameOver = false
 let restart = false
 let paused = false
+let win = false
 
 //MESSAGES
 const messages = []
@@ -475,7 +476,7 @@ function handleEnemies2() {
     }
 
     if (frame % 100 === 0 && enemies2.length > 1) {
-        enemiesInterval2 -= 5
+        enemiesInterval2 -= 2.5
     }
 
     for (let j = 0; j < enemies2.length; j++){
@@ -507,7 +508,7 @@ class Enemy3 {
         this.maxFrame = 4
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 50 
-        this.speed = (Math.random()*1.5) + 12
+        this.speed = (Math.random()*1.5) + 15
         this.health = 50
         this.maxHealth = this.health
     }
@@ -541,14 +542,14 @@ function handleEnemies3() {
             i-- 
         }
     }  
-    if (frame % enemiesInterval3 === 0 && enemyNumbers >= 40) {
+    if (frame % enemiesInterval3 === 0 && enemyNumbers >= 40 && enemyNumbers <= 60) {
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies3.push(new Enemy3(verticalPosition))
         enemyNumbers += 1
     }
 
-    if (frame % 75 === 0 && enemies3.length > 1) {
-        enemiesInterval3 -= 5
+    if (frame % 50 === 0 && enemies3.length > 1 ) {
+        enemiesInterval3 -= 1
     }
 
     for (let j = 0; j < enemies3.length; j++){
@@ -559,7 +560,7 @@ function handleEnemies3() {
             enemies3[j].frameY = 1
             enemies3[j].frameX = 0
             enemies3[j].health = 0
-            player.health -= 5
+            player.health -= 10
             
         } 
     }
@@ -577,7 +578,7 @@ class Boss {
         this.frameY = 0
         this.x = canvas.width
         this.y = 0 
-        this.speed = 3
+        this.speed = 5
         this.health = 5000
         this.maxHealth = this.health
     }
@@ -599,6 +600,7 @@ function handleboss() {
             score += boss[i].maxHealth/10
             boss.splice(i, 1)
             i-- 
+            win = true
         }
         if (boss[i] && boss[i].x < 20) {
             gameOver = true
@@ -680,10 +682,10 @@ function handleVictims() {
             }
         }
     }
-    if (livesLost >= 15)  {
+    if (livesLost >= 10)  {
         gameOver = true
     }
-    if (livesLost === 10) {
+    if (livesLost === 7) {
         messages.push(new Message("Protect the pandas!", 70, 150, 30, "red"))
     } 
 
@@ -842,7 +844,6 @@ function GameStatus() { //displays amount of resources on controlsbar
     }
     if (gameOver) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        // canvas.style.visibility = "hidden"
         ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
         ctx.fillRect(300, 50, 400, 400)
         ctx.fillStyle = "red"
@@ -852,6 +853,19 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.font = "40px Arial"
         ctx.fillText("Restart?", 430, 300)
         ctx.fillText("Hit ESC key", 400, 350)
+        pauseButton.style.visibility = "hidden"
+    }
+    if (win) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.fillStyle = "rgba(0, 181, 204, 0.8)";
+        ctx.fillRect(300, 50, 400, 400)
+        ctx.fillStyle = "gold"
+        ctx.font = "60px Arial"
+        ctx.fillText("YOU WIN", 355, 200)
+        ctx.fillStyle = "white"
+        ctx.font = "40px Arial"
+        ctx.fillText("Score:" + score, 390, 250)
+        ctx.fillText("Scoreboard:", 390, 300)
         pauseButton.style.visibility = "hidden"
     }
 }
