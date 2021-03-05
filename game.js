@@ -785,6 +785,30 @@ const bossHealth = {
     frameY: 5, 
 }
 
+const loserSprite = new Image()
+loserSprite.src = "./images/loser.png" 
+
+const loser = {
+    x: 550, 
+    y: 50,
+    width: 118, 
+    height: 94, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
+const winnerSprite = new Image()
+winnerSprite.src = "./images/winner.png" 
+
+const winner = {
+    x: 550, 
+    y: 50,
+    width: 120, 
+    height: 99, 
+    frameX: 0, 
+    frameY: 0, 
+}
+
 function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "blue"
     ctx.font = "25px Arial"
@@ -854,6 +878,7 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillText("Score:" + score, 310, 100)
         ctx.fillText("Restart?", 430, 300)
         ctx.fillText("Hit ESC key", 400, 350)
+        ctx.drawImage(loserSprite, loser.width * loser.frameX, loser.height * loser.frameY, loser.width, loser.height, loser.x, loser.y, loser.width, loser.height) 
         pauseButton.style.visibility = "hidden"
     }
     if (win) {
@@ -862,13 +887,14 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillRect(300, 50, 400, 400)
         ctx.fillStyle = "gold"
         ctx.font = "60px Arial"
-        ctx.fillText("YOU WIN", 360, 200)
+        ctx.fillText("YOU WIN!!", 360, 200)
         ctx.fillStyle = "white"
         ctx.font = "40px Arial"
         ctx.fillText("Score:" + score, 310, 100)
         // ctx.fillText("Scoreboard:", 390, 300)
         ctx.fillText("Play again?", 400, 300)
         ctx.fillText("Hit ESC key", 400, 350)
+        ctx.drawImage(winnerSprite, winner.width * winner.frameX, winner.height * winner.frameY, winner.width, winner.height, winner.x, winner.y, winner.width, winner.height)
         pauseButton.style.visibility = "hidden"
     }
 }
