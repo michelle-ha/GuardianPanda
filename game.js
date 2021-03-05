@@ -10,10 +10,12 @@ let keys = []
 let weapons = []
 let enemies = []
 let enemies2 = []
+let enemies3 = []
 let victims = []
 let powerUps = []
 let enemiesInterval = 20 //time between enemies
 let enemiesInterval2 = 20
+let enemiesInterval3 = 20
 let enemyNumbers = 0
 let victimsInterval = 15
 let frame = 0
@@ -234,9 +236,16 @@ function handleWeapons() {
                 weapons.splice(i, 1) 
                 i--
             }
-            
-            
-            // enemies2[k].draw()
+        }
+
+        for (let m = 0; m < enemies3.length; m++ ) { 
+            if (enemies3[m] && weapons[i] && collision(weapons[i], enemies3[m])) {
+                enemies3[m].frameY = 1
+                enemies3[m].frameX = 0
+                enemies3[m].health -= player.strength
+                weapons.splice(i, 1) 
+                i--
+            }
         }
 
         if (weapons[i] && (weapons[i].x > canvas.width - 75 || weapons[i].x < 0 || weapons[i].y > canvas.height || weapons[i].y < 0)) {
@@ -496,6 +505,83 @@ function handleEnemies2() {
         } 
     }
 }
+
+//ENEMY 3 + BOSS
+
+
+//ENEMY2
+const enemy3Sprite = new Image()
+// enemy2Sprite.src = "./images/walking_pandaEnemy2.png"
+enemy3Sprite.src = "./images/walking_pandaEnemy2.png"
+
+class Enemy3 {
+    constructor(){
+        this.width = 57 //786x69
+        this.height = 77
+        this.frameX = 0
+        this.frameY = 0
+        this.minFrame = 1
+        this.maxFrame = 4
+        this.x = canvas.width
+        this.y = Math.random() * ((canvas.height - 100) - 100) + 50 
+        this.speed = (Math.random()*1.5) + 12
+        this.health = 50
+        this.maxHealth = this.health
+    }
+    draw() {
+        ctx.drawImage(enemy3Sprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
+        if (this.frameX < this.maxFrame) this.frameX++; 
+        else this.frameX = this.minFrame
+
+    }
+    update() {
+        
+        this.x -= this.speed 
+    }
+}
+
+function handleEnemies3() {
+    for (let i = 0; i < enemies3.length; i++) {
+        enemies3[i].update()
+        enemies3[i].draw()
+        if (enemies3[i].health <= 0) {
+            score += enemies3[i].maxHealth/10
+            enemies3.splice(i, 1)
+            i-- 
+        }
+        if (enemies3[i] && enemies3[i].x < 20) {
+            if (victims.length > 0) {
+                victims.splice(0, 1)
+                livesLost += 1
+            }
+            enemies3.splice(i, 1)
+            i-- 
+        }
+    }  
+    if (frame % enemiesInterval3 === 0 && (enemyNumbers >= 40 && enemyNumbers <= 60)) {
+        let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
+        enemies3.push(new Enemy3(verticalPosition))
+        enemyNumbers += 1
+    }
+
+    if (frame % 100 === 0 && enemies3.length > 1) {
+        enemiesInterval3 -= 5
+    }
+
+    for (let j = 0; j < enemies3.length; j++){
+        if(collision(player, enemies3[j])){
+            enemies3[j].speed = 0
+            ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
+            ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
+            enemies3[j].frameY = 1
+            enemies3[j].frameX = 0
+            enemies3[j].health = 0
+            player.health -= 5
+            
+        } 
+    }
+}
+
 
 //VICTIM
 
@@ -861,6 +947,7 @@ function animate() {
         handlePlayerFrame()
         handleEnemies()
         handleEnemies2()
+        handleEnemies3()
         handleWeapons()
         handlePowerups() 
         handleVictims()
