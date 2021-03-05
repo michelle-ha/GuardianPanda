@@ -99,17 +99,6 @@ const exclamation = {
     frameY: 0, 
 }
 
-// const confusedSprite = new Image()
-// confusedSprite.src = "./images/confused.png" 
-
-// const confused = {
-//     width: 40,
-//     height: 46, 
-//     frameX: 0, 
-//     frameY: 0, 
-// }
-
-
 window.addEventListener("keydown", function(e) {
     keys[e.keyCode] = true //every time key is pressed, added to keys array
 })
@@ -158,11 +147,6 @@ function killAction() {
             weapons.push(new Weapon(player.x + 25, player.y + 50, "down"))
         }
     }
-    
-    // if(keys[32] && player.moving ) {
-    //     messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red"))
-    // }
-
 }
 
 function handlePlayerFrame() { //walking animation
@@ -215,7 +199,7 @@ function handleWeapons() {
         weapons[i].update()
         weapons[i].draw()
 
-        for (let j = 0; j < enemies.length; j++ ) { //cyce through weapons to check for collision
+        for (let j = 0; j < enemies.length; j++ ) { //cycle through weapons to check for collision
             if (enemies[j] && weapons[i] && collision(weapons[i], enemies[j])) {
                 enemies[j].frameY = 4 
                 enemies[j].frameX = 0
@@ -274,12 +258,10 @@ healthSprite.src = "./images/health.png"
 const plateSprite = new Image()
 plateSprite.src = "./images/plate.png"
 
-// const effects = ["stregth", "speed", "health", "time"]
 class PowerUp {
     constructor() {
-        this.x = 500 //dont' want in enemy territory
+        this.x = 500 
         this.y = 100
-        // this.effect = effects[Math.floor(Math.random()*effects.length)]
         this.width = 207
         this.height = 84
         this.frameX = 0
@@ -300,9 +282,7 @@ class PowerUp {
 }
 
 function handlePowerups() {
-    // if (enemyNumbers === 20 || enemyNumbers === 40) {
-    //     powerUps.push(new PowerUp())
-    // }
+
     for (let i = 0; i < powerUps.length; i++) {
         powerUps[i].draw()
         if (collision(player, powerUps[i])){
@@ -368,10 +348,6 @@ function collision(first, second) {
 
 const healthBarSprite = new Image()
 healthBarSprite.src = "./images/healthbar1.png"
-// const fullhealthSprite = new Image()
-// fullhealthSprite.src = "./images/fullhealth.png"
-// const halfhealthSprite = new Image()
-// halfhealthSprite.src = "./images/halfhealth.png"
 
 function handleEnemies() {
     for (let i = 0; i < enemies.length; i++) {
@@ -391,8 +367,7 @@ function handleEnemies() {
             i-- 
         }
     }  
-    if (frame % enemiesInterval === 0 && enemyNumbers <= 20) //stop after a certain number to bring in bigger monsters
-        {//every time frame is divisible by interval, we push new enemies into the game. Only add enemies if winning score was not reached yet
+    if (frame % enemiesInterval === 0 && enemyNumbers <= 20) {//stop after a certain number to bring in bigger monsters
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies.push(new Enemy(verticalPosition))
         enemyNumbers += 1
@@ -409,9 +384,6 @@ function handleEnemies() {
             enemies[j].speed = 0
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
-            // if (confused.frameX < 3) confused.frameX++; 
-            // else confused.frameX = 0
-
             enemies[j].frameY = 4 
             enemies[j].frameX = 0
             enemies[j].health = 0
@@ -427,13 +399,6 @@ function handleEnemies() {
         ctx.drawImage(healthBarSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
     }
 
-    // if (player.health <= 33) {
-    //     ctx.drawImage(healthBarSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
-    // } else if (player.health > 33 && player.health <= 66) {
-    //     ctx.drawImage(halfhealthSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
-    // } else {
-    //     ctx.drawImage(fullhealthSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15)
-    // }
 }
 
 //ENEMY2
@@ -443,12 +408,6 @@ enemy2Sprite.src = "./images/mediumMonkey.png"
 
 class Enemy2 {
     constructor(){
-        // this.width = 57 //786x69
-        // this.height = 77
-        // this.frameX = 0
-        // this.frameY = 0
-        // this.minFrame = 1
-        // this.maxFrame = 4
         this.width = 163.14//4392x1292
         this.height = 162
         this.frameX = 1
@@ -518,7 +477,6 @@ function handleEnemies2() {
 
 //ENEMY3
 const enemy3Sprite = new Image()
-// enemy2Sprite.src = "./images/walking_pandaEnemy2.png"
 enemy3Sprite.src = "./images/walking_pandaEnemy2.png"
 
 class Enemy3 {
@@ -565,7 +523,6 @@ function handleEnemies3() {
             i-- 
         }
     }  
-    // if (frame % enemiesInterval3 === 0 && (enemyNumbers >= 40 && enemyNumbers <= 60)) {
     if (frame % enemiesInterval3 === 0 && (enemyNumbers >= 40 && enemyNumbers <= 60)) {
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies3.push(new Enemy3(verticalPosition))
@@ -600,8 +557,6 @@ class Boss {
         this.height = 337
         this.frameX = 0
         this.frameY = 0
-        // this.minFrame = 1
-        // this.maxFrame = 2
         this.x = canvas.width
         this.y = 0 
         this.speed = 2
@@ -610,8 +565,6 @@ class Boss {
     }
     draw() {
         ctx.drawImage(bossSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
-        // if (this.frameX < this.maxFrame) this.frameX++; 
-        // else this.frameX = this.minFrame
 
     }
     update() {
@@ -630,24 +583,10 @@ function handleboss() {
             i-- 
         }
         if (boss[i] && boss[i].x < 20) {
-            // if (victims.length > 0) {
-            //     victims.splice(0, 1)
-            //     livesLost += 1
-            // }
-            // boss.splice(i, 1)
-            // i-- 
             gameOver = true
         }
     }  
-    // if (frame % enemiesInterval3 === 0 && (enemyNumbers >= 40 && enemyNumbers <= 60)) {
-    //     let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
-    //     enemies3.push(new Enemy3(verticalPosition))
-    //     enemyNumbers += 1
-    // }
 
-    // if (frame % 100 === 0 && enemies3.length > 1) {
-    //     enemiesInterval3 -= 5
-    // }
     if (enemyNumbers === 40 && boss.length === 0) {
         boss.push(new Boss)
     }
@@ -936,7 +875,7 @@ function callRestart() {
          enemies = []
          enemies2 = []
          enemies3 = []
-        boss = []
+         boss = []
          victims = []
          powerUps = []
          enemiesInterval = 20 
@@ -949,6 +888,7 @@ function callRestart() {
          livesLost = 0
          livesSaved = 0
          player.health = 100
+         player.strength = 50
          player.x = 500, 
          player.y = 300
          player.frameX = 0, //changes what picture you're getting. 
@@ -994,8 +934,6 @@ function welcome() { //displays amount of resources on controlsbar
         ctx.drawImage(spacebarSprite, spacebar.width * spacebar.frameX, spacebar.height * spacebar.frameY, spacebar.width, spacebar.height, spacebar.x, spacebar.y, spacebar.width, spacebar.height)
         ctx.drawImage(arrowSprite, arrow.width * arrow.frameX, arrow.height * arrow.frameY, arrow.width, arrow.height, arrow.x, arrow.y, arrow.width, arrow.height)
         ctx.fillText("Attack: spacebar", 510, 315) 
-        // ctx.fillText("No attacking while moving", 510, 350) 
-        // ctx.fillText("Melee attacks cost health", 510, 385) 
         ctx.fillText("Melee attacks cost health", 510, 350) 
 
         if (keys[13]) {
@@ -1010,7 +948,6 @@ function gamePause() {
 }
 
 function animate() {
-    // restart()
     if (frame === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         welcome()
