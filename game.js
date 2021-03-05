@@ -417,7 +417,7 @@ class PowerUp {
 }
 
 function handlePowerups() {
-    if (enemyNumbers === 20) {
+    if (enemyNumbers === 18) {
         powerUps.push(new PowerUp())
     }
     for (let i = 0; i < powerUps.length; i++) {
@@ -450,7 +450,7 @@ class Enemy {
         this.minFrame = 1
         this.maxFrame = 2
         this.x = canvas.width
-        this.y = Math.random() * ((canvas.height - 100) - 100) + 100 //make so it doesn't go below/above wanted margins
+        this.y = Math.random() * ((canvas.height - 100) - 100) + 40 //make so it doesn't go below/above wanted margins
         this.speed = (Math.random()*1.5) + 10
         this.health = 50
         this.maxHealth = this.health
@@ -552,7 +552,7 @@ class Enemy2 {
         this.minFrame = 1
         this.maxFrame = 6
         this.x = canvas.width
-        this.y = Math.random() * ((canvas.height - 100) - 100) + 100 
+        this.y = Math.random() * ((canvas.height - 100) - 100) + 40 
         this.speed = (Math.random()*1.5) + 15
         this.health = 200
         this.maxHealth = this.health
