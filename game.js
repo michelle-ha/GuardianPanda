@@ -524,7 +524,7 @@ class Enemy3 {
         this.maxFrame = 4
         this.x = canvas.width
         this.y = Math.random() * ((canvas.height - 100) - 100) + 50 
-        this.speed = (Math.random()*1.5) + 12
+        this.speed = (Math.random()*1.5) + 10
         this.health = 50
         this.maxHealth = this.health
     }
