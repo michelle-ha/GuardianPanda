@@ -8,9 +8,6 @@ pauseButton.addEventListener("click", gamePause)
 
 let keys = []
 let weapons = []
-let weapons2 = []
-let weapons3 = []
-let weapons4 = []
 let enemies = []
 let enemies2 = []
 let victims = []
@@ -146,42 +143,23 @@ function killAction() {
     if (keys[32] && !player.moving && (frame % 1.5  === 0)) {
         player.attacking
         if(player.frameY === 2.1 ) {//facing right
-            weapons.push(new Weapon(player.x + 15, player.y + 30))
+            weapons.push(new Weapon(player.x + 15, player.y + 30, "right"))
         }
         if(player.frameY === 1) {//facing left
-            weapons2.push(new Weapon2(player.x + 25, player.y + 30))
+            weapons.push(new Weapon(player.x + 25, player.y + 30, "left"))
         }
         if(player.frameY === 3.1) {//facing up
-            weapons3.push(new Weapon3(player.x + 25, player.y ))
+            weapons.push(new Weapon(player.x + 25, player.y, "up" ))
         }
         if(player.frameY === 0 ) {//facing down
-            weapons4.push(new Weapon4(player.x + 25, player.y + 50))
+            weapons.push(new Weapon(player.x + 25, player.y + 50, "down"))
         }
     }
     
     if(keys[32] && player.moving ) {
         messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red"))
     }
-        
-    // if(player.frameY === 2.1 && keys[32] && (frame % 1.5  === 0) && !player.moving ) {//facing right
-    //     player.attacking
-    //     weapons.push(new Weapon(player.x + 15, player.y + 30))
-    // }
-    // if(player.frameY === 1 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing left
-    //     player.attacking
-    //     weapons2.push(new Weapon2(player.x + 25, player.y + 30))
-    // }
-    // if(player.frameY === 3.1 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing up
-    //     player.attacking
-    //     weapons3.push(new Weapon3(player.x + 25, player.y ))
-    // }
-    // if(player.frameY === 0 && keys[32] && (frame % 1.5  === 0) && !player.moving) {//facing down
-    //     player.attacking
-    //     weapons4.push(new Weapon4(player.x + 25, player.y + 50))
-    // }
-    // if(keys[32] && (frame % 1.5  === 0) && player.moving ) {
-    //     messages.push(new Message("Stop moving to throw!", player.x, player.y, 15, "red"))
-    // }
+
 }
 
 function handlePlayerFrame() { //walking animation
@@ -196,9 +174,10 @@ const weaponSprite = new Image()
 weaponSprite.src = "./images/shuriken.png"
 
 class Weapon {
-    constructor(x, y) { //depends on position of player
+    constructor(x, y, direction) { //depends on position of player
         this.x = x
         this.y = y
+        this.direction = direction
         this.width = 22 //87x26
         this.height = 28
         // this.power = 50 //changes depending onprojectile/powerup, etc
@@ -207,8 +186,17 @@ class Weapon {
         this.frameY = 0
     }
     update() {
-            this.x += this.speed //weapon moves right
+        if (this.direction === "right") {
+            this.x += this.speed 
+        } else if (this.direction === "left") {
+            this.x -= this.speed 
+        } else if (this.direction === "up") {
+            this.y -= this.speed
+        } else if (this.direction === "down") {
+            this.y += this.speed  
+        }
     }
+
     draw() {
         drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
         if (this.frameX < 3) this.frameX++; 
@@ -245,169 +233,11 @@ function handleWeapons() {
             }
         }
 
-        if (weapons[i] && weapons[i].x > canvas.width - 75) {//don't want enemies to be hit when the spawn off-grid
+        if (weapons[i] && (weapons[i].x > canvas.width - 75 || weapons[i].x < 0 || weapons[i].y > canvas.height || weapons[i].y < 0)) {
+            //don't want enemies to be hit when the spawn off-grid
             weapons.splice(i, 1)
             i--
         }
-    }
-}
-
-class Weapon2 {
-    constructor(x, y) {
-        this.x = x
-        this.y = y
-        this.width = 22
-        this.height = 27
-        // this.power = 50 
-        this.speed = 15
-        this.frameX = 0
-        this.frameY = 0
-    }
-    update() {
-            this.x -= this.speed //weapon moves left
-    }
-    draw() {
-        drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
-        if (this.frameX < 3) this.frameX++; 
-        else this.frameX = 0
-    }
-}
-
-function handleWeapons2() {
-    for (let i = 0; i < weapons2.length; i++){
-        weapons2[i].update()
-        weapons2[i].draw()
-
-        for (let j = 0; j < enemies.length; j++ ) { 
-            if (enemies[j] && weapons2[i] && collision(weapons2[i], enemies[j])) {
-                enemies[j].frameY = 4 
-                enemies[j].frameX = 0
-                enemies[j].health -= player.strength
-                weapons2.splice(i, 1) 
-                i--
-            }
-        }
-
-        for (let k = 0; k < enemies2.length; k++ ) { 
-            if (enemies2[k] && weapons2[i] && collision(weapons2[i], enemies2[k])) {
-                enemies2[k].frameY = 1 
-                enemies2[k].frameX = 0
-                enemies2[k].health -= player.strength
-                weapons2.splice(i, 1) 
-                i--
-            }
-        }
-
-        if (weapons2[i] && weapons2[i].x < 0) {
-            weapons2.splice(i, 1)
-            i--
-        } 
-    }
-}
-
-class Weapon3 {
-    constructor(x, y) {
-        this.x = x
-        this.y = y
-        this.width = 22
-        this.height = 27
-        // this.power = 50 
-        this.speed = 15
-        this.frameX = 0
-        this.frameY = 0
-    }
-    update() {
-            this.y -= this.speed //weapon moves up
-    }
-    draw() {
-        drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
-        if (this.frameX < 3) this.frameX++; 
-        else this.frameX = 0
-    }
-}
-
-function handleWeapons3() {
-    for (let i = 0; i < weapons3.length; i++){
-        weapons3[i].update()
-        weapons3[i].draw()
-
-        for (let j = 0; j < enemies.length; j++ ) { 
-            if (enemies[j] && weapons3[i] && collision(weapons3[i], enemies[j])) {
-                enemies[j].frameY = 4 
-                enemies[j].frameX = 0
-                enemies[j].health -= player.strength
-                weapons3.splice(i, 1) 
-                i--
-            }
-        }
-
-        for (let k = 0; k < enemies2.length; k++ ) { 
-            if (enemies2[k] && weapons3[i] && collision(weapons3[i], enemies2[k])) {
-                enemies2[k].frameY = 1 
-                enemies2[k].frameX = 0
-                enemies2[k].health -= player.strength
-                weapons3.splice(i, 1) 
-                i--
-            }
-        }
-
-        if (weapons3[i] && weapons3[i].y < 0) {
-            weapons3.splice(i, 1)
-            i--
-        } 
-    }
-}
-
-class Weapon4 {
-    constructor(x, y) {
-        this.x = x
-        this.y = y
-        this.width = 22
-        this.height = 27
-        // this.power = 50 
-        this.speed = 15
-        this.frameX = 0
-        this.frameY = 0
-    }
-    update() {
-            this.y += this.speed //weapon moves down
-    }
-    draw() {
-        drawWeapon(weaponSprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
-        if (this.frameX < 3) this.frameX++; 
-        else this.frameX = 0
-    }
-}
-
-function handleWeapons4() {
-    for (let i = 0; i < weapons4.length; i++){
-        weapons4[i].update()
-        weapons4[i].draw()
-
-        for (let j = 0; j < enemies.length; j++ ) { 
-            if (enemies[j] && weapons4[i] && collision(weapons4[i], enemies[j])) {
-                enemies[j].frameY = 4 
-                enemies[j].frameX = 0
-                enemies[j].health -= player.strength
-                weapons4.splice(i, 1) 
-                i--
-            }
-        }
-
-        for (let k = 0; k < enemies2.length; k++ ) { 
-            if (enemies2[k] && weapons4[i] && collision(weapons4[i], enemies2[k])) {
-                enemies2[k].frameY = 1 
-                enemies2[k].frameX = 0
-                enemies2[k].health -= player.strength
-                weapons4.splice(i, 1) 
-                i--
-            }
-        }
-
-        if (weapons4[i] && weapons4[i].y > canvas.height) {
-            weapons4.splice(i, 1)
-            i--
-        } 
     }
 }
 
@@ -444,15 +274,6 @@ class PowerUp {
         ctx.drawImage(strengthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, this.x +40, this.y + 15, 53, 46)
         ctx.drawImage(healthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, 480, 125, 53, 46)
         ctx.drawImage(healthSprite, 53 * this.frameX, 46 * this.frameY, 53, 46, 450, 125, 53, 46)
-
-
-        // if (this.frameX < this.maxFrame) this.frameX++; 
-        // else this.frameX = this.minFrame
-        // ctx.fillStyle = "blue"
-        // ctx.font = "30px Arial"
-        // ctx.fillText("Eat me!", this.x, this.y - 25)
-        // ctx.fillText(this.effect, this.x, this.y + 25)
-
     }
 }
 
@@ -463,9 +284,6 @@ function handlePowerups() {
     for (let i = 0; i < powerUps.length; i++) {
         powerUps[i].draw()
         if (collision(player, powerUps[i])){
-            // if (powerUps[i].effect === "strength") {
-            //     player.strength 
-            // }
             messages.push(new Message("Strength +50! ", powerUps[i].x, powerUps[i].y, 20, "blue"))
             messages.push(new Message("Health restored! ", powerUps[i].x, powerUps[i].y + 40, 20, "blue"))
             player.strength = 100
@@ -497,9 +315,6 @@ class Enemy {
     }
     draw() {
         drawEnemy(enemySprite, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width, this.height) 
-        // ctx.fillStyle = "#FF0000" 
-        // ctx.font = "12px Arial"
-        // ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 10)
         if (this.frameX < this.maxFrame) this.frameX++; //standing to walking
         else this.frameX = this.minFrame
 
@@ -551,7 +366,6 @@ function handleEnemies() {
         enemies.push(new Enemy(verticalPosition))
         enemyNumbers += 1
 
-        // if (enemiesInterval > 120) enemiesInterval -= 50 //staggers wave of enemies. Changes difficulty
     }
 
     if (frame % 100 === 0 && enemies.length > 1) {
@@ -578,9 +392,6 @@ function handleEnemies() {
         gameOver = true
     }
     
-    // if (player.health === 10) {
-    //     messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
-    // }
     if (player.health <= 70) {
         ctx.drawImage(healthBarSprite, 0, 0, 57, 15, player.x + 10, player.y + 70, 57, 15) 
     }
@@ -649,19 +460,11 @@ function handleEnemies2() {
             enemies2[j].speed = 0
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 30, player.y - 20, exclamation.width, exclamation.height)
             ctx.drawImage(exclamationSprite, exclamation.width * exclamation.frameX, exclamation.height * exclamation.frameY, exclamation.width, exclamation.height, player.x + 40, player.y - 20, exclamation.width, exclamation.height)
-            // if (confused.frameX < 3) confused.frameX++; 
-            // else confused.frameX = 0
             enemies2[j].frameY = 1 
 
             enemies2[j].frameX = 0
             enemies2[j].health -= 100
             player.health -= 5
-            // if (player.health <= 0)  {
-            //     gameOver = true
-            // }
-            // if (player.health === 50) {
-            //     messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
-            // }
         } 
     }
 }
@@ -712,9 +515,6 @@ function handleVictims() {
                 enemies.splice(j, 1) //enemy can only take one life
                 i--
                 livesLost += 1
-                // if (livesLost >= 15)  {
-                //     gameOver = true
-                // }
             }
         }
         for (let j = 0; j < enemies2.length; j++ ) { 
@@ -832,17 +632,10 @@ function GameStatus() { //displays amount of resources on controlsbar
     ctx.font = "25px Arial"
     ctx.fillText('Health: ' + player.health, 790, 40);
     if (enemyNumbers === 18) {
-        // ctx.fillStyle = "blue"
-        // ctx.font = "60px Arial"
-        // ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
         messages.push(new Message("Are those...", 340, 250, 60, "black"))
         // messages.push(new Message("PANDAS?!", 350, 400, 60, "red"))
     }
     if (enemyNumbers === 19) {
-        // ctx.fillStyle = "blue"
-        // ctx.font = "60px Arial"
-        // ctx.fillText("NEW ENEMIES COMING!", 140, 250) //do message, not fill text
-        // messages.push(new Message("Are those...", 340, 250, 60, "black"))
         messages.push(new Message("PANDAS?!", 350, 300, 60, "red"))
     }
 }
@@ -912,9 +705,6 @@ function callRestart() {
     if (keys[27] && gameOver) {
          keys = []
          weapons = []
-         weapons2 = []
-         weapons3 = []
-         weapons4 = []
          enemies = []
          enemies2 = []
          victims = []
@@ -984,7 +774,6 @@ function gamePause() {
     paused = true
     pauseButton.style.visibility = "hidden"
     frame = 0
-    // animate()
 }
 
 function animate() {
@@ -1008,17 +797,12 @@ function animate() {
         drawSprite(goalSprite, goal.width * goal.frameX, goal.height * goal.frameY, goal.width, goal.height, goal.x, goal.y, goal.width, goal.height) 
         drawSprite(gatekeeperSprite, keeper.width * keeper.frameX, keeper.height * keeper.frameY, keeper.width, keeper.height, keeper.x, keeper.y, keeper.width, keeper.height) 
         drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height) 
-        //crop rectangle of one player frame + put in same dimensions on canvas. 
-        //Where the image is cropped changes depending on position
         movePlayer()
         killAction()
         handlePlayerFrame()
         handleEnemies()
         handleEnemies2()
         handleWeapons()
-        handleWeapons2()
-        handleWeapons3()
-        handleWeapons4()
         handlePowerups() 
         handleVictims()
         handleMessages()
