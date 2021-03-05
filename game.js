@@ -312,7 +312,7 @@ class Enemy {
         this.minFrame = 1
         this.maxFrame = 2
         this.x = canvas.width
-        this.y = Math.random() * ((canvas.height - 100) - 100) + 40 //make so it doesn't go below/above wanted margins
+        this.y = Math.random() * ((canvas.height - 100) - 100) + 50 //make so it doesn't go below/above wanted margins
         this.speed = (Math.random()*1.5) + 10
         this.health = 50
         this.maxHealth = this.health
@@ -433,7 +433,7 @@ class Enemy2 {
         this.minFrame = 1
         this.maxFrame = 3
         this.x = canvas.width
-        this.y = Math.random() * ((canvas.height - 100) - 100) + 40 
+        this.y = Math.random() * ((canvas.height - 100) - 100) + 50 
         this.speed = (Math.random()*1.5) + 12
         this.health = 200
         this.maxHealth = this.health
@@ -627,13 +627,54 @@ function treeLine() {
 
 //GAME STATUS
 
+const fullHealthSprite = new Image()
+fullHealthSprite.src = "./images/healthbar.png" 
+
+const fullHealth = {
+    x: 762, 
+    y: 45,
+    width: 158, 
+    height: 45, 
+    frameX: 0, 
+    frameY: 5, 
+}
+
 function GameStatus() { //displays amount of resources on controlsbar
     ctx.fillStyle = "blue"
     ctx.font = "25px Arial"
     ctx.fillText('Score: ' + score, 200, 40);
     ctx.fillText('Lives Saved: ' + livesSaved, 200, 80);
     ctx.fillStyle = "red"
-    ctx.fillText('Lives lost: ' + livesLost, 790, 80);
+    ctx.fillText('Lives lost: ' + livesLost, 670, 40);
+
+    ctx.fillStyle = "red"
+    ctx.font = "25px Arial"
+    // ctx.fillText('Health: ' + player.health, 650, 40);
+    ctx.fillText('Health: ', 670, 80);
+
+    if (player.health >= 83) {
+        ctx.drawImage(fullHealthSprite, fullHealth.width * fullHealth.frameX, fullHealth.height * fullHealth.frameY, fullHealth.width, fullHealth.height, fullHealth.x, fullHealth.y, fullHealth.width, fullHealth.height) 
+    } else if (player.health >= 67 && player.health <= 82) {
+        ctx.drawImage(fullHealthSprite, fullHealth.width * fullHealth.frameX, fullHealth.height * 4, fullHealth.width, fullHealth.height, fullHealth.x, fullHealth.y, fullHealth.width, fullHealth.height)
+    } else if (player.health >= 51 && player.health <= 66) {
+        ctx.drawImage(fullHealthSprite, fullHealth.width * fullHealth.frameX, fullHealth.height * 3, fullHealth.width, fullHealth.height, fullHealth.x, fullHealth.y, fullHealth.width, fullHealth.height)
+    } else if (player.health >= 35 && player.health <= 50) {
+        ctx.drawImage(fullHealthSprite, fullHealth.width * fullHealth.frameX, fullHealth.height * 2, fullHealth.width, fullHealth.height, fullHealth.x, fullHealth.y, fullHealth.width, fullHealth.height)
+    } else if (player.health >= 19 && player.health <= 34) {
+        ctx.drawImage(fullHealthSprite, fullHealth.width * fullHealth.frameX, fullHealth.height * 1, fullHealth.width, fullHealth.height, fullHealth.x, fullHealth.y, fullHealth.width, fullHealth.height)
+    } else {
+        ctx.drawImage(fullHealthSprite, fullHealth.width * fullHealth.frameX, fullHealth.height * 0, fullHealth.width, fullHealth.height, fullHealth.x, fullHealth.y, fullHealth.width, fullHealth.height)
+    }
+    if (enemyNumbers === 18) {
+        messages.push(new Message("Are those...", 340, 250, 60, "black"))
+        // messages.push(new Message("PANDAS?!", 350, 400, 60, "red"))
+    }
+    if (enemyNumbers === 19) {
+        messages.push(new Message("BIGGER?!", 350, 350, 90, "red"))
+    }
+    if (enemyNumbers === 40) {
+        messages.push(new Message("THE BOSS!", 350, 300, 80, "red"))
+    }
     if (gameOver) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         // canvas.style.visibility = "hidden"
@@ -647,19 +688,6 @@ function GameStatus() { //displays amount of resources on controlsbar
         ctx.fillText("Restart?", 430, 300)
         ctx.fillText("Hit ESC key", 400, 350)
         pauseButton.style.visibility = "hidden"
-    }
-    ctx.fillStyle = "red"
-    ctx.font = "25px Arial"
-    ctx.fillText('Health: ' + player.health, 790, 40);
-    if (enemyNumbers === 18) {
-        messages.push(new Message("Are those...", 340, 250, 60, "black"))
-        // messages.push(new Message("PANDAS?!", 350, 400, 60, "red"))
-    }
-    if (enemyNumbers === 19) {
-        messages.push(new Message("BIGGER?!", 350, 350, 90, "red"))
-    }
-    if (enemyNumbers === 40) {
-        messages.push(new Message("THE BOSS!", 350, 300, 80, "red"))
     }
 }
 
