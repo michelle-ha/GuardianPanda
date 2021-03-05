@@ -659,6 +659,7 @@ function handleVictims() {
         victims[i].update()
         victims[i].draw()
         if (victims[i].y <= 110) { 
+            drawSprite(teleportSprite, goal.width * goal.frameX, goal.height * goal.frameY, goal.width, goal.height, goal.x, goal.y, goal.width, goal.height) 
             score += 10
             livesSaved += 1
             victims.splice(i, 1)
@@ -704,6 +705,9 @@ const controlsBar = { //bar on top of game w/ controls/score/etc
 
 const goalSprite = new Image()
 goalSprite.src = "./images/gate.png" 
+
+const teleportSprite = new Image()
+teleportSprite.src = "./images/teleport.png" 
 
 const goal = {
     x: 90, //starting position
