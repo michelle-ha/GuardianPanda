@@ -574,7 +574,8 @@ function handleEnemies() {
     if (player.health <= 0)  {
         gameOver = true
     }
-    if (player.health === 50) {
+    
+    if (player.health === 10) {
         messages.push(new Message("Your health!", player.x, player.y, 20, "red"))
     }
 }
@@ -586,7 +587,7 @@ enemy2Sprite.src = "./images/walking_pandaEnemy.png"
 class Enemy2 {
     constructor(){
         this.width = 57 //786x69
-        this.height = 75
+        this.height = 77
         this.frameX = 0
         this.frameY = 0
         this.minFrame = 1
@@ -627,7 +628,7 @@ function handleEnemies2() {
             i-- 
         }
     }  
-    if (frame % enemiesInterval2 === 0 && (enemyNumbers >= 1 && enemyNumbers <= 50)) {
+    if (frame % enemiesInterval2 === 0 && (enemyNumbers >= 20 && enemyNumbers <= 40)) {
         let verticalPosition = Math.random() * ((canvas.height - 100) - 100) + 100
         enemies2.push(new Enemy2(verticalPosition))
         enemyNumbers += 1
@@ -919,6 +920,7 @@ function callRestart() {
          player.frameX = 0, //changes what picture you're getting. 
          player.frameY = 0
          gameOver = false
+         warning = false
     }
 }
 
