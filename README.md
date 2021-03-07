@@ -9,7 +9,6 @@
 
 <img src="https://github.com/michelle-ha/GuardianPanda/blob/main/images/welcome_screen.png" alt="welcome screen"/>
 
-
 ## Features
 
 ### Player functionality
@@ -35,4 +34,7 @@ Example: <img src="image url" alt="name" width="500" height="500"/>
 -Increase in enemy spawn rate
 
 ## Future Plans
-* list 
+* Incorporate sound effects and background music
+* Leader scoreboard
+* More enemies
+* Different powerups and weapons 
