@@ -7,6 +7,9 @@
 
 [Description]
 
+<img src="https://github.com/michelle-ha/GuardianPanda/blob/main/images/welcome_screen.png" alt="welcome screen"/>
+
+
 ## Features
 
 ### Player functionality
