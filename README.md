@@ -20,7 +20,7 @@ Example: <img src="gif url" alt="name" width="500" height="700"/>
 
 [coding for weapon directions]
 
-Example: <img src="image url" alt="name" width="500" height="500"/>
+<img src="https://github.com/michelle-ha/GuardianPanda/blob/main/images/coding.png" alt="code example"/>
 
 ### Animations
 -Hurt
