@@ -19,6 +19,7 @@
 Example: <img src="gif url" alt="name" width="500" height="700"/>
 
 [coding for weapon directions]
+-when creating new weapon, put in coordinate (x, y) and direcion wepon will be flying
 
 <img src="https://github.com/michelle-ha/GuardianPanda/blob/main/images/coding.png" alt="code example"/>
 
