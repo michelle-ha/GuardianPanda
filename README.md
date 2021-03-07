@@ -12,27 +12,29 @@
 ## Features
 
 ### Player functionality
--Walking
--Attacking
+-Walking/Attacking
+-Changes in chanracter frame when changing directions
+-Collision animations
 -pause game
 
-Example: <img src="gif url" alt="name" width="500" height="700"/>
+<img src="https://github.com/michelle-ha/GuardianPanda/blob/main/images/recording.gif" alt="functionality"/>
 
 [coding for weapon directions]
 -when creating new weapon, put in coordinate (x, y) and direcion wepon will be flying
 
 <img src="https://github.com/michelle-ha/GuardianPanda/blob/main/images/coding.png" alt="code example"/>
 
-### Animations
--Hurt
--Change in frame when changing directions
--Walking
--Collision
--Healthbar
+### Pause/Restart
+
+<img src="https://github.com/michelle-ha/GuardianPanda/blob/main/images/recording%20(1).gif" alt="pause/restart"/>
+
 
 ### Increase in level difficulties
 -Increase in speed
 -Increase in enemy spawn rate
+
+<img src="https://github.com/michelle-ha/GuardianPanda/blob/main/images/recording%20(3).gif" alt="pause/restart"/>
+
 
 ## Future Plans
 * Incorporate sound effects and background music
