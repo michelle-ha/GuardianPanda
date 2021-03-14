@@ -57,3 +57,7 @@ a:hover {
     font-weight: bold;
     cursor: pointer;
 }
+
+footer#footer {
+    font-size: 20px;
+}
