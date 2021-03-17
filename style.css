@@ -25,7 +25,7 @@
     height: 40px;
     width: 15%;
     visibility: hidden;
-    position: absolute;
+    /* position: absolute; */
     left: auto;
     top: auto;
     background-color: white;
@@ -35,6 +35,27 @@
 
 
 #pauseButton:hover {
+    background-color: grey;
+    cursor: pointer;
+    font-weight: bold;
+    color: white
+}
+
+#musicButton {
+    margin-top: 5px;
+    height: 40px;
+    width: 15%;
+    /* visibility: hidden; */
+    /* position: absolute; */
+    left: 50;
+    top: auto;
+    background-color: white;
+    font-size: 25px;
+    /* z-index: 1 */
+}
+
+
+#musicButton:hover {
     background-color: grey;
     cursor: pointer;
     font-weight: bold;

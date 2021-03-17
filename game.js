@@ -29,6 +29,10 @@ let paused = false
 let win = false
 let myMusic;
 
+const musicButton = document.getElementById("musicButton")
+musicButton.addEventListener("click", musicPause)
+
+
 function music() {
    myMusic = new Audio("music/PimPoy.mp3")
     if (typeof myMusic.loop == 'boolean')
@@ -41,6 +45,10 @@ function music() {
         }, false);
     }
     myMusic.play();
+}
+
+function musicPause() {
+    myMusic.pause()
 }
 
 //MESSAGES
@@ -1103,9 +1111,8 @@ function animate() {
 }
 
 startAnimating(10) //arg = fps
-if (!gameOver) {
-    music()
-}
+music()
+
 window.addEventListener("resize", function() { //keeps the characters from getting re-sized with window size changes
     canvas.width = 1000
     canvas.height = 500
