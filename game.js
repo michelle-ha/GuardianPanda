@@ -28,6 +28,7 @@ let restart = false
 let paused = false
 let win = false
 let myMusic;
+let musicPaused = true
 
 const musicButton = document.getElementById("musicButton")
 musicButton.addEventListener("click", musicPause)
@@ -48,7 +49,13 @@ function music() {
 }
 
 function musicPause() {
-    myMusic.pause()
+    if (musicPaused === true) {
+        myMusic.pause()
+        musicPaused = false
+    } else {
+        myMusic.play()
+        musicPaused = true
+    }
 }
 
 //MESSAGES
