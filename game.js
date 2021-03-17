@@ -45,15 +45,14 @@ function music() {
             this.play();
         }, false);
     }
-    myMusic.play();
 }
 
 function musicPause() {
     if (musicPaused === true) {
-        myMusic.pause()
+        myMusic.play()
         musicPaused = false
     } else {
-        myMusic.play()
+        myMusic.pause()
         musicPaused = true
     }
 }
