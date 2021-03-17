@@ -27,6 +27,21 @@ let gameOver = false
 let restart = false
 let paused = false
 let win = false
+let myMusic;
+
+function music() {
+   myMusic = new Audio("music/PimPoy.mp3")
+    if (typeof myMusic.loop == 'boolean')
+        {
+            myMusic.loop = true;
+    }else{
+        myMusic.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+    }
+    myMusic.play();
+}
 
 //MESSAGES
 const messages = []
@@ -1049,6 +1064,7 @@ function gamePause() {
 }
 
 function animate() {
+
     if (frame === 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         welcome()
@@ -1058,6 +1074,7 @@ function animate() {
 
     now = Date.now()
     elapsed = now - then
+
     if (elapsed > fpsInterval && !gameOver && frame >= 1) {
         pauseButton.style.visibility = "visible"
         then = now - (elapsed % fpsInterval) 
@@ -1086,7 +1103,9 @@ function animate() {
 }
 
 startAnimating(10) //arg = fps
-
+if (!gameOver) {
+    music()
+}
 window.addEventListener("resize", function() { //keeps the characters from getting re-sized with window size changes
     canvas.width = 1000
     canvas.height = 500
