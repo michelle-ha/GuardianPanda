@@ -35,7 +35,7 @@ musicButton.addEventListener("click", musicPause)
 
 
 function music() {
-   myMusic = new Audio("music/PimPoy.mp3")
+   myMusic = new Audio("music/Koiguchi.mp3")
     if (typeof myMusic.loop == 'boolean')
         {
             myMusic.loop = true;
