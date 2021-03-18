@@ -50,6 +50,7 @@ function music() {
 function musicPause() {
     if (musicPaused === true) {
         myMusic.play()
+        myMusic.volume = 0.2
         musicPaused = false
     } else {
         myMusic.pause()
